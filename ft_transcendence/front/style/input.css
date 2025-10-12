@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "dangrek";
+    src: url("./assets/fonts/Dangrek/Dangrek-Regular.ttf")  format("truetype");
+}
+
+@font-face {
+    font-family: "david";
+    src: url("./assets/fonts/David_Libre/DavidLibre-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "julee";
+    src: url("./assets/fonts/Julee/Julee-Regular.ttf") format("truetype");
+}
+
+@theme {
+    --font-dangrek: 'dangrek', 'arial';
+    --font-david: 'david', 'arial';
+    --font-julee: 'julee', 'arial';
+    --color-home-bg: #111111;
+    --color-button-white-bg: #D9D9D9;
+    --color-player-display-bg: #696969;
+    --color-action-page-bg: #3D3D3D;
+    --color-form-bg: #2B2B2B;
+    --color-action-disabled: #1D1D1D;
+}
+
+
+@layer components {
+    .action {
+        @apply absolute h-[900px] w-[1500px] bg-action-page-bg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl font-dangrek tracking-widest;
+    }
+    .littlewindow {
+        @apply absolute w-[calc(1500px*4/5)] h-[calc(900px*4/5)] bg-action-page-bg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl font-dangrek tracking-widest;
+    }
+    .close {
+        @apply h-18 w-18 bg-home-bg absolute right-0 flex items-center justify-center cursor-pointer rounded-full -translate-x-6 translate-y-6 text-3xl font-dangrek hover:h-20 hover:w-20 duration-300;
+    }
+}
