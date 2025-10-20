@@ -29,10 +29,10 @@
 
 
 @layer components {
-    .action {
+    .level1 {
         @apply absolute h-[900px] w-[1500px] bg-action-page-bg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl font-dangrek tracking-widest;
     }
-    .littlewindow {
+    .level2 {
         @apply absolute w-[calc(1500px*4/5)] h-[calc(900px*4/5)] bg-action-page-bg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl font-dangrek tracking-widest;
     }
     .close {

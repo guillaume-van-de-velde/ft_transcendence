@@ -1,0 +1,28 @@
+import { page } from "../../../../pages/index.js";
+import { render } from "../../../core/render.js";
+import { state } from "../../../core/state.js";
+import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
+import { renderLocal } from "./local.js";
+import { renderOnline } from "./online.js";
+export function renderAi() {
+    const aiPage = {
+        content: page.mode[1].ai,
+        level: 1,
+        create: ai,
+    };
+    render(aiPage);
+}
+export function ai() {
+    state.mode[1] = "a";
+    const mode1 = document.getElementById("mode1");
+    const mode2 = document.getElementById("mode2");
+    const mode3 = document.getElementById("mode3");
+    const online = document.getElementById("online");
+    const local = document.getElementById("local");
+    chooseModeFunctionRender(mode1, mode2, mode3);
+    online?.addEventListener("click", renderOnline);
+    local?.addEventListener("click", renderLocal);
+    state.events.set(online, { type: "click", callback: renderOnline });
+    state.events.set(local, { type: "click", callback: renderLocal });
+    closeEvent();
+}
