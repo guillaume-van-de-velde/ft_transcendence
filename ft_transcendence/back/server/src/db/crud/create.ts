@@ -1,0 +1,130 @@
+import { Notify, StatusTournament } from "../../utils/enums.js";
+import { db } from "../../../server.js";
+
+export async function createUser(email:string, password:string, pseudo:string, picture:string): Promise<number> {
+    const result = await db.run(`
+            INSERT INTO users (
+                pseudo,
+                email,
+                password,
+                picture,
+                language,
+                mode,
+                general,
+                noises,
+                music,
+                player1KeyUp,
+                player1KeyDown,
+                player2KeyUp,
+                player2KeyDown,
+                friends,
+                blocked
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `,
+        [
+            pseudo,
+            email,
+            password,
+            picture,
+            "FRA",
+            "COM",
+            "60",
+            "60",
+            "60",
+            "ArrowUp",
+            "ArrowDown",
+            "w",
+            "s",
+            "",
+            ""
+        ]
+    );
+    return (result.lastID!);
+}
+
+export async function createStat(id:number | undefined) {
+    db.run(`
+            INSERT INTO stats (
+                idPlayer,
+                played,
+                wins,
+                loses,
+                tournaments,
+                winsTournaments
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+        `,
+        [id, 0, 0, 0, 0, 0]
+    );
+}
+
+export async function createPrivateMessage(idTransmitter:number, idReceiver:number, message:string) {
+    db.run(`
+            INSERT INTO privateMessages (
+                idTransmitter,
+                idReceiver,
+                message
+            )
+            VALUES (?, ?, ?)
+        `,
+        [idTransmitter, idReceiver, message]
+    );
+}
+
+export async function createGlobalMessage(idTransmitter:number, message:string) {
+    db.run(`
+            INSERT INTO globalMessages (
+                idTransmitter,
+                message
+            )
+            VALUES (?, ?)
+        `,
+        [idTransmitter, message]
+    );
+}
+
+export async function createNotify(idTransmitter:number, idReceiver:number, type:Notify) {
+    db.run(`
+            INSERT INTO notify (
+                idTransmitter,
+                idReceiver,
+                type
+            )
+            VALUES (?, ?, ?)
+        `,
+        [idTransmitter, idReceiver, type]
+    );
+}
+
+export async function createTournament(name:string, id:number) {
+    const result = await db.run(`
+            INSERT INTO tournaments (
+                name,
+                status,
+                id1,
+                lv1
+            )
+            VALUES (?, ?, ?, ?)
+        `,
+        [name, StatusTournament.WAIT, id, 0]
+    );
+    return result.lastID!;
+}
+
+export async function createMatch(idPlayer1:number, idPlayer2:number, pointsPlayer1:number, pointsPlayer2:number, mode:string, date:string, hour:string) {
+    db.run(`
+            INSERT INTO Matches (
+                idPlayer1,
+                idPlayer2,
+                pointsPlayer1,
+                pointsPlayer2,
+                mode,
+                date,
+                hour
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        `,
+        [idPlayer1, idPlayer2, pointsPlayer1, pointsPlayer2, mode, date, hour]
+    );
+}
