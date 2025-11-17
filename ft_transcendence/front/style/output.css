@@ -51,6 +51,7 @@
     --color-button-white-bg: #D9D9D9;
     --color-player-display-bg: #696969;
     --color-action-page-bg: #3D3D3D;
+    --color-leveltwo-page-bg: #242424;
     --color-form-bg: #2B2B2B;
   }
 }
@@ -224,6 +225,9 @@
   .right-0 {
     right: calc(var(--spacing) * 0);
   }
+  .right-5 {
+    right: calc(var(--spacing) * 5);
+  }
   .right-10 {
     right: calc(var(--spacing) * 10);
   }
@@ -283,6 +287,9 @@
   }
   .mb-3 {
     margin-bottom: calc(var(--spacing) * 3);
+  }
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
   }
   .ml-auto {
     margin-left: auto;
@@ -350,6 +357,9 @@
   .h-\[16px\] {
     height: 16px;
   }
+  .h-\[20px\] {
+    height: 20px;
+  }
   .h-\[40px\] {
     height: 40px;
   }
@@ -377,11 +387,17 @@
   .h-\[150px\] {
     height: 150px;
   }
+  .h-\[600px\] {
+    height: 600px;
+  }
   .h-full {
     height: 100%;
   }
   .h-screen {
     height: 100vh;
+  }
+  .min-h-0 {
+    min-height: calc(var(--spacing) * 0);
   }
   .w-1\/2 {
     width: calc(1/2 * 100%);
@@ -440,11 +456,11 @@
   .w-\[20\%\] {
     width: 20%;
   }
+  .w-\[20px\] {
+    width: 20px;
+  }
   .w-\[25\%\] {
     width: 25%;
-  }
-  .w-\[40px\] {
-    width: 40px;
   }
   .w-\[50\%\] {
     width: 50%;
@@ -494,12 +510,19 @@
   .w-full {
     width: 100%;
   }
+  .flex-grow {
+    flex-grow: 1;
+  }
   .basis-1\/3 {
     flex-basis: calc(1/3 * 100%);
   }
   .translate-100 {
     --tw-translate-x: calc(var(--spacing) * 100);
     --tw-translate-y: calc(var(--spacing) * 100);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .-translate-x-10 {
+    --tw-translate-x: calc(var(--spacing) * -10);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .-translate-x-30 {
@@ -512,6 +535,10 @@
   }
   .-translate-x-60 {
     --tw-translate-x: calc(var(--spacing) * -60);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .translate-x-1\/2 {
+    --tw-translate-x: calc(1/2 * 100%);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .translate-x-15 {
@@ -638,6 +665,12 @@
   .gap-12 {
     gap: calc(var(--spacing) * 12);
   }
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  .overflow-y-auto {
+    overflow-y: auto;
+  }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
   }
@@ -743,6 +776,9 @@
   }
   .pt-10 {
     padding-top: calc(var(--spacing) * 10);
+  }
+  .pb-10 {
+    padding-bottom: calc(var(--spacing) * 10);
   }
   .pl-5 {
     padding-left: calc(var(--spacing) * 5);
@@ -1081,24 +1117,24 @@
       outline-style: none;
     }
   }
-  .\[\&_\.friendmessage\]\:mr-auto {
-    & .friendmessage {
+  .\[\&_\.notusermessage\]\:mr-auto {
+    & .notusermessage {
       margin-right: auto;
     }
   }
-  .\[\&_\.friendmessage\]\:bg-action-page-bg {
-    & .friendmessage {
+  .\[\&_\.notusermessage\]\:bg-action-page-bg {
+    & .notusermessage {
       background-color: var(--color-action-page-bg);
     }
   }
-  .\[\&_\.matchmessage\]\:mx-auto {
-    & .matchmessage {
-      margin-inline: auto;
+  .\[\&_\.pseudo\]\:p-4 {
+    & .pseudo {
+      padding: calc(var(--spacing) * 4);
     }
   }
-  .\[\&_\.matchmessage\]\:bg-action-page-bg {
-    & .matchmessage {
-      background-color: var(--color-action-page-bg);
+  .\[\&_\.pseudo\]\:text-gray-500 {
+    & .pseudo {
+      color: var(--color-gray-500);
     }
   }
   .\[\&_\.usermessage\]\:ml-auto {
@@ -1119,13 +1155,6 @@
   .\[\&_button\]\:cursor-pointer {
     & button {
       cursor: pointer;
-    }
-  }
-  .\[\&_button\]\:focus\:bg-form-bg {
-    & button {
-      &:focus {
-        background-color: var(--color-form-bg);
-      }
     }
   }
   .\[\&_div\]\:max-w-1\/2 {
@@ -1246,7 +1275,7 @@
     --tw-translate-y: calc(calc(1/2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
     border-radius: var(--radius-2xl);
-    background-color: var(--color-action-page-bg);
+    background-color: var(--color-leveltwo-page-bg);
     font-family: var(--font-dangrek);
     --tw-tracking: var(--tracking-widest);
     letter-spacing: var(--tracking-widest);
@@ -1281,6 +1310,13 @@
       }
     }
   }
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 @property --tw-translate-x {
   syntax: "*";

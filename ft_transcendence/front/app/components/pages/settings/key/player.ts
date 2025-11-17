@@ -1,8 +1,10 @@
+import { state } from "../../../../index.js";
 import { page } from "../../../../pages/index.js";
 import { render } from "../../../core/render.js";
-import { IDPLAYER, state, TypeEvent } from "../../../core/state.js";
+import { IDPLAYER, TypeEvent } from "../../../core/state.js";
 import { closeEvent } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
+import { requestAPI } from "../../../utils/requestApi.js";
 import { renderKey } from "../key.js";
 import { renderSettings } from "../settings.js";
 
@@ -40,6 +42,19 @@ export function player() {
     closeEvent();
 }
 
+function requestKey(key:string, value:string, path:string) {
+    requestAPI(`${state.link}/api/settings/key/${path}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id: state.id,
+            [key]: value
+        })
+    });
+}
+
 function initPlayer() {
     const idPlayer = document.getElementById("idPlayer");
     const key1 = document.getElementById("keyName1");
@@ -74,10 +89,14 @@ function changeKey1(e: KeyboardEvent) {
 
     if (checkKeys(e.key)) {
         key!.textContent = `${e.key[0]}`;
-        if (state.key.active == IDPLAYER.PLAYER1)
+        if (state.key.active == IDPLAYER.PLAYER1) {
             state.key.player1.up = e.key;
-        else
+            requestKey("player1KeyUp", state.key.player1.up, "player1/up");
+        }
+        else {
             state.key.player2.up = e.key;
+            requestKey("player2KeyUp", state.key.player2.up, "player2/up");
+        }
     }
 }
 
@@ -86,10 +105,14 @@ function changeKey2(e: KeyboardEvent) {
 
     if (checkKeys(e.key)) {
         key!.textContent = `${e.key[0]}`;
-        if (state.key.active == IDPLAYER.PLAYER1)
+        if (state.key.active == IDPLAYER.PLAYER1) {
             state.key.player1.down = e.key;
-        else
+            requestKey("player1KeyDown", state.key.player1.down, "player1/down");
+        }
+        else {
             state.key.player2.down = e.key;
+            requestKey("player2KeyDown", state.key.player2.down, "player2/down");
+        }
     }
 }
 

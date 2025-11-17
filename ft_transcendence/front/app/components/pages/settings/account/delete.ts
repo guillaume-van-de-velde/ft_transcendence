@@ -1,7 +1,9 @@
+import { state } from "../../../../index.js";
 import { page } from "../../../../pages/index.js";
 import { render } from "../../../core/render.js";
-import { state, TypeEvent } from "../../../core/state.js";
+import { TypeEvent } from "../../../core/state.js";
 import { closeEvent } from "../../../utils/globalEvents.js";
+import { placeholderAPI } from "../../../utils/api.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderAccount } from "../account.js";
 import { renderSettings } from "../settings.js";

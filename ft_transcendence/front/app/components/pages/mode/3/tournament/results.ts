@@ -1,14 +1,10 @@
+import { state } from "../../../../../index.js";
 import { page } from "../../../../../pages/index.js";
 import { render } from "../../../../core/render.js";
-import { state } from "../../../../core/state.js";
+import { fillPlayerTournament } from "../../../../utils/api.js";
 import { chooseModeFunctionRender, closeEvent, renderPlayer } from "../../../../utils/globalEvents.js";
 import { PageInstance } from "../../../../utils/interfaces.js";
 import { renderQuitTournament } from "./quit.js";
-
-export function renderResultsTournamentHandle(e: Event) {
-    e.preventDefault();
-    renderResultsTournament();
-}
 
 export function renderResultsTournament() {
     const resultsPage: PageInstance = {
@@ -24,6 +20,10 @@ export function resultsTournament() {
     const mode2 = document.getElementById("mode2");
     const mode3 = document.getElementById("mode3");
     const quit = document.getElementById("quit");
+    
+    state.actual = "tournament";
+
+    fillPlayerTournament();
 
     chooseModeFunctionRender(mode1!, mode2!, mode3!);
 

@@ -8,12 +8,10 @@ export function stats_HTML(): string {
         <div class="h-1/4 flex justify-around items-center w-6/10 mx-auto">
             <div class="flex justify-center items-center h-full w-1/2 gap-5">
                 <div class="flex justify-center items-center">
-                    <button class="logout avatar  bg-button-white-bg text-black rounded-full h-[100px] w-[100px] text-6xl font-david">
-                        J
-                    </button>
+                    <div id="picturePlayer" class="logout avatar  bg-button-white-bg text-black rounded-full h-[100px] w-[100px] text-6xl font-david">
+                    </div>
                 </div>
-                <h1 class="font-julee text-6xl tracking-widest">
-                    MYPSEUDO
+                <h1 id="pseudoPlayer" class="font-julee text-6xl tracking-widest">
                 </h1>
             </div>
             <div class="flex justify-end gap-5 w-1/2">
@@ -41,7 +39,7 @@ export function stats_HTML(): string {
                     <p class="text-right">PLAYED :</p>
                 </div>
                 <div>
-                    <p class="text-left pl-50">30</p>
+                    <p id="resultPlayed" class="text-left pl-50">30</p>
                 </div>
             </div>
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
@@ -49,7 +47,7 @@ export function stats_HTML(): string {
                     <p class="text-right">WINS / LOSES :</p>
                 </div>
                 <div>
-                    <p class="text-left pl-50">55%</p>
+                    <p id="resultRatio" class="text-left pl-50">55%</p>
                 </div>
             </div>
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
@@ -57,7 +55,7 @@ export function stats_HTML(): string {
                     <p class="text-right">TOURNAMENTS :</p>
                 </div>
                 <div>
-                    <p class="text-left pl-50">3</p>
+                    <p id="resultTournaments" class="text-left pl-50">3</p>
                 </div>
             </div>
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
@@ -65,7 +63,7 @@ export function stats_HTML(): string {
                     <p class="text-right">WINS TOURNAMENTS :</p>
                 </div>
                 <div>
-                    <p class="text-left pl-50">1</p>
+                    <p id="resultWinTournaments" class="text-left pl-50">1</p>
                 </div>
             </div>
         </div>

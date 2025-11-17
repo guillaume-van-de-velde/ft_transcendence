@@ -1,7 +1,9 @@
+import { state } from "../../../index.js";
 import { page } from "../../../pages/index.js";
 import { render } from "../../core/render.js";
-import { state, TypeEvent } from "../../core/state.js";
+import { TypeEvent } from "../../core/state.js";
 import { closeEvent } from "../../utils/globalEvents.js";
+import { languageAPI } from "../../utils/api.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderSettings } from "./settings.js";
 
@@ -16,6 +18,8 @@ export function renderLanguage() {
 
 export function language() {
     const settings = document.getElementById("settingsAction");
+
+    languageAPI();
 
     settings?.addEventListener("click", renderSettings);
 

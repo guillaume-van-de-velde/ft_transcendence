@@ -4,11 +4,82 @@ export interface TypeEvent {
 }
 
 export enum IDPLAYER {NONE, PLAYER1, PLAYER2}
+export enum Notify { ASK = "ASK", MATCH = "MATCH", TOURNAMENT = "TOURNAMENT" }
+export enum StatusTournament { START = "START", WAIT = "WAIT", FINISHED = "FINISHED" }
+
+export interface UserShortData {
+    id: number,
+    picture: string,
+    pseudo: string
+}
+
+export interface MatchHistory {
+    ennemy: UserShortData,
+    userPoints: number,
+    ennemyPoints: number,
+    mode: string,
+    date: string,
+    hour: string
+}
+
+export interface MessageChat {
+    isUser: boolean,
+    message: string
+}
+
+export interface MessagePrivate {
+    user: UserShortData,
+    chat: MessageChat[],
+    seen: boolean
+}
+
+export interface MessageGlobal {
+    user: UserShortData,
+    message: string
+}
+
+export interface MessageNotify {
+    id: number,
+    user: UserShortData,
+    type: string,
+    seen: boolean
+}
+
+export interface UserInTournament {
+    user: UserShortData,
+    level: number
+}
 
 export interface AppState {
-    events: Map<Element | null, TypeEvent>;
-    mode: [string, string, string];
-    tournamentAction: boolean;
+    link:string,
+    events: Map<Element | null, TypeEvent>,
+    index: number,
+    id: number,
+    mode: [string, string, string],
+    friend:number,
+    actual: string,
+    checkMessage: boolean,
+    playerData?: {
+        user: UserShortData,
+        stats: {
+            played: number,
+            ratio: number,
+            tournaments: number,
+            winsTournaments: number
+        },
+        history?: MatchHistory[],
+    }
+    input: {
+        value: string;
+        focused: boolean;
+        start: number | null;
+        end: number | null;
+    }
+    socket: {
+        notify: boolean,
+        message: boolean,
+        tournament: boolean
+    }
     volume: {
         general: number;
         noises: number;
@@ -25,28 +96,31 @@ export interface AppState {
         }
         active: IDPLAYER;
     }
-    index: number;
+    account: {
+        email: string,
+        pseudo: string
+    },
+    language: string,
+    profile: {
+        picture: string,
+        stats: {
+            played: number,
+            ratio: number,
+            tournaments: number,
+            winsTournaments: number
+        },
+        history?: MatchHistory[],
+        friends?: UserShortData[]
+    },
+    messages: {
+        private?: MessagePrivate[],
+        global?: MessageGlobal[],
+        notify?: MessageNotify[]
+    },
+    tournament?: {
+        id: number,
+        status: string,
+        time: number,
+        users: UserInTournament[]
+    }
 }
-
-export const state: AppState = {
-    events: new Map<Element | null, TypeEvent>(),
-    mode:["c", "o", "m"],
-    tournamentAction:false,
-    volume: {
-        general: 60,
-        noises: 60,
-        music: 40,
-    },
-    key: {
-        player1: {
-            up: "w",
-            down: "s",
-        },
-        player2: {
-            up: "o",
-            down: "l",
-        },
-        active: IDPLAYER.NONE,
-    },
-    index: 0,
-};

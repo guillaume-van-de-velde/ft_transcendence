@@ -1,6 +1,7 @@
+import { state } from "../../../../index.js";
 import { page } from "../../../../pages/index.js";
 import { render } from "../../../core/render.js";
-import { state } from "../../../core/state.js";
+import { changeModeCallApi } from "../../../utils/api.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderClassic } from "./classic.js";
@@ -16,7 +17,10 @@ export function renderMusic() {
 
 export function music() {
 
-    state.mode[0] = "m";
+    if (state.mode[0] === "c") {
+        state.mode[0] = "m";
+        changeModeCallApi();
+    }
 
     const mode1 = document.getElementById("mode1");
     const mode2 = document.getElementById("mode2");

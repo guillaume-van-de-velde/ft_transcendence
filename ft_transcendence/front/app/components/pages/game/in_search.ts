@@ -1,6 +1,7 @@
+import { state } from "../../../index.js";
 import { page } from "../../../pages/index.js";
 import { render } from "../../core/render.js";
-import { state, TypeEvent } from "../../core/state.js";
+import { TypeEvent } from "../../core/state.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderHome } from "../home.js";
 

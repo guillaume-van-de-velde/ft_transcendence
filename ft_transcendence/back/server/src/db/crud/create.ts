@@ -27,7 +27,7 @@ export async function createUser(email:string, password:string, pseudo:string, p
             email,
             password,
             picture,
-            "FRA",
+            "ENG",
             "COM",
             "60",
             "60",
@@ -44,7 +44,7 @@ export async function createUser(email:string, password:string, pseudo:string, p
 }
 
 export async function createStat(id:number | undefined) {
-    db.run(`
+    await db.run(`
             INSERT INTO stats (
                 idPlayer,
                 played,
@@ -59,21 +59,22 @@ export async function createStat(id:number | undefined) {
     );
 }
 
-export async function createPrivateMessage(idTransmitter:number, idReceiver:number, message:string) {
-    db.run(`
+export async function createPrivateMessage(idTransmitter:number, idReceiver:number, message:string, seen = false) {
+    await db.run(`
             INSERT INTO privateMessages (
                 idTransmitter,
                 idReceiver,
-                message
+                message,
+                seen
             )
-            VALUES (?, ?, ?)
+            VALUES (?, ?, ?, ?)
         `,
-        [idTransmitter, idReceiver, message]
+        [idTransmitter, idReceiver, message, seen]
     );
 }
 
 export async function createGlobalMessage(idTransmitter:number, message:string) {
-    db.run(`
+    await db.run(`
             INSERT INTO globalMessages (
                 idTransmitter,
                 message
@@ -85,15 +86,16 @@ export async function createGlobalMessage(idTransmitter:number, message:string) 
 }
 
 export async function createNotify(idTransmitter:number, idReceiver:number, type:Notify) {
-    db.run(`
+    await db.run(`
             INSERT INTO notify (
                 idTransmitter,
                 idReceiver,
-                type
+                type,
+                seen
             )
-            VALUES (?, ?, ?)
+            VALUES (?, ?, ?, ?)
         `,
-        [idTransmitter, idReceiver, type]
+        [idTransmitter, idReceiver, type, false]
     );
 }
 
@@ -113,7 +115,7 @@ export async function createTournament(name:string, id:number) {
 }
 
 export async function createMatch(idPlayer1:number, idPlayer2:number, pointsPlayer1:number, pointsPlayer2:number, mode:string, date:string, hour:string) {
-    db.run(`
+    await db.run(`
             INSERT INTO Matches (
                 idPlayer1,
                 idPlayer2,

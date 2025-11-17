@@ -6,15 +6,18 @@
   "author": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon build/server.js",
+    "server": "nodemon build/server.js",
     "build": "tsc --watch --project config/tsconfig.json"
   },
   "dependencies": {
+    "@fastify/cors": "^11.1.0",
     "fastify": "^5.6.1",
+    "socket.io": "^4.8.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@types/socket.io": "^3.0.1",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",

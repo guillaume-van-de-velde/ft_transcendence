@@ -25,7 +25,8 @@ export async function parsePrivateMessages(id:number): Promise<MessagePrivate[]>
                 chat: [{
                     isUser: userMessages.idTransmitter === id ? true : false,
                     message: userMessages.message
-                }]
+                }],
+                seen: userMessages.seen
             }
             parsedMessages.push(firstUserMessage);
         }

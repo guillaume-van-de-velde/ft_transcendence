@@ -8,4 +8,5 @@ export const changeUser = async (req:FastifyRequest, res:FastifyReply) => {
     const value = reqBody[keys[1]!];
 
     await updateUsers(id, keys[1]!, value);
+    
 }

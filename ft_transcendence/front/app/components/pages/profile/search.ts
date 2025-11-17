@@ -1,7 +1,9 @@
+import { state } from "../../../index.js";
 import { page } from "../../../pages/index.js";
 import { render } from "../../core/render.js";
-import { state, TypeEvent } from "../../core/state.js";
+import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
+import { profileAPI, searchFormCallApi } from "../../utils/api.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderFriends } from "./friends.js";
 import { renderHistoryUser } from "./history_user.js";
@@ -20,7 +22,11 @@ export function search() {
     const stats = document.getElementById("stats");
     const history = document.getElementById("history");
     const friends = document.getElementById("friends");
+    const form = document.getElementById("searchForm");
 
+    profileAPI();
+
+    form?.addEventListener("submit", searchFormCallApi);
     stats?.addEventListener("click", renderStatsUser);
     history?.addEventListener("click", renderHistoryUser);
     friends?.addEventListener("click", renderFriends);
@@ -31,6 +37,5 @@ export function search() {
         [friends, {type: "click", callback: renderFriends}],
     ]);
 
-    renderPlayer();
     closeEvent();
 }

@@ -1,6 +1,7 @@
+import { state } from "../../../../index.js";
 import { page } from "../../../../pages/index.js";
 import { render } from "../../../core/render.js";
-import { state } from "../../../core/state.js";
+import { changeModeCallApi } from "../../../utils/api.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderMatch } from "./match.js";
@@ -22,7 +23,10 @@ export function renderTournament() {
 
 export function tournament() {
     
-    state.mode[2] = "t";
+    if (state.mode[2] === "m") {
+        state.mode[2] = "t";
+        changeModeCallApi();
+    }
 
     const mode1 = document.getElementById("mode1");
     const mode2 = document.getElementById("mode2");

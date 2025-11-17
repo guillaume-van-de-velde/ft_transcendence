@@ -1,7 +1,10 @@
+import { state } from "../../index.js";
 import { page } from "../../pages/index.js";
 import { render } from "../core/render.js";
-import { state, TypeEvent } from "../core/state.js";
+import { TypeEvent } from "../core/state.js";
+import { pictureAPI } from "../utils/api.js";
 import { PageInstance } from "../utils/interfaces.js";
+import { checkSeen } from "../utils/notifySocket.js";
 import { renderInSearch } from "./game/in_search.js";
 import { renderPrivateMessage } from "./messages/private.js";
 import { renderClassic } from "./mode/1/classic.js";
@@ -24,6 +27,11 @@ export function home() {
     const mode = document.getElementById("mode");
     const play = document.getElementById("play");
     const messages = document.getElementById("messages");
+
+    state.actual = "home";
+
+    checkSeen();
+    pictureAPI(profile, "w-full h-full rounded-full mx-auto", state.profile.picture);
 
     settings?.addEventListener("click", renderSettings);
     profile?.addEventListener("click", renderStatsUser);

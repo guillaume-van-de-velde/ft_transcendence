@@ -13,16 +13,16 @@ export function language_HTML(): string {
         </span>
         <div class="w-full h-1/2 flex justify-center items-center">
             <div class="w-[80%] h-1/2 grid grid-cols-[1fr_1fr_1fr_1fr] justify-center items-center">
-                <button class="bg-blue-800 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
+                <button id="ENG" class="bg-blue-800 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
                     ENG
                 </button>
-                <button class="bg-blue-300 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
+                <button id="FRA" class="bg-blue-300 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
                     FRA
                 </button>
-                <button class="bg-red-500 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
+                <button id="ESP" class="bg-red-500 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
                     ESP
                 </button>
-                <button class="bg-purple-500 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
+                <button id="RUS" class="bg-purple-500 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
                     RUS
                 </button>
             </div>

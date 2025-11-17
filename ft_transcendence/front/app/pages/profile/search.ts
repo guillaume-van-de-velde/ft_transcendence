@@ -6,11 +6,11 @@ export function search_HTML(): string {
 
         <div class="flex justify-center items-center h-1/4">
             <div class="w-[12%] flex justify-center items-center">
-                <button class="logout avatar cursor-pointer hover:w-[120px] hover:h-[120px] duration-300 bg-button-white-bg text-black rounded-full h-[100px] w-[100px] text-6xl font-david">
+                <button id="picture" class="logout avatar cursor-pointer hover:w-[120px] hover:h-[120px] duration-300 bg-button-white-bg text-black rounded-full h-[100px] w-[100px] text-6xl font-david">
                     J
                 </button>
             </div>
-            <h1 class="font-julee text-6xl tracking-widest">
+            <h1 id="pseudo" class="font-julee text-6xl tracking-widest">
                 MYPSEUDO
             </h1>
         </div>
@@ -32,24 +32,12 @@ export function search_HTML(): string {
         </div>
 
         <div class="h-1/6 w-full flex justify-center items-center">
-            <form action="" class="bg-form-bg w-1/3 flex justify-between rounded-full h-1/3 text-4xl">
-                <input type="text" placeholder="search a player" class="pl-5">
+            <form action="" id="searchForm" class="bg-form-bg w-1/3 flex justify-between rounded-full h-1/3 text-4xl">
+                <input name="pseudoPlayerSearch" type="text" placeholder="search a player" class="pl-5">
                 <button type="submit" class="cursor-pointer grayscale-100">🔍</button>
             </form>
         </div>
-        <div class="flex justify-center items-center w-6/10 mx-auto h-1/4">
-            <div class=" bg-player-display-bg flex justify-center items-center h-[75px] w-[300px] rounded-2xl border-3 border-black">
-                <div class="h-[75px] w-[100px] flex justify-center items-center">
-                    <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                        <p class="translate-y-3 text-2xl">P</p>
-                    </span>
-                </div>
-                <div class="flex justify-center items-center">
-                    <p class="font-julee tracking-widest text-2xl">
-                        PLAYER 1
-                    </p>
-                </div>
-            </div>
+        <div id="searchResult" class="flex justify-center items-center w-6/10 mx-auto h-1/4">
         </div>
     `
 }

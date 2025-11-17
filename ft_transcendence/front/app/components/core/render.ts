@@ -3,7 +3,7 @@ import { stringToHTMLElement } from "../utils/htmlTools.js";
 import { PageInstance } from "../utils/interfaces.js";
 import { pageRegistery } from "../utils/pageRegistery.js";
 import { soundLaunch } from "../utils/sound.js";
-import { state } from "./state.js";
+import { state } from "../../index.js";
 
 const root = document.querySelector(".root");
 
@@ -41,7 +41,7 @@ export function render(newPage:PageInstance, fromPopState = false) {
             oldElement.remove();
     }
     if (activePage!.level) {
-        newElement.classList.add(`level${activePage!.level}`);
+        newElement.className = `level${activePage!.level} flex flex-col flex-grow min-h-0`;
         newElement!.innerHTML = activePage!.content;
         const oldLevels = document.querySelectorAll(`[class*="level"]`);
         oldLevels.forEach(el => {
@@ -54,6 +54,9 @@ export function render(newPage:PageInstance, fromPopState = false) {
     }
     else
         elementParent!.innerHTML = activePage!.content;
+    if (newPage.level < 2)
+        delete state.playerData;
+    state.actual = "none";
     activePage!.create!();
     soundLaunch();
     // printDisplayManager();

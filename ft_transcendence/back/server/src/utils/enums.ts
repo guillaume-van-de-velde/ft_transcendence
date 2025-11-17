@@ -25,7 +25,8 @@ interface MessageChat {
 
 export interface MessagePrivate {
     user: UserShortData,
-    chat: MessageChat[]
+    chat: MessageChat[],
+    seen: boolean
 }
 
 export interface MessageGlobal {
@@ -36,7 +37,8 @@ export interface MessageGlobal {
 export interface MessageNotify {
     id: number
     user: UserShortData,
-    type: string
+    type: string,
+    seen: boolean
 }
 
 export interface UserInTournament {
@@ -69,6 +71,7 @@ export interface UserResponse {
         language: string
     },
     profile: {
+        picture: string,
         stats: {
             played: number,
             ratio: number,

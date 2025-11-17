@@ -1,10 +1,13 @@
+import { state } from "../../../index.js";
 import { page } from "../../../pages/index.js";
 import { render } from "../../core/render.js";
-import { state, TypeEvent } from "../../core/state.js";
+import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
+import { notifyAPI, notifyCallAPI } from "../../utils/api.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderGlobal } from "./global.js";
 import { renderPrivateMessage } from "./private.js";
+import { checkSeen } from "../../utils/notifySocket.js";
 
 export function renderNotify() {
     const notifyPage: PageInstance = {
@@ -18,6 +21,15 @@ export function renderNotify() {
 export function notify() {
     const privateMessage = document.getElementById("private");
     const global = document.getElementById("global");
+    const notificationsList = document.getElementById("notificationsList");
+
+    state.actual = "notify";
+
+    setNotifySeen();
+
+    checkSeen();
+    notifyAPI(notificationsList);
+    notifyCallAPI();
 
     privateMessage?.addEventListener("click", renderPrivateMessage);
     global?.addEventListener("click", renderGlobal);
@@ -31,3 +43,10 @@ export function notify() {
     closeEvent();
 }
 
+function setNotifySeen() {
+    if (!state.messages.notify || !state.messages.notify![0])
+        return ;
+    for (const notify of state.messages.notify!) {
+        notify.seen = true;
+    }
+}

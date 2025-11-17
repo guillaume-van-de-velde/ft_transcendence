@@ -8,12 +8,12 @@ import { parseGlobalMessages } from "./parse/globalMessages";
 import { parseNotify } from "./parse/notify";
 import { parseUsersTournament } from "./parse/usersTournament";
 
-export const getAllDataForUser = async (req:FastifyRequest, res:FastifyReply) => {
-    const email = (req.headers.email as string);
-    const userData = await readUser(email, KeyUser.EMAIL);
+export async function getAllDataForUser(idAsk: number) {
+    const userData = await readUser(idAsk.toString(), KeyUser.ID);
     const id = userData.id;
     const userStats = await readStats(id);
     let userTournament;
+    
     if (userData.tournament)
         userTournament = await readTournament(userData.tournament, KeyTournament.ID);
 
@@ -42,9 +42,10 @@ export const getAllDataForUser = async (req:FastifyRequest, res:FastifyReply) =>
             language: userData.language
         },
         profile: {
+            picture: userData.picture,
             stats: {
                 played: userStats.played,
-                ratio: userStats.wins / userStats.loses,
+                ratio: userStats.played ? (userStats.loses ? userStats.wins / userStats.loses : 1) : 0,
                 tournaments: userStats.tournaments,
                 winsTournaments: userStats.winsTournaments
             },

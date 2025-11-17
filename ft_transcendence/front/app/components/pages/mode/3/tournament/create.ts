@@ -1,9 +1,9 @@
+import { state } from "../../../../../index.js";
 import { page } from "../../../../../pages/index.js";
 import { render } from "../../../../core/render.js";
-import { state } from "../../../../core/state.js";
+import { createTournamentCallApi } from "../../../../utils/api.js";
 import { close2Event, closeEvent } from "../../../../utils/globalEvents.js";
 import { PageInstance } from "../../../../utils/interfaces.js";
-import { renderResultsTournament, renderResultsTournamentHandle } from "./results.js";
 
 export function renderCreateTournament() {
     const createPage: PageInstance = {
@@ -18,9 +18,9 @@ export function createTournament() {
 
     const form = document.querySelector("form");
 
-    form?.addEventListener("submit", renderResultsTournamentHandle);
+    form?.addEventListener("submit", createTournamentCallApi);
 
-    state.events.set(form, {type: "submit", callback: renderResultsTournamentHandle});
+    state.events.set(form, {type: "submit", callback: createTournamentCallApi});
 
     close2Event();
 }

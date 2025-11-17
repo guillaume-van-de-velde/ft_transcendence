@@ -1,5 +1,6 @@
+import { state } from "../../index.js";
 import { render } from "../core/render.js";
-import { state } from "../core/state.js";
+import { privateMessage, renderPrivateMessage } from "../pages/messages/private.js";
 import { renderClassic } from "../pages/mode/1/classic.js";
 import { renderMusic } from "../pages/mode/1/music.js";
 import { renderAi } from "../pages/mode/2/ai.js";
@@ -88,6 +89,32 @@ export function renderPlayer() {
     playersArray.forEach(player => {
         player?.addEventListener("click", renderStats);
         state.events.set(player, {type: "click", callback: renderStats});
+    })
+}
+
+export function renderPrivateMessageFocus(e: Event) {
+    let target = e.target as HTMLElement;
+
+    while (target && !target.classList.contains("friendMessage")) {
+        target = target.parentElement as HTMLElement;
+    }
+
+    const match = target.classList[0]!.match(/\d+/);
+    if (match) {
+        state.friend = parseInt(match![0], 10);
+    }
+    renderPrivateMessage();
+}
+
+export function renderPlayerMessages() {
+    const players = document.getElementsByClassName("friendMessage");
+    const playersArray = Array.from(players);
+
+    playersArray.forEach((player, index) => {
+        if (index != state.friend) {
+            player?.addEventListener("click", renderPrivateMessageFocus);
+            state.events.set(player, {type: "click", callback: renderPrivateMessageFocus});
+        }
     })
 }
 

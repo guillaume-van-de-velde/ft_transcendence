@@ -7,7 +7,7 @@ export async function initTableUsers() {
             pseudo TEXT UNIQUE NOT NULL,
             email TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL,
-            picture TEXT NOT NULL,
+            picture TEXT,
             language TEXT NOT NULL,
             mode TEXT NOT NULL,
             tournament DEFAULT 0,
@@ -48,6 +48,7 @@ export async function initTablePrivateMessages() {
             idTransmitter INTEGER NOT NULL,
             idReceiver INTEGER NOT NULL,
             message TEXT,
+            seen BOOLEAN,
 
             FOREIGN KEY (idTransmitter) REFERENCES users(id)
                 ON DELETE CASCADE
@@ -81,6 +82,7 @@ export async function initTableNotify() {
             idTransmitter INTEGER NOT NULL,
             idReceiver INTEGER NOT NULL,
             type TEXT NOT NULL,
+            seen BOOLEAN,
 
             FOREIGN KEY (idTransmitter) REFERENCES users(id)
                 ON DELETE CASCADE

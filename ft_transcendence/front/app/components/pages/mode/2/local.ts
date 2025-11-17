@@ -1,10 +1,11 @@
 import { page } from "../../../../pages/index.js";
 import { render } from "../../../core/render.js";
-import { state } from "../../../core/state.js";
+import { state } from "../../../../index.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderAi } from "./ai.js";
 import { renderOnline } from "./online.js";
+import { changeModeCallApi } from "../../../utils/api.js";
 
 export function renderLocal() {
     const localPage: PageInstance = {
@@ -17,7 +18,10 @@ export function renderLocal() {
 
 export function local() {
 
-    state.mode[1] = "l";
+    if (state.mode[1] === "a" || state.mode[1] === 'o') {
+        state.mode[1] = "l";
+        changeModeCallApi();
+    }
 
     const mode1 = document.getElementById("mode1");
     const mode2 = document.getElementById("mode2");

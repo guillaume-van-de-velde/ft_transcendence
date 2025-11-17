@@ -1,6 +1,8 @@
+import { state } from "../../../../index.js";
 import { page } from "../../../../pages/index.js";
 import { render } from "../../../core/render.js";
-import { state, TypeEvent } from "../../../core/state.js";
+import { TypeEvent } from "../../../core/state.js";
+import { changeModeCallApi } from "../../../utils/api.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderClassic } from "../1/classic.js";
@@ -19,7 +21,10 @@ export function renderOnline() {
 
 export function online() {
 
-    state.mode[1] = "o";
+    if (state.mode[1] === "a" || state.mode[1] === 'l') {
+        state.mode[1] = "o";
+        changeModeCallApi();
+    }
 
     const mode1 = document.getElementById("mode1");
     const mode2 = document.getElementById("mode2");

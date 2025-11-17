@@ -2,6 +2,7 @@ import { readGlobalMessages, readUser } from "../../../db/crud/read";
 import { KeyUser, MessageGlobal } from "../../../utils/enums";
 
 export async function parseGlobalMessages(): Promise<MessageGlobal[]> {
+    
     const usersMessages = await readGlobalMessages();
 
     const parsedMessages = await Promise.all(
@@ -12,6 +13,6 @@ export async function parseGlobalMessages(): Promise<MessageGlobal[]> {
             }
         })
     );
-
+    
     return parsedMessages;
 }

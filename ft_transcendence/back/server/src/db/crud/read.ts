@@ -14,12 +14,26 @@ export async function readUser(dataGiven:string, key:KeyUser, otherUser = false)
     return user;
 }
 
+export async function readUserWithEmail(email:string) {
+    const userId = await db.get(
+        `
+            SELECT id, password
+            FROM users 
+            WHERE email = ?
+        `,
+        [email]
+    );
+    return userId;
+}
+
 export async function readPrivateMessages(id:number) {
     const messages = await db.all(
         `
             SELECT * 
             FROM privateMessages 
-            WHERE idTransmitter = ? OR idReceiver = ?
+            WHERE 
+                (idTransmitter = ? OR idReceiver = ?)
+                ORDER BY id DESC
         `,
         [id, id]
     );
@@ -31,6 +45,7 @@ export async function readGlobalMessages() {
         `
             SELECT * 
             FROM globalMessages 
+            ORDER BY id DESC
         `,
     );
     return messages;
@@ -41,7 +56,9 @@ export async function readNotify(id:number) {
         `
             SELECT * 
             FROM notify
-            WHERE idReceiver = ?
+            WHERE 
+                idReceiver = ?
+                ORDER BY id DESC
         `,
         [id]
     );

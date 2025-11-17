@@ -3,7 +3,6 @@ import { KeyUser, MatchHistory } from "../../../utils/enums";
 
 export async function parseHistory(id:number): Promise<MatchHistory[]> {
     const userHistory = await readMatches(id);
-
     const parsedHistory = Promise.all(
         userHistory.map(async match => {
             let idEnnemy:string;
@@ -28,6 +27,5 @@ export async function parseHistory(id:number): Promise<MatchHistory[]> {
             }
         })
     )
-
     return parsedHistory;
 }

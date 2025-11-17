@@ -2,11 +2,11 @@ export function signin_HTML(): string {
     return `
     <div class="app bg-home-bg text-white h-screen justify-center items-center font-dangrek flex flex-col">
         <span class="text-3xl flex justify-center items-center tracking-widest">
-        <p class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">
-            CONNEXION<p class="whitespace-pre opacity-50"> > SIGN IN</p>
+        <p>
+            <p id="connexionBtn" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">CONNEXION</p><p class="whitespace-pre opacity-50"> > SIGN IN</p>
         </p>
         </span>
-        <form action="" class="h-1/2 grid grid-rows-4 w-[60%] mt-20 relative -translate-x-30">
+        <form id="formSignIn" action="" class="h-1/2 grid grid-rows-4 w-[60%] mt-20 relative -translate-x-30">
             <div class="grid grid-cols-[1fr_2fr] items-center justify-center w-full h-1/4">
                 <div class="flex justify-center">
                     <label for="email" class="text-4xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">EMAIL : </label>

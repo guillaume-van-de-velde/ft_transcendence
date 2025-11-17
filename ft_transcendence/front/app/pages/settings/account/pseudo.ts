@@ -13,7 +13,7 @@ export function pseudo_HTML(): string {
                 <p id="account" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">ACCOUNT</p><p class="whitespace-pre opacity-50"> > DELETE</p>
             </p>
         </span>
-        <form action="" class="h-1/2 grid grid-rows-3 w-[80%] mt-10 relative">
+        <form action="" id="pseudoForm" class="h-1/2 grid grid-rows-3 w-[80%] mt-10 relative">
             <div class="opacity-30 grid grid-cols-[1fr_2fr] items-center justify-center w-full">
                 <div class="flex justify-center">
                     <label for="yourpseudo" class="text-5xl text-center inline-block mx-auto">YOUR PSEUDO : </label>

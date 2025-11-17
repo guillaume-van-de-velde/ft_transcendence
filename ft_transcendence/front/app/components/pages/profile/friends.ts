@@ -1,7 +1,9 @@
+import { state } from "../../../index.js";
 import { page } from "../../../pages/index.js";
 import { render } from "../../core/render.js";
-import { state, TypeEvent } from "../../core/state.js";
+import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
+import { friendsAPI, profileAPI } from "../../utils/api.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderHistoryUser } from "./history_user.js";
 import { renderSearch } from "./search.js";
@@ -20,6 +22,10 @@ export function friends() {
     const stats = document.getElementById("stats");
     const history = document.getElementById("history");
     const search = document.getElementById("search");
+    const friendsList = document.getElementById("friendsList");
+
+    profileAPI();
+    friendsAPI(friendsList);
 
     stats?.addEventListener("click", renderStatsUser);
     history?.addEventListener("click", renderHistoryUser);

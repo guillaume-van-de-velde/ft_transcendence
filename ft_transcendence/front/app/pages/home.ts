@@ -1,7 +1,7 @@
 export function home_HTML(): string {
     return `
     <div class="root">
-        <div class="app bg-home-bg text-white h-screen flex flex-col justify-between">
+        <div class="app bg-home-bg text-white h-screen flex flex-col justify-between overflow-hidden">
             <header class="flex justify-between w-full mx-auto h-1/6 items-center">
                 <div class="flex justify-center w-1/3">
                     <h2 id="settings" class="cursor-pointer text-4xl font-julee tracking-widest hover:tracking-[8px] duration-300">
@@ -14,7 +14,7 @@ export function home_HTML(): string {
                     </h1>
                 </div>
                 <div class="flex justify-center w-1/3">
-                    <button id="profile" class="cursor-pointer text-black bg-button-white-bg h-25 w-25 rounded-full text-7xl hover:h-30 hover:w-30 duration-300">
+                    <button id="profile" class="cursor-pointer text-black bg-button-white-bg h-25 w-25 rounded-full text-7xl hover:scale-110 duration-300">
                         J
                     </button>
                 </div>
@@ -29,7 +29,7 @@ export function home_HTML(): string {
                         P L A Y
                     </h1>
                 </div>
-                <div class="flex justify-center w-1/3 relative">
+                <div id="messageHome" class="relative flex justify-center w-1/3">
                     <img id="messages" src="./style/assets/images/message.png" class="cursor-pointer bg-button-white-bg h-25 w-25 rounded-full text-7xl inline-block hover:h-30 hover:w-30 duration-300">
                 </div>
             </main>

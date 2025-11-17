@@ -1,6 +1,6 @@
+import { state } from "../../../../../index.js";
 import { page } from "../../../../../pages/index.js";
 import { render } from "../../../../core/render.js";
-import { state } from "../../../../core/state.js";
 import { close2Event, closeEvent } from "../../../../utils/globalEvents.js";
 import { PageInstance } from "../../../../utils/interfaces.js";
 import { renderTournament, renderTournamentHandle } from "../tournament.js";

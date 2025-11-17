@@ -22,13 +22,13 @@ export function results_HTML(): string {
             <div class="[grid-area:quart1] flex justify-around w-full h-full">
                 <div class="flex flex-col w-1/3 h-full justify-between">
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="quart1" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="quart2" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                 </div>
@@ -42,13 +42,13 @@ export function results_HTML(): string {
             <div class="[grid-area:quart2] flex justify-around w-full h-full">
                 <div class="flex flex-col w-1/3 h-full justify-between">
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="quart3" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="quart4" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                 </div>
@@ -62,13 +62,13 @@ export function results_HTML(): string {
             <div class="[grid-area:quart3] flex justify-around w-full h-full">
                 <div class="flex flex-col w-1/3 h-full justify-between">
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="quart5" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="quart6" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                 </div>
@@ -82,13 +82,13 @@ export function results_HTML(): string {
             <div class="[grid-area:quart4] flex justify-around w-full h-full">
                 <div class="flex flex-col w-1/3 h-full justify-between">
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="quart7" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="quart8" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                 </div>
@@ -102,13 +102,13 @@ export function results_HTML(): string {
             <div class="[grid-area:demi1] flex justify-around w-full h-full">
                 <div class="flex flex-col w-1/3 h-full justify-between">
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="demi1" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="demi2" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                 </div>
@@ -122,13 +122,13 @@ export function results_HTML(): string {
             <div class="[grid-area:demi2] flex justify-around w-full h-full">
                 <div class="flex flex-col w-1/3 h-full justify-between">
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="demi3" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="demi4" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                 </div>
@@ -142,13 +142,12 @@ export function results_HTML(): string {
             <div class="[grid-area:final] flex justify-around w-full h-full">
                 <div class="flex flex-col w-1/3 h-full justify-between">
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="final1" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
                         </span>
                     </div>
                     <div class="h-1/2 flex justify-center items-center">
-                        <span class="player hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-                            <p class="translate-y-3 text-2xl">P</p>
+                        <span id="final2" class="playerVoid duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
+                            
                         </span>
                     </div>
                 </div>
@@ -160,8 +159,7 @@ export function results_HTML(): string {
                 </div>
             </div>
         </div>
-        <span class="absolute right-10 top-1/2 translate-y-1/4 hover:opacity-50 duration-300 cursor-pointer h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
-            <p class="player translate-y-3 text-2xl">P</p>
+        <span class="winner absolute right-10 top-1/2 translate-y-1/4 duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
         </span>
         <span class="absolute right-20 top-40 ">
             <p class="text-2xl">RESULTS WILL BE CLOSE SOON</p>

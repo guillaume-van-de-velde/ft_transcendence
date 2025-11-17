@@ -6,11 +6,11 @@ export function stats_user_HTML(): string {
 
         <div class="flex justify-center items-center h-1/4">
             <div class="w-[12%] flex justify-center items-center">
-                <button class="logout avatar cursor-pointer hover:w-[120px] hover:h-[120px] duration-300 bg-button-white-bg text-black rounded-full h-[100px] w-[100px] text-6xl font-david">
+                <button id="picture" class="logout avatar cursor-pointer hover:w-[120px] hover:h-[120px] duration-300 bg-button-white-bg text-black rounded-full h-[100px] w-[100px] text-6xl font-david">
                     J
                 </button>
             </div>
-            <h1 class="font-julee text-6xl tracking-widest">
+            <h1 id="pseudo" class="font-julee text-6xl tracking-widest">
                 MYPSEUDO
             </h1>
         </div>
@@ -37,7 +37,7 @@ export function stats_user_HTML(): string {
                     <p class="text-right">PLAYED :</p>
                 </div>
                 <div>
-                    <p class="text-left pl-50">30</p>
+                    <p id="played" class="text-left pl-50">30</p>
                 </div>
             </div>
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
@@ -45,7 +45,7 @@ export function stats_user_HTML(): string {
                     <p class="text-right">WINS / LOSES :</p>
                 </div>
                 <div>
-                    <p class="text-left pl-50">55%</p>
+                    <p id="ratio" class="text-left pl-50">55%</p>
                 </div>
             </div>
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
@@ -53,7 +53,7 @@ export function stats_user_HTML(): string {
                     <p class="text-right">TOURNAMENTS :</p>
                 </div>
                 <div>
-                    <p class="text-left pl-50">3</p>
+                    <p id="tournaments" class="text-left pl-50">3</p>
                 </div>
             </div>
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
@@ -61,7 +61,7 @@ export function stats_user_HTML(): string {
                     <p class="text-right">WINS TOURNAMENTS :</p>
                 </div>
                 <div>
-                    <p class="text-left pl-50">1</p>
+                    <p id="winsTournaments" class="text-left pl-50">1</p>
                 </div>
             </div>
         </div>

@@ -1,8 +1,10 @@
+import { state } from "../../../index.js";
 import { page } from "../../../pages/index.js";
 import { render } from "../../core/render.js";
-import { state, TypeEvent } from "../../core/state.js";
+import { TypeEvent } from "../../core/state.js";
 import { closeEvent } from "../../utils/globalEvents.js";
 import { PageInstance } from "../../utils/interfaces.js";
+import { requestAPI } from "../../utils/requestApi.js";
 import { renderSettings } from "./settings.js";
 
 export function renderVolume() {
@@ -36,6 +38,19 @@ export function volume() {
     closeEvent();
 }
 
+function requestVolume(type:string, value:number) {
+    requestAPI(`${state.link}/api/settings/volume/${type}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id: state.id,
+            [type]: value
+        })
+    });
+}
+
 function calculVolume(volumeValue:HTMLElement, dot: HTMLElement, pageX:number):number {
     let newValue = Math.round(((pageX - 700) / 576) * 100);
     if (newValue >= 100)
@@ -52,6 +67,7 @@ function updateVolume1(e: Event) {
     const volumeValue1 = document.getElementById("volumeValue1");
 
     state.volume.general = calculVolume(volumeValue1!, dot1!, (e as MouseEvent).pageX);
+    requestVolume("general", state.volume.general);
 }
 
 function updateVolume2(e: Event) {
@@ -59,6 +75,7 @@ function updateVolume2(e: Event) {
     const volumeValue2 = document.getElementById("volumeValue2");
 
     state.volume.noises = calculVolume(volumeValue2!, dot2!, (e as MouseEvent).pageX);
+    requestVolume("noises", state.volume.noises);
 }
 
 function updateVolume3(e: Event) {
@@ -66,6 +83,7 @@ function updateVolume3(e: Event) {
     const volumeValue3 = document.getElementById("volumeValue3");
 
     state.volume.music = calculVolume(volumeValue3!, dot3!, (e as MouseEvent).pageX);
+    requestVolume("music", state.volume.music);
 }
 
 function initVolume() {

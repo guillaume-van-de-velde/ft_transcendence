@@ -1,7 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { app } from "../../server";
 import { resultUserTest } from "../../modelTest";
-import { getAllDataForUser } from "./getAllDataForUser/getAllDataForUser";
 import { changeUser } from "./changeUser/changeUser";
 import { addUserList } from "./userList/addUserList";
 import { removeUserList } from "./userList/removeUserList";
@@ -10,6 +9,10 @@ import { removeNotification } from "./notify/removeNotification";
 import { openTournament } from "./tournament/openTournament";
 import { joinTournament } from "./tournament/joinTournament";
 import { quitTournament } from "./tournament/quitTournament";
+import { findPlayer } from "./findPlayer/findPlayer";
+import { createAccount } from "./connexion/createAccount";
+import { connexionAccount } from "./connexion/connexionAccount";
+import { getDataPlayer } from "./getDataPlayer/getDataPlayer";
 
 export const testAPI = async (req:FastifyRequest, res:FastifyReply) => {
     return ({ resultUserTest });
@@ -18,7 +21,8 @@ export const testAPI = async (req:FastifyRequest, res:FastifyReply) => {
 export function routes() {
     app.get("/api/test", testAPI);
 
-    app.get("/api/connexion", getAllDataForUser);
+    app.get("/api/login", connexionAccount);
+    app.post("/api/signin", createAccount);
     app.put("/api/settings/volume/general", changeUser);
     app.put("/api/settings/volume/noises", changeUser);
     app.put("/api/settings/volume/music", changeUser);
@@ -38,7 +42,9 @@ export function routes() {
     app.delete("/api/profile/blocked/remove", removeUserList);
     app.post("/api/profile/notify/put", putNotification);
     app.delete("/api/profile/notify/remove", removeNotification);
+    app.get("/api/profile/search", findPlayer);
     app.post("/api/mode/tournament/open", openTournament);
     app.put("/api/mode/tournament/join", joinTournament);
     app.put("/api/mode/tournament/quit", quitTournament);
+    app.get("/api/player", getDataPlayer);
 }
