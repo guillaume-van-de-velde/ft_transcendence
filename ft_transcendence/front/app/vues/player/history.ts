@@ -14,13 +14,7 @@ export function history_HTML(): string {
                 <h1 id="pseudoPlayer" class="font-julee text-6xl tracking-widest">
                 </h1>
             </div>
-            <div class="flex justify-end gap-5 w-1/2">
-                <button class="p-5 cursor-pointer bg-home-bg rounded-full text-2xl hover:text-black hover:bg-button-white-bg duration-300">
-                    ADD +
-                </button>
-                <button class="p-5 cursor-pointer bg-home-bg rounded-full text-2xl hover:text-black hover:bg-button-white-bg duration-300">
-                    🚫
-                </button>
+            <div id="statusPlayer" class="flex justify-end gap-5 w-1/2">
             </div>
         </div>
         <div class="flex justify-center items-center 

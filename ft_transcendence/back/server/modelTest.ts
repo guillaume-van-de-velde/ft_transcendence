@@ -8,6 +8,11 @@ import { deleteUser } from "./src/db/crud/z-delete.js";
 const pictureTortipous = "https://pm1.aminoapps.com/6785/2dd7b150eef6d4d01e7dbae349c8fa267fea9130v2_00.jpg"
 const pictureCarapuce = "https://www.nicepng.com/png/detail/45-450549_using-the-pokeball-professor-oak-had-given-you.png";
 const pictureEvoli = "https://img.staticdj.com/a59bb1e3b308c484b12ae7fa4afffb68_1080x.jpg"
+const pictureTrioxhydre = "https://www.pokepedia.fr/images/thumb/6/65/Trioxhydre-NB.png/800px-Trioxhydre-NB.png"
+const pictureDemanta = "https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/458.png"
+const pictureTeraclope = "https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/356.png"
+const pictureZebibron = "https://www.media.pokekalos.fr/img/pokemon/home/shiny/zebibron.png"
+const pictureCrocorible = "https://www.pokepedia.fr/images/thumb/a/a4/Crocorible-NB.png/800px-Crocorible-NB.png"
 
 export const resultUserTest:UserResponse = {
     id: 9,
@@ -266,15 +271,6 @@ export const resultUserTest:UserResponse = {
                     pseudo: "yoyo",
                 },
                 seen: false
-            },{
-                id: 7,
-                type: Notify.TOURNAMENT,
-                user: {
-                    id: 3,
-                    picture: pictureTortipous,
-                    pseudo: "yoyo",
-                },
-                seen: false
             }
         ]
     },
@@ -283,7 +279,9 @@ export const resultUserTest:UserResponse = {
         tournament: {
             id: 1,
             status: StatusTournament.START, // || WAIT || FINISHED,
-            time: 120,
+            time: 60,
+            mode: "COT",
+            round: 0,
             users: [
                 {
                     user: {
@@ -292,6 +290,9 @@ export const resultUserTest:UserResponse = {
                         pseudo: "yoyo",
                     },
                     level: 0,
+                    queue: false,
+                    finish: false,
+                    quit: false
                 },{
                     user: {
                         id: 3,
@@ -299,6 +300,9 @@ export const resultUserTest:UserResponse = {
                         pseudo: "yoyo",
                     },
                     level: 1,
+                    queue: false,
+                    finish: false,
+                    quit: false
                 },{
                     user: {
                         id: 3,
@@ -306,6 +310,9 @@ export const resultUserTest:UserResponse = {
                         pseudo: "yoyo",
                     },
                     level: 0,
+                    queue: false,
+                    finish: false,
+                    quit: false
                 },{
                     user: {
                         id: 3,
@@ -313,6 +320,9 @@ export const resultUserTest:UserResponse = {
                         pseudo: "yoyo",
                     },
                     level: 3,
+                    queue: false,
+                    finish: false,
+                    quit: false
                 },{
                     user: {
                         id: 3,
@@ -320,6 +330,9 @@ export const resultUserTest:UserResponse = {
                         pseudo: "yoyo",
                     },
                     level: 2,
+                    queue: false,
+                    finish: false,
+                    quit: false
                 },{
                     user: {
                         id: 3,
@@ -327,6 +340,9 @@ export const resultUserTest:UserResponse = {
                         pseudo: "yoyo",
                     },
                     level: 0,
+                    queue: false,
+                    finish: false,
+                    quit: false
                 },{
                     user: {
                         id: 3,
@@ -334,6 +350,9 @@ export const resultUserTest:UserResponse = {
                         pseudo: "yoyo",
                     },
                     level: 1,
+                    queue: false,
+                    finish: false,
+                    quit: false
                 },{
                     user: {
                         id: 3,
@@ -341,6 +360,9 @@ export const resultUserTest:UserResponse = {
                         pseudo: "yoyo",
                     },
                     level: 0,
+                    queue: false,
+                    finish: false,
+                    quit: false
                 },
             ]
         }
@@ -349,51 +371,57 @@ export const resultUserTest:UserResponse = {
 
 const users = [
     {
-        email: "yoyo@gmail.com",
-        password: "123",
-        pseudo: "yoyo",
+        email: "1@gmail.com",
+        password: "1",
+        pseudo: "1",
         id: 0
     },
     {
-        email: "popo@gmail.com",
-        password: "123",
-        pseudo: "popo",
+        email: "2@gmail.com",
+        password: "2",
+        pseudo: "2",
         id: 0
     },
     {
-        email: "doudou@gmail.com",
-        password: "123",
-        pseudo: "doudou",
+        email: "3@gmail.com",
+        password: "3",
+        pseudo: "3",
         id: 0
     },
     {
-        email: "labubu@gmail.com",
-        password: "123",
-        pseudo: "labubu",
+        email: "4@gmail.com",
+        password: "4",
+        pseudo: "4",
         id: 0
     },
     {
-        email: "lesang@gmail.com",
-        password: "123",
-        pseudo: "lesang",
+        email: "5@gmail.com",
+        password: "5",
+        pseudo: "5",
         id: 0
     },
     {
-        email: "tontonico@gmail.com",
-        password: "123",
-        pseudo: "tontonico",
+        email: "6@gmail.com",
+        password: "6",
+        pseudo: "6",
         id: 0
     },
     {
-        email: "bastien@gmail.com",
-        password: "123",
-        pseudo: "bastien",
+        email: "7@gmail.com",
+        password: "7",
+        pseudo: "7",
         id: 0
     },
     {
-        email: "delamama@gmail.com",
-        password: "123",
-        pseudo: "delamama",
+        email: "8@gmail.com",
+        password: "8",
+        pseudo: "8",
+        id: 0
+    },
+    {
+        email: "9@gmail.com",
+        password: "9",
+        pseudo: "9",
         id: 0
     }
 ]
@@ -417,50 +445,60 @@ export async function testDB(db:Database) {
         && users[0].pseudo && users[1].pseudo && users[2].pseudo && users[3].pseudo && users[4].pseudo && users[5].pseudo && users[6].pseudo && users[7].pseudo
         && users[0].id != undefined && users[1].id != undefined && users[2].id != undefined && users[3].id != undefined && users[4].id != undefined && users[5].id != undefined && users[6].id != undefined && users[7].id != undefined
     ) { 
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 9; i++) {
             users[i]!.id = await createUser(users[i]!.email, users[i]!.password!, users[i]!.pseudo, pictureTortipous);
             createStat(users[i]!.id);
         }
-        await createPrivateMessage(users[1].id, users[2].id, "coucou");
-        await createPrivateMessage(users[2].id, users[1].id, "coucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellow");
-        await createPrivateMessage(users[2].id, users[6].id, "coucou yellow");
-        await createPrivateMessage(users[2].id, users[1].id, "coucou blue");
-        await createGlobalMessage(users[2].id, "coucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellow");
-        await createGlobalMessage(users[4].id, "oui oui");
-        await createNotify(users[1].id, users[2].id, Notify.MATCH);
-                await createNotify(users[1].id, users[2].id, Notify.MATCH);
-        await createNotify(users[5].id, users[2].id, Notify.ASK);
-        await createNotify(users[1].id, users[2].id, Notify.MATCH);
-        await createTournament("worlds", users[5].id);
-        await updateUserTournaments("worlds", 5, 2)
-        await updateUserTournaments("worlds", 1, 3)
-        await updateUserTournaments("worlds", 2, 4)
-        await updateUserTournaments("worlds", 4, 5)
-        await updateUserTournaments("worlds", 7, 6)
-        await updateUserTournaments("worlds", 8, 7)
-    
-        await updateTournaments(1, 1, 2)
-        await updateTournaments(1, 2, 0)
-        await updateTournaments(1, 3, 1)
-        await updateTournaments(1, 4, 0)
-    
-        await updateTournaments(1, 5, 0)
-        await updateTournaments(1, 6, 3)
-        await updateTournaments(1, 7, 1)
+        // await createPrivateMessage(users[1].id, users[2].id, "coucou");
+        // await createPrivateMessage(users[2].id, users[1].id, "coucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellow");
+        // await createPrivateMessage(users[2].id, users[6].id, "coucou yellow");
+        // await createPrivateMessage(users[2].id, users[1].id, "coucou blue");
+        // await createGlobalMessage(users[2].id, "coucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellowcoucou yellow");
+        // await createGlobalMessage(users[4].id, "oui oui");
+        // await createNotify(users[1].id, users[2].id, Notify.MATCH);
+        // await createNotify(users[1].id, users[2].id, Notify.MATCH);
+        // await createNotify(users[5].id, users[2].id, Notify.ASK);
+        // await createNotify(users[1].id, users[2].id, Notify.MATCH);
+        // await updateUsers(users[6].id, "friends", users[2].id);
+        // await updateUsers(users[2].id, "friends", users[6].id);
+        // await createTournament("worlds", "COT", users[5].id);
+        // await updateUserTournaments("worlds", 5, 2);
+        // await updateUserTournaments("worlds", 1, 3);
+        // await updateUserTournaments("worlds", 2, 4);
+        // await updateUserTournaments("worlds", 4, 5);
+        // await updateUserTournaments("worlds", 8, 7);
+        // await updateUserTournaments("worlds", 9, 1);
+        // await updateUserTournaments("worlds", 3, 6);
+        // await updateUserTournaments("worlds", 7, 6);
+
+        // await updateTournaments(1, 1, 2);
+        // await updateTournaments(1, 2, 0);
+        // await updateTournaments(1, 3, 1);
+        // await updateTournaments(1, 4, 0);
+
+        // await updateTournaments(1, 5, 0);
+        // await updateTournaments(1, 6, 3);
+        // await updateTournaments(1, 7, 1);
+        // await updateTournaments(1, 8, 0);
         // await updateUserTournaments("worlds", users[2].id, 2);
-        await createMatch(3, 6, 10, 8, "COM", "12/10/2025", "05h42");
-        await createMatch(6, 3, 10, 8, "COM", "12/10/2025", "05h43");
-        await createMatch(3, 6, 10, 8, "COM", "12/10/2025", "06h42");
-        await createMatch(6, 3, 10, 8, "COM", "12/10/2025", "06h43");
-        await createMatch(3, 6, 8, 8, "COM", "12/10/2025", "07h42");
-        await createMatch(7, 3, 8, 10, "COM", "12/10/2025", "07h43");
+        // await createMatch(3, 6, 10, 8, "COM", "12/10/2025", "05h42");
+        // await createMatch(6, 3, 10, 8, "COM", "12/10/2025", "05h43");
+        // await createMatch(3, 6, 10, 8, "COM", "12/10/2025", "06h42");
+        // await createMatch(6, 3, 10, 8, "COM", "12/10/2025", "06h43");
+        // await createMatch(3, 6, 8, 8, "COM", "12/10/2025", "07h42");
+        // await createMatch(7, 3, 8, 10, "COM", "12/10/2025", "07h43");
         // const resultMatch = await readMatches(5);
         // console.log(resultMatch);
-        await updateUsers(users[2].id, "general", 6);
+        // await updateUsers(users[2].id, "general", 6);
         // await updateUsers(users[2].id, "friends", "6");
-        await updateUsers(users[2].id, "noises", 80);
+        // await updateUsers(users[2].id, "noises", 80);
         await updateUsers(users[5].id, "picture", pictureCarapuce);
         await updateUsers(users[6].id, "picture", pictureEvoli);
+        await updateUsers(users[3].id, "picture", pictureDemanta);
+        await updateUsers(users[2].id, "picture", pictureCrocorible);
+        await updateUsers(users[1].id, "picture", pictureTeraclope);
+        await updateUsers(users[0].id, "picture", pictureTrioxhydre);
+        await updateUsers(users[7].id, "picture", pictureZebibron);
         // await updateStats(users[4].id, "played");
         // await updateStats(users[4].id, "wins");
         // await updateStats(users[6].id, "played");

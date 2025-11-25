@@ -8,6 +8,7 @@ import { renderLocal } from "../pages/mode/2/local.js";
 import { renderOnline } from "../pages/mode/2/online.js";
 import { renderMatch } from "../pages/mode/3/match.js";
 import { renderTournament } from "../pages/mode/3/tournament.js";
+import { renderResultsTournament } from "../pages/mode/3/tournament/results.js";
 import { renderStats } from "../pages/player/stats.js";
 import { PageInstance } from "./interfaces.js";
 
@@ -44,6 +45,8 @@ export function chooseModeFunctionRender(element1:Element, element2:Element, ele
     element2.querySelector("p")!.textContent = state.mode[1].toUpperCase();
     element3.querySelector("p")!.textContent = state.mode[2].toUpperCase();
 
+    const functionTournament = state.tournament?.id ? renderResultsTournament : renderTournament;
+
     switch(state.mode[0]) {
         case "c" :
             element1.addEventListener("click", renderClassic);
@@ -76,8 +79,8 @@ export function chooseModeFunctionRender(element1:Element, element2:Element, ele
             state.events.set(element3, {type: "click", callback:renderMatch});
             break;
         case "t" :
-            element3.addEventListener("click", renderTournament);
-            state.events.set(element3, {type: "click", callback:renderTournament});
+            element3.addEventListener("click", functionTournament);
+            state.events.set(element3, {type: "click", callback:functionTournament});
             break;
     }
 }
@@ -92,7 +95,7 @@ export function renderPlayer() {
     })
 }
 
-export function renderPrivateMessageFocus(e: Event) {
+export function privateMessageFocus(e: Event) {
     let target = e.target as HTMLElement;
 
     while (target && !target.classList.contains("friendMessage")) {
@@ -112,8 +115,8 @@ export function renderPlayerMessages() {
 
     playersArray.forEach((player, index) => {
         if (index != state.friend) {
-            player?.addEventListener("click", renderPrivateMessageFocus);
-            state.events.set(player, {type: "click", callback: renderPrivateMessageFocus});
+            player?.addEventListener("click", privateMessageFocus);
+            state.events.set(player, {type: "click", callback: privateMessageFocus});
         }
     })
 }

@@ -1,9 +1,12 @@
-import { initState, state } from "../../index.js";
+import { initState, socket, state } from "../../index.js";
+import { render } from "../core/render.js";
 import { Notify, StatusTournament } from "../core/state.js";
 import { renderLogIn } from "../pages/connexion/log_in.js";
 import { renderSignIn } from "../pages/connexion/sign_in.js";
+import { renderInSearch } from "../pages/game/in_search.js";
 import { renderHome } from "../pages/home.js";
 import { renderNotify } from "../pages/messages/notify.js";
+import { renderTournament } from "../pages/mode/3/tournament.js";
 import { renderCreateTournament } from "../pages/mode/3/tournament/create.js";
 import { renderJoinTournament } from "../pages/mode/3/tournament/join.js";
 import { renderResultsTournament } from "../pages/mode/3/tournament/results.js";
@@ -11,6 +14,7 @@ import { renderEmail } from "../pages/settings/account/email.js";
 import { renderPseudo } from "../pages/settings/account/pseudo.js";
 import { emailValid, passwordValid, pseudoValid } from "./formValidity.js";
 import { renderPlayer } from "./globalEvents.js";
+import { playerLink } from "./link.js";
 import { requestAPI } from "./requestApi.js";
 
 export async function connexionAPI(url:string, requestConfig:RequestInit):Promise<any> {
@@ -174,6 +178,12 @@ export function messagerieAPI(element: HTMLElement | null) {
         div.appendChild(p);
         element?.appendChild(div);
     }
+    // let friendSendOneTime = false;
+    // for (const message of chat)
+    //     if (message.isUser == false)
+    //         friendSendOneTime = true;
+    // if (friendSendOneTime)
+    socket.emit("seen", state.messages.private[state.friend]!.user.id);
 }
 
 export function globalAPI(element: HTMLElement | null) {
@@ -182,9 +192,18 @@ export function globalAPI(element: HTMLElement | null) {
         return ;
     }
 
-    const chat = state.messages.global;
+    const blocked = state.profile.blocked;
+    let chat = state.messages.global;
+
+    if (blocked && blocked[0]) {
+        for (const user of blocked!) {
+            chat = chat.filter(message => message.user.id != user.id);
+        }
+    }
+
     for (let i = chat!.length - 1; i >= 0; i--) {
         const message = chat[i]!;
+
         const div = document.createElement("div");
         const classOptions = message.user.id === state.id ? "usermessage" : "notusermessage";
         const p = document.createElement("p");
@@ -209,7 +228,21 @@ export function notifyAPI(element: HTMLElement | null) {
         return ;
     }
 
-    const notifyList = state.messages.notify;
+    let notifyList = state.messages.notify;
+    const blocked = state.profile.blocked;
+
+    if (blocked && blocked[0])
+        for (const user of blocked!)
+            notifyList = notifyList.filter(notify => notify.user.id != user.id);
+
+    if (!notifyList || !notifyList![0]) {
+        const p = document.createElement("p");
+        p.className = "text-4xl mx-auto";
+        p.textContent = "NO NOTIFICATION";
+        element?.appendChild(p);
+        return ;
+    }
+
     for (let i = notifyList!.length - 1; i >= 0; i--) {
         const notify = notifyList[i]!;
         const div = document.createElement("div");
@@ -371,13 +404,16 @@ export async function createTournamentCallApi(e:Event) {
             },
             body: JSON.stringify({
                 id: state.id,
-                name: data.inputNameTournament
+                name: data.inputNameTournament,
+                mode: state.mode.join("").toUpperCase()
             })
         });
         state.tournament = {
             id: tournament.id,
             status: StatusTournament.WAIT,
-            time: 120,
+            mode: state.mode,
+            time: 60,
+            round: 0,
             users: [{
                 user: {
                     id: state.id,
@@ -411,13 +447,19 @@ export async function joinTournamentCallApi(e: Event) {
                 name: data.inputNameTournament
             })
         });
-        state.tournament = {
-            id: tournament.id,
-            status: StatusTournament.WAIT,
-            time: 120,
-            users: tournament.users
+        if (tournament) {
+            state.tournament = {
+                id: tournament.id,
+                status: tournament.status,
+                mode: tournament.mode.toLowerCase().split(""),
+                round: 0,
+                time: 60,
+                users: tournament.users
+            }
+            renderResultsTournament();
         }
-        renderResultsTournament();
+        else
+            renderJoinTournament();
     }
     else 
         renderJoinTournament();
@@ -429,7 +471,6 @@ export function fillPlayerTournament() {
         const img = document.createElement("img");
         img.className = "player w-full h-full rounded-full mx-auto";
         img.dataset.id = `${player.user.id}`;
-        console.log(player);
         img.src = player.user.picture;
         if (level === 3) {
             const winner = document.querySelector(".winner");
@@ -456,15 +497,40 @@ export function fillPlayerTournament() {
     }
 }
 
-function eventAccept(e: Event) {
+async function eventAcceptFriend(e: Event) {
     let notifyElement = (e.target as HTMLElement).parentElement;
     if (notifyElement!.classList[0]! == "accept")
         notifyElement = notifyElement?.parentElement!;
     const notifyElementClass = parseInt(notifyElement!.classList[0]!.match(/\d+/)![0], 10);
     state.messages.notify = state.messages.notify?.filter(notify => notify.id != notifyElementClass)!;
 
-    requestAPI(`${state.link}/api/profile/notify/remove`, {
-        method: "DELETE",
+    const newFriend = await requestAPI(`${state.link}/api/profile/friends/add`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idNotify: notifyElementClass
+        })
+    });
+
+    if (state.profile.friends && !state.profile.friends[0])
+        state.profile.friends[0] = newFriend;
+    else
+        state.profile.friends?.push(newFriend);
+
+    renderNotify();
+}
+
+function eventAcceptMatch(e: Event) {
+    let notifyElement = (e.target as HTMLElement).parentElement;
+    if (notifyElement!.classList[0]! == "accept")
+        notifyElement = notifyElement?.parentElement!;
+    const notifyElementClass = parseInt(notifyElement!.classList[0]!.match(/\d+/)![0], 10);
+    state.messages.notify = state.messages.notify?.filter(notify => notify.id != notifyElementClass)!;
+
+    requestAPI(`${state.link}/api/game/accept`, {
+        method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
@@ -501,10 +567,16 @@ export function notifyCallAPI() {
         const accept = notifyElement?.querySelector(".accept");
         const decline = notifyElement?.querySelector(".decline");
 
-        accept?.addEventListener("click", eventAccept);
-        decline?.addEventListener("click", eventDecline);
+        if (notify.type === Notify.ASK) {
+            accept?.addEventListener("click", eventAcceptFriend);
+            state.events.set(accept!, {type: "click", callback: eventAcceptFriend});
+        }
+        if (notify.type === Notify.MATCH) {
+            accept?.addEventListener("click", eventAcceptMatch);
+            state.events.set(accept!, {type: "click", callback: eventAcceptMatch});
+        }
 
-        state.events.set(accept!, {type: "click", callback: eventAccept});
+        decline?.addEventListener("click", eventDecline);
         state.events.set(decline!, {type: "click", callback: eventDecline});
     }
 }
@@ -585,12 +657,12 @@ export async function dataPlayerCallAPI(e: Event) {
         let idPlayer = (e.target as HTMLElement).dataset.id;
         if (!idPlayer)
             idPlayer = (e.target as HTMLElement).parentElement!.dataset.id;
-    
         playerData = await requestAPI("http://localhost:4400/api/player", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "id": idPlayer!
+                "id": state.id.toString(),
+                "idasked": idPlayer!
             }
         });
         state.playerData = playerData;
@@ -613,6 +685,7 @@ export async function dataPlayerCallAPI(e: Event) {
     resultRatio!.textContent = `${playerData.stats.ratio}`;
     resultTournaments!.textContent = `${playerData.stats.tournaments}`;
     resultWinTournaments!.textContent = `${playerData.stats.winsTournaments}`;
+    playerLink();
 }
 
 export function printHistory() {
@@ -663,4 +736,53 @@ export function printHistory() {
         `;
         historyList?.appendChild(div);
     }
+    playerLink();
+}
+
+export async function searchGame() {
+    requestAPI("http://localhost:4400/api/game/search", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            user: {
+                id: state.id,
+                pseudo: state.account.pseudo,
+                picture: state.profile.picture
+            },
+            mode: state.mode.join("").toUpperCase(),
+            tournament: (state.tournament && state.tournament.id) ? state.tournament.id : 0
+        })
+    });
+    renderInSearch();
+}
+
+export async function quitQueue() {
+    requestAPI("http://localhost:4400/api/game/quit", {
+        method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		},
+        body: JSON.stringify({
+            id: state.id,
+            tournament: state.tournament?.id ? state.tournament.id : 0
+        })
+    });
+    renderHome();
+}
+
+export function quitTournamentCallAPI() {
+    requestAPI(`${state.link}/api/mode/tournament/quit`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id: state.id,
+            tournament: state.tournament!.id
+        })
+    });
+    delete state.tournament;
+    renderTournament();
 }

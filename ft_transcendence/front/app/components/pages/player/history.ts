@@ -1,5 +1,5 @@
 import { state } from "../../../index.js";
-import { page } from "../../../pages/index.js";
+import { page } from "../../../vues/index.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { printHistory } from "../../utils/api.js";

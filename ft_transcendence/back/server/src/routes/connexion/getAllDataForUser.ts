@@ -7,6 +7,7 @@ import { parsePrivateMessages } from "./parse/privateMessages";
 import { parseGlobalMessages } from "./parse/globalMessages";
 import { parseNotify } from "./parse/notify";
 import { parseUsersTournament } from "./parse/usersTournament";
+import { parseBlocked } from "./parse/blocked";
 
 export async function getAllDataForUser(idAsk: number) {
     const userData = await readUser(idAsk.toString(), KeyUser.ID);
@@ -28,7 +29,7 @@ export async function getAllDataForUser(idAsk: number) {
             key: {
                 player1: {
                     up: userData.player1KeyUp,
-                    down: userData.player1KeyUp
+                    down: userData.player1KeyDown
                 },
                 player2: {
                     up: userData.player2KeyUp,
@@ -50,12 +51,13 @@ export async function getAllDataForUser(idAsk: number) {
                 winsTournaments: userStats.winsTournaments
             },
             history: await parseHistory(id),
-            friends: await parseFriends(userData.friends)
+            friends: await parseFriends(userData.friends),
+            blocked: await parseBlocked(userData.blocked)
         },
         messages: {
             private: await parsePrivateMessages(id),
             global: await parseGlobalMessages(),
-            notify: await parseNotify(id)
+            notify: await parseNotify(id, userData.blocked)
         },
         mode: {
             set: userData.mode,
@@ -63,7 +65,9 @@ export async function getAllDataForUser(idAsk: number) {
                 tournament: {
                     id: userTournament.id,
                     status: userTournament.status,
-                    time: 120,
+                    time: 60,
+                    mode: userTournament.mode,
+                    round: 0,
                     users: await parseUsersTournament(userTournament)
                 }
             })

@@ -101,6 +101,7 @@ export async function initTableTournaments() {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT UNIQUE NOT NULL,
             status TEXT NOT NULL,
+            mode TEXT NOT NULL,
             id1 INTEGER,
             id2 INTEGER,
             id3 INTEGER,

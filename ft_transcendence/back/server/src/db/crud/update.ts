@@ -56,8 +56,23 @@ export async function updateStatusTournaments(id:number, status:StatusTournament
             UPDATE tournaments
             SET 
                 status = ?
-            WHERE id = ? AND status != ?
+            WHERE id = ?
         `,
-        [status, id, StatusTournament.FINISHED]
+        [status, id]
+    )
+}
+
+export async function updatePrivateMessageSeen(idTransmitter:string, idReceiver:string) {
+    await db.run(
+        `
+            UPDATE privateMessages
+            SET 
+                seen = ?
+            WHERE
+                seen = ?
+                AND idTransmitter = ?
+                AND idReceiver = ?
+        `,
+        [true, false, idTransmitter, idReceiver]
     )
 }

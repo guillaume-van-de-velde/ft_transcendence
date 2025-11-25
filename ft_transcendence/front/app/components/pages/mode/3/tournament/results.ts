@@ -1,6 +1,7 @@
 import { state } from "../../../../../index.js";
-import { page } from "../../../../../pages/index.js";
+import { page } from "../../../../../vues/index.js";
 import { render } from "../../../../core/render.js";
+import { StatusTournament } from "../../../../core/state.js";
 import { fillPlayerTournament } from "../../../../utils/api.js";
 import { chooseModeFunctionRender, closeEvent, renderPlayer } from "../../../../utils/globalEvents.js";
 import { PageInstance } from "../../../../utils/interfaces.js";
@@ -23,7 +24,10 @@ export function resultsTournament() {
     
     state.actual = "tournament";
 
+    console.log(state.tournament);
+
     fillPlayerTournament();
+    setStatusTournament();
 
     chooseModeFunctionRender(mode1!, mode2!, mode3!);
 
@@ -33,4 +37,44 @@ export function resultsTournament() {
 
     renderPlayer();
     closeEvent();
+}
+
+function setStatusTournament() {
+    const statusTournament = document.getElementById("statusTournament");
+
+    switch (state.tournament!.status) {
+        case "WAIT": {
+            statusTournament!.textContent = "WAIT FOR PLAYERS";
+            break ;
+        }
+        case "START": {
+            const interval = setInterval(printTimer, 1000);
+            state.interval = interval;
+            function printTimer() {
+                const statusTournament = document.getElementById("statusTournament");
+                if (state.roundTournament != state.tournament!.round) {
+                    console.log("en boucle dans timer", state.roundTournament, state.tournament!.round);
+                    clearInterval(interval);
+                    state.roundTournament++;
+                    if (state.tournament!.round >= 3)
+                        state.tournament!.status = StatusTournament.FINISHED;
+                    renderResultsTournament();
+                    return ;
+                }
+                else if (state.tournament!.time == 0) {
+                    clearInterval(interval);
+                    statusTournament!.textContent = `0:0`;
+                }
+                else
+                    statusTournament!.textContent = `${Math.floor(state.tournament!.time / 60)}:${state.tournament!.time % 60}`;
+            }
+            break ;
+        }
+        case "FINISHED": {
+            statusTournament!.textContent = "TOURNAMENT FINISHED";
+            break ;
+        }
+        default: 
+            break ;
+    }
 }

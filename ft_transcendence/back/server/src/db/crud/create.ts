@@ -32,10 +32,10 @@ export async function createUser(email:string, password:string, pseudo:string, p
             "60",
             "60",
             "60",
-            "ArrowUp",
-            "ArrowDown",
             "w",
             "s",
+            "/",
+            "ContextMenu",
             "",
             ""
         ]
@@ -85,8 +85,8 @@ export async function createGlobalMessage(idTransmitter:number, message:string) 
     );
 }
 
-export async function createNotify(idTransmitter:number, idReceiver:number, type:Notify) {
-    await db.run(`
+export async function createNotify(idTransmitter:number, idReceiver:number, type:Notify): Promise<number> {
+    const result = await db.run(`
             INSERT INTO notify (
                 idTransmitter,
                 idReceiver,
@@ -97,19 +97,21 @@ export async function createNotify(idTransmitter:number, idReceiver:number, type
         `,
         [idTransmitter, idReceiver, type, false]
     );
+    return result.lastID!;
 }
 
-export async function createTournament(name:string, id:number) {
+export async function createTournament(name:string, mode: string, id:number) {
     const result = await db.run(`
             INSERT INTO tournaments (
                 name,
                 status,
+                mode,
                 id1,
                 lv1
             )
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?)
         `,
-        [name, StatusTournament.WAIT, id, 0]
+        [name, StatusTournament.WAIT, mode, id, 0]
     );
     return result.lastID!;
 }

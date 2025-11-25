@@ -10,12 +10,17 @@ export async function parseUsersTournament(Tournament:any): Promise<UserInTourna
         const lvKey = `lv${i}`;
         const id = Tournament[idKey];
         const lv = Tournament[lvKey];
+        if (!id)
+            continue ;
         const userData:UserShortData = await readUser(id, KeyUser.ID, true);
         if (userData) {
             UsersTournament.push(
                 {
                     user: userData,
-                    level: lv
+                    level: lv,
+                    queue: false,
+                    finish: false,
+                    quit: false
                 }
             )
         }

@@ -1,5 +1,5 @@
 import { state } from "../../../../index.js";
-import { page } from "../../../../pages/index.js";
+import { page } from "../../../../vues/index.js";
 import { render } from "../../../core/render.js";
 import { changeModeCallApi } from "../../../utils/api.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
@@ -7,10 +7,6 @@ import { PageInstance } from "../../../utils/interfaces.js";
 import { renderMatch } from "./match.js";
 import { renderCreateTournament } from "./tournament/create.js";
 import { renderJoinTournament } from "./tournament/join.js";
-
-export function renderTournamentHandle() {
-    renderTournament();
-}
 
 export function renderTournament() {
     const tournamentPage: PageInstance = {

@@ -65,6 +65,18 @@ export async function readNotify(id:number) {
     return messages;
 }
 
+export async function readNotifyById(id:number) {
+    const messages = await db.get(
+        `
+            SELECT * 
+            FROM notify
+            WHERE id = ?
+        `,
+        [id]
+    );
+    return messages;
+}
+
 export async function readStats(id:number) {
     const stats = await db.get(
         `

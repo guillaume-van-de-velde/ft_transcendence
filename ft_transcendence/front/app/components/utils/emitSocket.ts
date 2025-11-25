@@ -36,8 +36,6 @@ export function sendMessageToUser(e: Event) {
 
 export function globalMessageSend(e: Event) {
     e.preventDefault();
-
-    console.log("couocou");
     
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);

@@ -1,5 +1,5 @@
 import { state } from "../../../../../index.js";
-import { page } from "../../../../../pages/index.js";
+import { page } from "../../../../../vues/index.js";
 import { render } from "../../../../core/render.js";
 import { createTournamentCallApi } from "../../../../utils/api.js";
 import { close2Event, closeEvent } from "../../../../utils/globalEvents.js";

@@ -1,11 +1,11 @@
 import { readNotify, readUser } from "../../../db/crud/read";
 import { KeyUser, MessageNotify } from "../../../utils/enums";
 
-export async function parseNotify(id:number): Promise<MessageNotify[]> {
+export async function parseNotify(id:number, blocked: string): Promise<MessageNotify[]> {
     
     const userNotify = await readNotify(id);
 
-    const parsedNotify = await Promise.all(
+    let parsedNotify = await Promise.all(
             userNotify.map(async notify => {
             return {
                 id: notify.id,
@@ -15,6 +15,12 @@ export async function parseNotify(id:number): Promise<MessageNotify[]> {
             }
         })
     );
+
+    const blockedList = blocked.split(",");
+
+    if (blockedList && blockedList[0])
+        for (const idBlocked of blockedList)
+            parsedNotify = parsedNotify.filter(notify => notify.user.id != idBlocked);
 
     return parsedNotify;
 }

@@ -6,7 +6,7 @@
   "author": "",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon build/server.js",
+    "server": "nodemon build/server.js --ignore logs.json",
     "build": "tsc --watch --project config/tsconfig.json"
   },
   "dependencies": {

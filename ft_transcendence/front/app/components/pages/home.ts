@@ -1,8 +1,8 @@
 import { state } from "../../index.js";
-import { page } from "../../pages/index.js";
+import { page } from "../../vues/index.js";
 import { render } from "../core/render.js";
 import { TypeEvent } from "../core/state.js";
-import { pictureAPI } from "../utils/api.js";
+import { pictureAPI, searchGame } from "../utils/api.js";
 import { PageInstance } from "../utils/interfaces.js";
 import { checkSeen } from "../utils/notifySocket.js";
 import { renderInSearch } from "./game/in_search.js";
@@ -35,7 +35,7 @@ export function home() {
 
     settings?.addEventListener("click", renderSettings);
     profile?.addEventListener("click", renderStatsUser);
-    play?.addEventListener("click", renderInSearch);
+    play?.addEventListener("click", searchGame);
     messages?.addEventListener("click", renderPrivateMessage);
 
     let functionMode: EventListener;
@@ -45,7 +45,7 @@ export function home() {
     state.events = new Map<Element | null, TypeEvent>([
         [settings, {type: "click", callback: renderSettings}],
         [profile, {type: "click", callback: renderStatsUser}],
-        [play, {type: "click", callback: renderInSearch}],
+        [play, {type: "click", callback: searchGame}],
         [messages, {type: "click", callback: renderPrivateMessage}],
         [mode, {type: "click", callback: functionMode}]
     ]);

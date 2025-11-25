@@ -6,6 +6,7 @@ export interface TypeEvent {
 export enum IDPLAYER {NONE, PLAYER1, PLAYER2}
 export enum Notify { ASK = "ASK", MATCH = "MATCH", TOURNAMENT = "TOURNAMENT" }
 export enum StatusTournament { START = "START", WAIT = "WAIT", FINISHED = "FINISHED" }
+export enum Link { NONE = "NONE", FRIEND = "FRIEND", SENT = "SENT", BLOCKED = "BLOCKED"}
 
 export interface UserShortData {
     id: number,
@@ -59,7 +60,11 @@ export interface AppState {
     friend:number,
     actual: string,
     checkMessage: boolean,
+    ennemy: UserShortData | undefined,
+    roundTournament: number,
+    interval?: number,
     playerData?: {
+        link: Link,
         user: UserShortData,
         stats: {
             played: number,
@@ -110,7 +115,8 @@ export interface AppState {
             winsTournaments: number
         },
         history?: MatchHistory[],
-        friends?: UserShortData[]
+        friends?: UserShortData[],
+        blocked?: UserShortData[]
     },
     messages: {
         private?: MessagePrivate[],
@@ -120,6 +126,8 @@ export interface AppState {
     tournament?: {
         id: number,
         status: string,
+        round: number,
+        mode: [string, string, string],
         time: number,
         users: UserInTournament[]
     }

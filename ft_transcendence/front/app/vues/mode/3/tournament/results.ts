@@ -161,8 +161,8 @@ export function results_HTML(): string {
         </div>
         <span class="winner absolute right-10 top-1/2 translate-y-1/4 duration-300 h-[60px] w-[60px] text-center bg-button-white-bg text-black font-david rounded-full">
         </span>
-        <span class="absolute right-20 top-40 ">
-            <p class="text-2xl">RESULTS WILL BE CLOSE SOON</p>
+        <span id="statusTournament" class="absolute right-20 top-40 ">
+            <p class="text-2xl"></p>
         </span>
         <button id="quit" class="absolute right-20 bottom-20 bg-button-white-bg text-black font-dangrek tracking-widest text-xl rounded-full h-[50px] w-[300px] hover:h-[calc(50px*1.1)] hover:w-[calc(300px*1.1)] cursor-pointer duration-300">
             QUIT THE TOURNAMENT

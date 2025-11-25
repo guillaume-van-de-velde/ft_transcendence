@@ -56,6 +56,8 @@ export function render(newPage:PageInstance, fromPopState = false) {
         elementParent!.innerHTML = activePage!.content;
     if (newPage.level < 2)
         delete state.playerData;
+    if (state.interval)
+        clearInterval(state.interval);
     state.actual = "none";
     activePage!.create!();
     soundLaunch();

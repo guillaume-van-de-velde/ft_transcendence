@@ -1,9 +1,10 @@
 import { state } from "../../../../../index.js";
-import { page } from "../../../../../pages/index.js";
+import { page } from "../../../../../vues/index.js";
 import { render } from "../../../../core/render.js";
+import { quitTournamentCallAPI } from "../../../../utils/api.js";
 import { close2Event, closeEvent } from "../../../../utils/globalEvents.js";
 import { PageInstance } from "../../../../utils/interfaces.js";
-import { renderTournament, renderTournamentHandle } from "../tournament.js";
+import { renderTournament } from "../tournament.js";
 import { renderResultsTournament } from "./results.js";
 
 export function renderQuitTournament() {
@@ -20,10 +21,10 @@ export function quitTournament() {
     const stay = document.getElementById("stay");
     const quit = document.getElementById("quitConfirm");
 
-    quit?.addEventListener("click", renderTournamentHandle);
+    quit?.addEventListener("click", quitTournamentCallAPI);
     stay?.addEventListener("click", renderResultsTournament);
 
-    state.events.set(quit, {type: "click", callback: renderTournamentHandle});
+    state.events.set(quit, {type: "click", callback: quitTournamentCallAPI});
     state.events.set(stay, {type: "click", callback: renderResultsTournament});
 
     close2Event();

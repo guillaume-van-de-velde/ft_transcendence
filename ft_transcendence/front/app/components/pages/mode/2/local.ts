@@ -1,4 +1,4 @@
-import { page } from "../../../../pages/index.js";
+import { page } from "../../../../vues/index.js";
 import { render } from "../../../core/render.js";
 import { state } from "../../../../index.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";

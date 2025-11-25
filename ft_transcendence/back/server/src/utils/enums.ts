@@ -1,7 +1,10 @@
-export enum Notify { ASK = "ASK", MATCH = "MATCH", TOURNAMENT = "TOURNAMENT" }
+import { Socket } from "socket.io"
+
+export enum Notify { ASK = "ASK", MATCH = "MATCH" }
 export enum StatusTournament { START = "START", WAIT = "WAIT", FINISHED = "FINISHED" }
 export enum KeyUser { EMAIL = "email", PSEUDO = "pseudo", ID = "id" }
 export enum KeyTournament { NAME = "name", ID = "id" }
+export enum Link { NONE = "NONE", FRIEND = "FRIEND", SENT = "SENT", BLOCKED = "BLOCKED"}
 
 export interface UserShortData {
     id: number,
@@ -43,7 +46,10 @@ export interface MessageNotify {
 
 export interface UserInTournament {
     user: UserShortData,
-    level: number
+    level: number,
+    queue: boolean,
+    finish: boolean,
+    quit: boolean
 }
 
 export interface UserResponse {
@@ -79,7 +85,8 @@ export interface UserResponse {
             winsTournaments: number
         },
         history?: MatchHistory[],
-        friends?: UserShortData[]
+        friends?: UserShortData[],
+        blocked?: UserShortData[]
     },
     messages: {
         private?: MessagePrivate[],
@@ -88,11 +95,23 @@ export interface UserResponse {
     },
     mode: {
         set: string,
-        tournament?: {
-            id: number,
-            status: string,
-            time: number,
-            users: UserInTournament[]
-        }
+        tournament?: Tournament
     }
+}
+
+export interface Match {
+    mode: string;
+    users: [UserShortData | null, UserShortData | null],
+    sockets: [Socket | undefined, Socket | undefined],
+    booking?: [number, number] | null | undefined,
+    invite?: [number, number] | null | undefined,
+}
+
+export interface Tournament {
+    id: number,
+    status: string,
+    time: number,
+    mode: string,
+    round: number,
+    users: UserInTournament[]
 }

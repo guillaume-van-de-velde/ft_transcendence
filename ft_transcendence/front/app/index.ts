@@ -1,16 +1,18 @@
 import { render } from "./components/core/render.js";
-import { AppState, IDPLAYER, MessageGlobal, MessageNotify, MessagePrivate, TypeEvent } from "./components/core/state.js";
+import { AppState, IDPLAYER, MessageGlobal, MessageNotify, MessagePrivate, TypeEvent, UserShortData } from "./components/core/state.js";
 import { home, renderHome } from "./components/pages/home.js";
 import { requestAPI } from "./components/utils/requestApi.js";
 import { closeClicked } from "./components/utils/globalEvents.js";
 import { PageInstance } from "./components/utils/interfaces.js";
 import { pageRegistery } from "./components/utils/pageRegistery.js";
-import { page } from "./pages/index.js";
+import { page } from "./vues/index.js";
 import { friends } from "./components/pages/profile/friends.js";
 import { renderPrivateMessage } from "./components/pages/messages/private.js";
 import { renderGlobal } from "./components/pages/messages/global.js";
 import { renderNotify } from "./components/pages/messages/notify.js";
 import { renderConnexion } from "./components/pages/connexion/connexion.js";
+import { game, renderGame } from "./components/pages/game/game.js";
+import { renderResultsTournament } from "./components/pages/mode/3/tournament/results.js";
 
 export let state: AppState;
 declare const io:any;
@@ -44,10 +46,22 @@ function socketManagement() {
 		}
 	});
 
+	socket.on("match", (ennemy: UserShortData) => {
+		state.ennemy = ennemy;
+		renderGame();
+	});
+
 	socket.on("notify", (notify:MessageNotify) => {
 		state.messages.notify?.push(notify);
 		if (listPageNotify.includes(state.actual))
 			reRenderForNotify();
+	});
+
+	socket.on("friend", (friend: UserShortData) => {
+		if (state.profile.friends && !state.profile.friends[0])
+			state.profile.friends[0] = friend;
+		else
+			state.profile.friends?.push(friend);
 	});
 
 	socket.on("global", (global:MessageGlobal) => {
@@ -96,26 +110,24 @@ function socketManagement() {
 			reRenderForNotify();
 	});
 
-	socket.on("tournament", (tournament:string) => {
-
+	socket.on("tournament", (tournament:any) => {
+		if (state.tournament && state.tournament.id == tournament.id) {
+			state.tournament = tournament;
+		if (state.actual == "tournament")
+			renderResultsTournament();
+		}
 	});
 }
 
-const homeInstance: PageInstance = {
-	content: page.home,
-	level: 0,
-	create: home
-};
-
 export async function initState(API:any) {
-	API = await requestAPI("http://localhost:4400/api/login", {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-            "email": "doudou@gmail.com",
-            "password": "123"
-		}
-	});
+	// API = await requestAPI("http://localhost:4400/api/login", {
+	// 	method: "GET",
+	// 	headers: {
+	// 		"Content-Type": "application/json",
+    //         "email": "doudou@gmail.com",
+    //         "password": "123"
+	// 	}
+	// });
 	state = {
 		link: "http://localhost:4400",
 		events: new Map<Element | null, TypeEvent>(),
@@ -125,6 +137,7 @@ export async function initState(API:any) {
 		friend: 0,
 		input: null,
 		checkMessage: false,
+		roundTournament: API.mode.tournament?.id ? API.mode.tournament.round : 0,
 		socket: {
 			notify: false,
 			message: false,
@@ -145,7 +158,15 @@ export async function initState(API:any) {
 	}
 	console.log(state);
 	socketManagement();
-	render(homeInstance);
+	setInterval(timer, 1000);
+	renderHome();
+}
+
+function timer() {
+	if (state.tournament && state.tournament.time > 0) {
+		state.tournament.time--;
+		console.log(state.tournament.time);
+	}
 }
 
 function setStateUserNotConnected() {
@@ -157,13 +178,15 @@ function setStateUserNotConnected() {
 		mode: ["", "", ""],
 		friend: 0,
 		actual: "none",
+		checkMessage: false,
+		ennemy: undefined,
+		roundTournament: 0,
 		input: {
 			value: "",
 			focused: false,
 			start: null,
 			end: null,
 		},
-		checkMessage: false,
 		socket: {
 			notify: false,
 			message: false,
@@ -199,7 +222,8 @@ function setStateUserNotConnected() {
 				winsTournaments: 0
 			},
 			history: [],
-			friends: []
+			friends: [],
+			blocked: []
 		},
 		messages: {}
 	}
@@ -210,8 +234,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	// if (token)
 	// 	initState(token);
 
-	initState(null);
+	// initState(null);
 
-	// setStateUserNotConnected();
-	// renderConnexion();
+	setStateUserNotConnected();
+	renderConnexion();
 });
