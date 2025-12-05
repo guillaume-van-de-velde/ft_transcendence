@@ -1,17 +1,23 @@
-import { initState, socket, state } from "../../index.js";
+import { initState, removeToken, setToken, socket, state, token, userConnexionAccepted } from "../../index.js";
 import { render } from "../core/render.js";
 import { Notify, StatusTournament } from "../core/state.js";
 import { renderLogIn } from "../pages/connexion/log_in.js";
 import { renderSignIn } from "../pages/connexion/sign_in.js";
+import { renderVerify } from "../pages/connexion/verify.js";
+import { renderGame } from "../pages/game/game.js";
 import { renderInSearch } from "../pages/game/in_search.js";
 import { renderHome } from "../pages/home.js";
 import { renderNotify } from "../pages/messages/notify.js";
-import { renderTournament } from "../pages/mode/3/tournament.js";
+import { renderTournament, tournament } from "../pages/mode/3/tournament.js";
 import { renderCreateTournament } from "../pages/mode/3/tournament/create.js";
 import { renderJoinTournament } from "../pages/mode/3/tournament/join.js";
 import { renderResultsTournament } from "../pages/mode/3/tournament/results.js";
+import { renderStatsUser } from "../pages/profile/stats_user.js";
 import { renderEmail } from "../pages/settings/account/email.js";
+import { renderPassword } from "../pages/settings/account/password.js";
 import { renderPseudo } from "../pages/settings/account/pseudo.js";
+import { renderVerifyEmail } from "../pages/settings/account/verify.js";
+import { renderVerifyDelete } from "../pages/settings/account/verifyDelete.js";
 import { emailValid, passwordValid, pseudoValid } from "./formValidity.js";
 import { renderPlayer } from "./globalEvents.js";
 import { playerLink } from "./link.js";
@@ -274,10 +280,16 @@ export function notifyAPI(element: HTMLElement | null) {
     }
 }
 
-export function languageAPI() {
+export function languageAddBorder() {
     const element = document.getElementById(state.language);
-    
+
     element?.classList.add("border-4", "border-black");
+}
+
+export function languageRemoveBorder(language: string) {
+    const element = document.getElementById(language);
+
+    element?.classList.remove("border-4", "border-black");
 }
 
 export function placeholderAPI(idElement:string, dataAPI:string) {
@@ -293,17 +305,19 @@ export async function emailFormCallApi(e: Event) {
     const data = Object.fromEntries(formData.entries());
 
     if (data.newemail === data.confirm) {
-        requestAPI(`${state.link}/api/settings/account/email`, {
+        const response = await requestAPI(`${state.link}/api/settings/account/email`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 id: state.id,
+                oldemail: state.account.email,
                 email: data.newemail
             })
         });
-        state.account.email = data.newemail!.toString();
+        if (response.flag)
+            return renderVerifyEmail();
     }
     renderEmail();
 }
@@ -598,7 +612,7 @@ export async function logInAPI(e: Event) {
     if (!emailValid(email) || !passwordValid(password))
         return renderLogIn();
 
-    const API = await requestAPI("http://localhost:4400/api/login", {
+    const response = await requestAPI("http://localhost:4400/api/login", {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -607,9 +621,8 @@ export async function logInAPI(e: Event) {
 		}
 	});
 
-    if (API)
-        return initState(API);
-
+    if (response.flag == "ok")
+        return renderVerify();
     renderLogIn();
 }
 
@@ -631,8 +644,7 @@ export async function signInAPI(e: Event) {
         return renderSignIn();
     }
 
-
-    const API = await requestAPI("http://localhost:4400/api/signin", {
+    const response = await requestAPI("http://localhost:4400/api/signin", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -644,9 +656,8 @@ export async function signInAPI(e: Event) {
         })
 	});
 
-    if (API)
-        return initState(API);
-
+    if (response.flag == "ok")
+        return renderVerify();
     renderSignIn();
 }
 
@@ -740,6 +751,12 @@ export function printHistory() {
 }
 
 export async function searchGame() {
+    console.log(state.mode);
+    
+    if (state.mode[1] == "l" || state.mode[1] == "a") {
+        renderGame();
+        return ;
+    }
     requestAPI("http://localhost:4400/api/game/search", {
         method: "POST",
         headers: {
@@ -785,4 +802,188 @@ export function quitTournamentCallAPI() {
     });
     delete state.tournament;
     renderTournament();
+}
+
+export async function verifyAPI(e: Event) {
+    e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    if (!data.code)
+        return renderVerify();
+
+    const API = await requestAPI(`http://localhost:4400/api/verify`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "code": data.code.toString()
+        }
+    });
+
+    console.log("Api :", API);
+    
+    if (API)
+        return userConnexionAccepted(API);
+
+    renderVerify();
+}
+
+export async function pictureCallAPI(e: Event) {
+    e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    if (data.inputPicture) {
+        requestAPI(`${state.link}/api/profile/picture`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: state.id,
+                picture: data.inputPicture.toString()
+            })
+        });
+        state.profile.picture = data.inputPicture.toString();
+    }
+    renderStatsUser();
+}
+
+export function disconnect() {
+    localStorage.removeItem("TokenTranscendence");
+    window.location.reload();
+}
+
+export async function passwordFormCallAPI(e: Event) {
+    e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    if (data.newpassword === data.confirm) {
+        const newToken = await requestAPI(`${state.link}/api/settings/account/password`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: state.id,
+                oldpassword: data.yourpassword,
+                newpassword: data.newpassword
+            })
+        });
+        if (newToken.token)
+            setToken(newToken.token);
+    }
+    renderPassword();
+}
+
+export async function verifyFormCallApi(e:Event) {
+    e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    if (!data.code)
+        return renderVerify();
+
+    const response = await requestAPI(`http://localhost:4400/api/settings/account/verify`, {
+        method: "PUT",
+        headers: {
+            "code": data.code.toString()
+        }
+    });
+    console.log(response);
+    if (response.email) {
+        state.account.email = response.email.toString();
+        renderEmail();
+        return ;
+    }
+
+    renderVerify();
+}
+
+export async function forgotCallAPI(e: Event) {
+    e.preventDefault();
+
+    const form = document.getElementById("formLogIn") as HTMLFormElement;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    
+    if (data.email) {
+        requestAPI(`http://localhost:4400/api/forgot`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: data.email.toString()
+            })
+        });
+        console.log("sended");
+        // const message = "password sended";
+        // const span = document.createElement("span");
+        // span.className = "bg-green-600 rounded-full text-3xl p-3 absolute bottom-70";
+        // span.textContent = "PASSWORD SENDED";
+    }
+}
+
+export async function deleteAccountCallAPI() {
+    requestAPI(`http://localhost:4400/api/settings/delete`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id: state.id
+        })
+    });
+    renderVerifyDelete();
+}
+
+export async function verifyDeleteFormCallApi(e: Event) {
+    e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    if (!data.code)
+        return renderVerify();
+    const response = await requestAPI(`http://localhost:4400/api/settings/delete/verify`, {
+        method: "DELETE",
+        headers: {
+            "code": data.code.toString()
+        }
+    });
+    if (response.delete) {
+        removeToken();
+        console.log("delete account - rechargement de la page");
+        window.location.reload();
+        return ;
+    }
+    renderVerify();
+}
+
+export function languageCallAPI(e: Event) {
+    const oldLanguage = state.language;
+    state.language = (e.target! as HTMLElement).id;
+    requestAPI(`http://localhost:4400/api/settings/language`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id: state.id,
+            language: state.language
+        })
+    });
+    languageAddBorder();
+    languageRemoveBorder(oldLanguage);
 }

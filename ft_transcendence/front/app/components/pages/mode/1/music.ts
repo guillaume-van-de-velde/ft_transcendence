@@ -1,5 +1,5 @@
 import { state } from "../../../../index.js";
-import { page } from "../../../../vues/index.js";
+import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
 import { changeModeCallApi } from "../../../utils/api.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
@@ -8,7 +8,7 @@ import { renderClassic } from "./classic.js";
 
 export function renderMusic() {
     const musicPage: PageInstance = {
-        content: page.mode[0]!.music!,
+        content: vues.mode[0]!.music!,
         level: 1,
         create: music,
     }

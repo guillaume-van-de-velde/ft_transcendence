@@ -1,5 +1,5 @@
 import { state } from "../../../index.js";
-import { page } from "../../../vues/index.js";
+import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { PageInstance } from "../../utils/interfaces.js";
@@ -8,7 +8,7 @@ import { renderSignIn } from "./sign_in.js";
 
 export function renderConnexion() {
     const connexionPage: PageInstance = {
-        content: page.connexion.connexion,
+        content: vues.connexion.connexion,
         level: 0,
         create: connexion,
     }

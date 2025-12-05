@@ -3,7 +3,7 @@ import { readNotify, readNotifyById, readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 import { updateUsers } from "../../db/crud/update";
 import { deleteNotify } from "../../db/crud/z-delete";
-import { userSockets } from "../../socket/socket";
+import { userSockets } from "../../sockets/sockets";
 import { io } from "../../../server";
 
 export async function addUserList(id: any, key: string, value: any) {
@@ -19,8 +19,16 @@ export async function addUserList(id: any, key: string, value: any) {
 export const addPlayerToFriendList = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
     const idNotify = reqBody.idNotify;
+    let notify:any;
 
-    const notify = await readNotifyById(idNotify);
+    try {
+        notify = await readNotifyById(idNotify);
+    } catch (err) {
+        return res.code(404).send({message: "notify not found"});
+    }
+
+    if (notify.idReceiver != req.user!.id)
+        return res.code(403).send({message: "not authorised"});
 
     addUserList(notify.idTransmitter, "friends", notify.idReceiver);
     addUserList(notify.idReceiver, "friends", notify.idTransmitter);
@@ -43,6 +51,8 @@ export const addPlayerToFriendList = async (req:FastifyRequest, res:FastifyReply
 export const addPlayerToBlockedList = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
     const id = reqBody.id;
+    if (id != req.user!.id)
+        return res.code(403).send({message: "not authorised"});
     const keys = Object.keys(reqBody);
     const idPlayer = reqBody[keys[1]!];
 

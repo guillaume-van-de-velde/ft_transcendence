@@ -1,5 +1,5 @@
 import { state } from "../../../index.js";
-import { page } from "../../../vues/index.js";
+import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { quitQueue } from "../../utils/api.js";
@@ -8,7 +8,7 @@ import { renderHome } from "../home.js";
 
 export function renderInSearch() {
     const inSearchPage: PageInstance = {
-        content: page.game.insearch,
+        content: vues.game.insearch,
         level: 0,
         create: inSearch,
     }

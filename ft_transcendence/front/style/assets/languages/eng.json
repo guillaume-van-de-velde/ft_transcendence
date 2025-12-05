@@ -1,0 +1,88 @@
+{
+    "settings": "SETTINGS",
+    "volume": "VOLUME",
+    "key": "KEYS",
+    "account": "ACCOUNT",
+    "language": "LANGUAGE",
+    "general": "GENERAL",
+    "noises": "NOISES",
+    "sMusic": "MUSIC",
+    "email": "EMAIL",
+    "password": "PASSWORD",
+    "pseudo": "PSEUDO",
+    "delete": "DELETE",
+    "sure": "ARE YOU SURE ?",
+    "yes": "YES",
+    "no": "NO",
+    "yourEmail": "YOUR EMAIL : ",
+    "newEmail": "NEW EMAIL : ",
+    "confirm": "CONFIRM : ",
+    "yourPassword": "YOUR PASSWORD : ",
+    "newPassword": "NEW PASSWORD : ",
+    "yourPseudo": "YOUR PSEUDO : ",
+    "newPseudo": "NEW PSEUDO : ",
+    "player1": "PLAYER 1",
+    "player2": "PLAYER 2",
+    "up": "UP",
+    "down": "DOWN",
+
+    "classic": "YOU ARE IN CLASSIC MODE. THIS MODE IS THE PONG WITHOUT FEATURES IN THE GAMEPLAY.",
+    "mmusic": "YOU ARE IN MUSIC MODE. LET'S PLAY WITH FUN !",
+
+    "online": "YOU ARE IN ONLINE MODE. YOU WILL PLAY GAMES AGAINST ONLINE PLAYERS.",
+    "local": "YOU ARE IN LOCAL MODE. THIS MODE NEED 2 PLAYERS ON THE SAME COMPUTER.",
+    "ai": "YOU ARE IN AI MODE. YOU WILL PLAY AGAINST AN ARTIFICIAL INTELLIGENCE.",
+
+    "match": "YOU ARE IN MATCH MODE. YOU WILL PLAY NORMAL MATCHS.",
+    "mtournament": "YOU ARE IN TOURNAMENT MODE. YOU WILL PLAY MATCHS IN A TOURNAMENT.",
+
+
+    "goMusic": "GO IN MUSIC MODE",
+    "goClassic": "GO IN CLASSIC MODE",
+
+    "goOnline": "GO IN ONLINE MODE",
+    "goLocal": "GO IN LOCAL MODE",
+    "goAi": "GO IN AI MODE",
+
+    "goMatch": "GO IN MATCH MODE",
+    "goTournament": "GO IN TOURNAMENT MODE",
+
+    "create": "CREATE",
+    "JOIN": "JOIN",
+    "nameTournament": "TOURNAMENT'S NAME",
+
+    "private": "PRIVATE",
+    "global": "GLOBAL",
+    "notify": "NOTIFY",
+
+    "noFriends": "NO FRIENDS",
+    "noNotify": "NO NOTIFICATIONS",
+
+    "logOut": "LOG OUT",
+    "picture": "PICTURE",
+
+    "stats": "STATS :",
+    "played": "PLAYED :",
+    "winsLoses": "WINS / LOSES :",
+    "stournaments": "TOURNAMENTS :",
+    "winsTournaments": "WINS TOURNAMENTS :",
+
+    "history": "HISTORY",
+    "noHistory": "NO HISTORY",
+    "friends": "FRIENDS",
+    "searchFriend": "search a friend",
+
+    "search": "SEARCH",
+    "searchPlayer": "search a player",
+
+    "add": "ADD +",
+    "takeOff": "TAKE OFF",
+    "remove": "REMOVE",
+
+    "victory": "VICTORY",
+    "defeat": "DEFEAT",
+
+    "quit": "QUIT THE TOURNAMENT",
+    "finished": "TOURNAMENT FINISHED",
+    "wait": "WAIT FOR PLAYERS"
+}

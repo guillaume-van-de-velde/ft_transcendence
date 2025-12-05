@@ -1,0 +1,89 @@
+{
+    "settings": "AJUSTES",
+    "volume": "VOLUMEN",
+    "key": "LLAVES",
+    "account": "CUENTA",
+    "language": "IDIOMA",
+    "general": "GENERAL",
+    "noises": "RUIDOS",
+    "sMusic": "MÚSICA",
+    "email": "EMAIL",
+    "password": "CONTRASEÑA",
+    "pseudo": "SEUDO",
+    "delete": "BORRAR",
+    "sure": "¿ESTÁ SEGURO?",
+    "yes": "SÍ",
+    "no": "NO",
+    "yourEmail": "SU EMAIL :",
+    "newEmail": "NUEVO EMAIL :",
+    "confirm": "CONFIRMADO : ",
+    "yourPassword": "TU CONTRASEÑA : ",
+    "newPassword": "NUEVA CONTRASEÑA : ",
+    "yourPseudo": "SU SEUDO : ",
+    "newPseudo": "NUEVO PSEUDO : ",
+    "player1": "JUGADOR 1",
+    "player2": "JUGADOR 2",
+    "up": "ALTO",
+    "down": "ABAJO",
+
+    "classic": "ESTÁS EN MODO CLÁSICO. ESTE MODO ES EL PONG ORIGINAL SIN ADICIONES.",
+    "mmusic": "ESTÁS EN MODO MÚSICA. ¡VAMOS A JUGAR CON DIVERSIÓN!",
+
+    "online": "ESTÁS EN MODO ONLINE. JUGARÁS CONTRA OTROS JUGADORES ONLINE.",
+    "local": "ESTÁS EN MODO LOCAL. ESTE MODO REQUIERE 2 JUGADORES EN LA MISMA COMPUTADORA.",
+    "ai": "ESTÁS EN MODO IA. JUGARÁS CONTRA UNA INTELIGENCIA ARTIFICIAL.",
+
+    "match": "ESTÁS EN MODO PARTIDO. JUGARÁS PARTIDOS EN FORMATO NORMAL.",
+    "mtournament": "ESTÁS EN MODO TORNEO. VAS A JUGAR PARTIDOS EN UN TORNEO",
+
+
+    "goMusic": "ENTRA EN MODO MÚSICA",
+    "goClassic": "CAMBIAR AL MODO CLÁSICO",
+
+    "goOnline": "MODO ONLINE",
+    "goLocal": "IR AL MODO LOCAL",
+    "goAi": "ENTRA EN MODO IA",
+
+    "goMatch": "ENTRAR EN MODO PARTIDO",
+    "goTournament": "ENTRA EN MODO TORNEO",
+
+    "create": "CREE",
+    "JOIN": "UNIRSE",
+    "nameTournament": "NOMBRE DEL TORNEO",
+
+    "private": "PRIVADO",
+    "global": "GLOBAL",
+    "notify": "NOTIFICACIONES",
+
+    "noFriends": "SIN AMIGOS",
+    "noNotify": "SIN NOTIFICACIONES",
+
+    "logOut": "DESCONEXION",
+    "picture": "FOTO",
+
+    "stats": "ESTADÍSTICAS :",
+    "played": "JUEGOS :",
+    "winsLoses": "VIC / DER :",
+    "stournaments": "TORNEOS :",
+    "winsTournaments": "TORNEOS GANADOS :",
+
+    "history": "HISTÓRICO",
+    "noHistory": "SIN HISTORIA",
+
+    "friends": "AMIGOS",
+    "searchFriend": "buscando un amigo",
+
+    "search": "INVESTIGACIÓN",
+    "searchPlayer": "buscando un jugador",
+
+    "add": "AGREGAR +",
+    "takeOff": "RETIRAR",
+    "remove": "BORRAR",
+
+    "victory": "VICTORIA",
+    "defeat": "DERROTA",
+
+    "quit": "SALIR EL TORNEO",
+    "finished": "TORNEO TERMINADO",
+    "wait": "ESPERA A LOS JUGADORES"
+}

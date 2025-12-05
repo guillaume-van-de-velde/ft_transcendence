@@ -1,0 +1,33 @@
+import { FastifyReply, FastifyRequest } from "fastify";
+import { updateUsers } from "../../db/crud/update";
+import { readUser } from "../../db/crud/read";
+import { KeyUser } from "../../utils/enums";
+import bcrypt from "bcrypt";
+import { app } from "../../../server";
+import jwt from "jsonwebtoken";
+
+export const changePassword = async (req:FastifyRequest, res:FastifyReply) => {
+    const reqBody = (req.body as any);
+    const { id, oldpassword } = reqBody;
+    const password = await bcrypt.hash(reqBody.newpassword, 1);
+
+    if (id != req.user!.id)
+        return res.code(403).send({message: "not authorised"});
+
+    const user = await readUser(id, KeyUser.ID);
+
+    if (!(await bcrypt.compare(oldpassword, user.password)))
+        return res.code(401).send("password not valid");
+
+    updateUsers(id, "password", password);
+    updateUsers(id, "version", user.version + 1);
+    const token = jwt.sign(
+        {
+            id: user.id,
+            version: user.version + 1
+        },
+        process.env.SECRET_KEY!,
+        { expiresIn: '1d' }
+    );
+    return {token};
+}

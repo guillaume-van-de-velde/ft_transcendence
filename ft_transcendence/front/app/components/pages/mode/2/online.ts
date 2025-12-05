@@ -1,5 +1,5 @@
 import { state } from "../../../../index.js";
-import { page } from "../../../../vues/index.js";
+import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
 import { TypeEvent } from "../../../core/state.js";
 import { changeModeCallApi } from "../../../utils/api.js";
@@ -12,7 +12,7 @@ import { renderLocal } from "./local.js";
 
 export function renderOnline() {
     const onlinePage: PageInstance = {
-        content: page.mode[1]!.online!,
+        content: vues.mode[1]!.online!,
         level: 1,
         create: online,
     }

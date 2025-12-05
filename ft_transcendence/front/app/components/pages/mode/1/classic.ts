@@ -1,5 +1,5 @@
 import { state } from "../../../../index.js";
-import { page } from "../../../../vues/index.js";
+import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
 import { TypeEvent } from "../../../core/state.js";
 import { changeModeCallApi } from "../../../utils/api.js";
@@ -14,7 +14,7 @@ import { renderMusic } from "./music.js";
 
 export function renderClassic() {
     const classicPage: PageInstance = {
-        content: page.mode[0]!.classic!,
+        content: vues.mode[0]!.classic!,
         level: 1,
         create: classic,
     }

@@ -1,7 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { app } from "../../server";
-import { resultUserTest } from "../../modelTest";
-import { changeUser } from "./changeUser/changeUser";
+import { changeUser } from "./changeUser/user";
 import { addPlayerToBlockedList, addPlayerToFriendList, addUserList } from "./userList/addUserList";
 import { removeUserInBlockedList, removeUserInFriendsList, removeUserList } from "./userList/removeUserList";
 import { putNotification } from "./notify/putNotification";
@@ -17,42 +16,55 @@ import { takeOffNotification } from "./notify/takeOffNotification";
 import { createGame } from "./game/createGame";
 import { quitQueue } from "./game/quitQueue";
 import { acceptMatch } from "./game/acceptMatch";
-
-export const testAPI = async (req:FastifyRequest, res:FastifyReply) => {
-    return ({ resultUserTest });
-}
+import { tryToConnect } from "./connexion/tryToConnect";
+import { authentication } from "../authentication/authentication";
+import { verifyCode } from "./connexion/code";
+import { changeEmail } from "./changeUser/email";
+import { changePassword } from "./changeUser/password";
+import { verifyEmail } from "./changeUser/verify";
+import { sendPassword } from "./connexion/sendPassword";
+import { deleteAccount } from "./changeUser/delete";
+import { deleteAccountVerify } from "./changeUser/deleteVerify";
+import { movePaddle } from "./game/paddle/move";
+import { stopPaddle } from "./game/paddle/stop";
 
 export function routes() {
-    app.get("/api/test", testAPI);
-
+    app.get("/", tryToConnect);
     app.get("/api/login", connexionAccount);
     app.post("/api/signin", createAccount);
-    app.put("/api/settings/volume/general", changeUser);
-    app.put("/api/settings/volume/noises", changeUser);
-    app.put("/api/settings/volume/music", changeUser);
-    app.put("/api/settings/key/player1/up", changeUser);
-    app.put("/api/settings/key/player1/down", changeUser);
-    app.put("/api/settings/key/player2/up", changeUser);
-    app.put("/api/settings/key/player2/down", changeUser);
-    app.put("/api/settings/account/email", changeUser);
-    app.put("/api/settings/account/password", changeUser);
-    app.put("/api/settings/account/pseudo", changeUser);
-    app.put("/api/settings/language", changeUser);
-    app.put("/api/mode", changeUser);
-    app.put("/api/profile/picture", changeUser);
-    app.post("/api/profile/friends/add", addPlayerToFriendList);
-    app.post("/api/profile/blocked/add", addPlayerToBlockedList);
-    app.delete("/api/profile/friends/remove", removeUserInFriendsList);
-    app.delete("/api/profile/blocked/remove", removeUserInBlockedList);
-    app.post("/api/profile/notify/put", putNotification);
-    app.delete("/api/profile/notify/remove", removeNotification);
-    app.delete("/api/profile/notify/takeoff", takeOffNotification);
-    app.get("/api/profile/search", findPlayer);
-    app.post("/api/mode/tournament/open", openTournament);
-    app.put("/api/mode/tournament/join", joinTournament);
-    app.put("/api/mode/tournament/quit", quitTournament);
-    app.get("/api/player", getDataPlayer);
-    app.post("/api/game/search", createGame);
-    app.delete("/api/game/quit", quitQueue);
-    app.post("/api/game/accept", acceptMatch);
+    app.get("/api/verify", verifyCode);
+    
+    app.put("/api/settings/volume/general", { preHandler: authentication}, changeUser);
+    app.put("/api/settings/volume/noises", { preHandler: authentication}, changeUser);
+    app.put("/api/settings/volume/music", { preHandler: authentication}, changeUser);
+    app.put("/api/settings/key/player1/up", { preHandler: authentication}, changeUser);
+    app.put("/api/settings/key/player1/down", { preHandler: authentication}, changeUser);
+    app.put("/api/settings/key/player2/up", { preHandler: authentication}, changeUser);
+    app.put("/api/settings/key/player2/down", { preHandler: authentication}, changeUser);
+    app.put("/api/settings/account/email", { preHandler: authentication}, changeEmail);
+    app.put("/api/settings/account/password", { preHandler: authentication}, changePassword);
+    app.put("/api/settings/account/pseudo", { preHandler: authentication}, changeUser);
+    app.put("/api/settings/account/verify", { preHandler: authentication}, verifyEmail);
+    app.put("/api/settings/language", { preHandler: authentication}, changeUser);
+    app.delete("/api/settings/delete", { preHandler: authentication}, deleteAccount);
+    app.delete("/api/settings/delete/verify", { preHandler: authentication}, deleteAccountVerify);
+    app.put("/api/mode", { preHandler: authentication}, changeUser);
+    app.put("/api/profile/picture", { preHandler: authentication}, changeUser);
+    app.post("/api/profile/friends/add", { preHandler: authentication}, addPlayerToFriendList);
+    app.post("/api/profile/blocked/add", { preHandler: authentication}, addPlayerToBlockedList);
+    app.delete("/api/profile/friends/remove", { preHandler: authentication}, removeUserInFriendsList);
+    app.delete("/api/profile/blocked/remove", { preHandler: authentication}, removeUserInBlockedList);
+    app.post("/api/profile/notify/put", { preHandler: authentication}, putNotification);
+    app.delete("/api/profile/notify/remove", { preHandler: authentication}, removeNotification);
+    app.delete("/api/profile/notify/takeoff", { preHandler: authentication}, takeOffNotification);
+    app.get("/api/profile/search", { preHandler: authentication}, findPlayer);
+    app.post("/api/mode/tournament/open", { preHandler: authentication}, openTournament);
+    app.put("/api/mode/tournament/join", { preHandler: authentication}, joinTournament);
+    app.put("/api/mode/tournament/quit", { preHandler: authentication}, quitTournament);
+    app.get("/api/player", { preHandler: authentication}, getDataPlayer);
+    app.post("/api/game/search", { preHandler: authentication}, createGame);
+    app.delete("/api/game/quit", { preHandler: authentication}, quitQueue);
+    app.post("/api/game/accept", { preHandler: authentication}, acceptMatch);
+    app.post("/api/game/move", { preHandler: authentication}, movePaddle);
+    app.post("/api/game/stop", { preHandler: authentication}, stopPaddle);
 }

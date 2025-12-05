@@ -1,5 +1,5 @@
 import { state } from "../../../index.js";
-import { page } from "../../../vues/index.js";
+import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
@@ -11,7 +11,7 @@ import { checkSeen } from "../../utils/notifySocket.js";
 
 export function renderNotify() {
     const notifyPage: PageInstance = {
-        content: page.messages.notify,
+        content: vues.messages.notify,
         level: 1,
         create: notify,
     }

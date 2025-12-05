@@ -1,5 +1,5 @@
 import { state } from "../../../index.js";
-import { page } from "../../../vues/index.js";
+import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent } from "../../utils/globalEvents.js";
@@ -11,7 +11,7 @@ import { renderVolume } from "./volume.js";
 
 export function renderSettings() {
     const settingsPage: PageInstance = {
-        content: page.settings.settings,
+        content: vues.settings.settings,
         level: 1,
         create: settings,
     }

@@ -17,7 +17,7 @@ export async function readUser(dataGiven:string, key:KeyUser, otherUser = false)
 export async function readUserWithEmail(email:string) {
     const userId = await db.get(
         `
-            SELECT id, password
+            SELECT id, password, version
             FROM users 
             WHERE email = ?
         `,

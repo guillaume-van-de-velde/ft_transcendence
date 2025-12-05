@@ -13,18 +13,10 @@ export function language_HTML(): string {
         </span>
         <div class="w-full h-1/2 flex justify-center items-center">
             <div class="w-[80%] h-1/2 grid grid-cols-[1fr_1fr_1fr_1fr] justify-center items-center">
-                <button id="ENG" class="bg-blue-800 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
-                    ENG
-                </button>
-                <button id="FRA" class="bg-blue-300 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
-                    FRA
-                </button>
-                <button id="ESP" class="bg-red-500 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
-                    ESP
-                </button>
-                <button id="RUS" class="bg-purple-500 w-[150px] h-[150px] mx-auto rounded-full hover:tracking-widest hover:w-[175px] hover:h-[175px] duration-300 text-4xl cursor-pointer">
-                    RUS
-                </button>
+                <button id="ENG" class="bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/langfr-250px-Flag_of_the_United_Kingdom_%283-5%29.svg.png')] bg-center bg-cover w-[150px] h-[150px] mx-auto rounded-full duration-300 text-4xl cursor-pointer"></button>
+                <button id="FRA" class="bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/langfr-250px-Flag_of_France.svg.png')] bg-center bg-cover w-[150px] h-[150px] mx-auto rounded-full duration-300 text-4xl cursor-pointer"></button>
+                <button id="ESP" class="bg-[url('https://img.freepik.com/vecteurs-premium/illustration-vectorielle-du-drapeau-espagne_109161-7904.jpg?semt=ais_hybrid&w=740&q=80')] bg-center bg-cover w-[150px] h-[150px] mx-auto rounded-full duration-300 text-4xl cursor-pointer"></button>
+                <button id="RUS" class="bg-[url('https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg')] bg-center bg-cover w-[150px] h-[150px] mx-auto rounded-full duration-300 text-4xl cursor-pointer"></button>
             </div>
         </div>
         <div class="flex justify-center items-center">

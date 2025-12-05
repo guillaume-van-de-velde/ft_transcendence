@@ -1,4 +1,4 @@
-import { page } from "../../../../vues/index.js";
+import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
 import { state } from "../../../../index.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
@@ -9,7 +9,7 @@ import { changeModeCallApi } from "../../../utils/api.js";
 
 export function renderAi() {
     const aiPage: PageInstance = {
-        content: page.mode[1]!.ai!,
+        content: vues.mode[1]!.ai!,
         level: 1,
         create: ai,
     }

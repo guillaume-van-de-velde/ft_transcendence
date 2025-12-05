@@ -1,5 +1,5 @@
 import { state } from "../../../index.js";
-import { page } from "../../../vues/index.js";
+import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer, renderPlayerMessages } from "../../utils/globalEvents.js";
@@ -12,7 +12,7 @@ import { sendMessageToUser } from "../../utils/emitSocket.js";
 
 export function renderPrivateMessage() {
     const privatePage: PageInstance = {
-        content: page.messages.private,
+        content: vues.messages.private,
         level: 1,
         create: privateMessage,
     }

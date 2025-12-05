@@ -105,6 +105,10 @@ export interface Match {
     sockets: [Socket | undefined, Socket | undefined],
     booking?: [number, number] | null | undefined,
     invite?: [number, number] | null | undefined,
+    renderGameAPI?:{
+        move: Function,
+        stop: Function
+    };
 }
 
 export interface Tournament {
@@ -114,4 +118,19 @@ export interface Tournament {
     mode: string,
     round: number,
     users: UserInTournament[]
+}
+
+export interface Verify {
+    code: number,
+    expire: number,
+    email: string,
+    password: string,
+    pseudo: string | null,
+    newEmail: string | null
+}
+
+export interface Provisionnal {
+    email: string,
+    password: string,
+    expire: number
 }

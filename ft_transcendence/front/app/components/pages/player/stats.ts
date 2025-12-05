@@ -1,5 +1,5 @@
 import { state } from "../../../index.js";
-import { page } from "../../../vues/index.js";
+import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { dataPlayerCallAPI } from "../../utils/api.js";
@@ -11,7 +11,7 @@ export function renderStats(e:Event) {
     if (state.actual == "showPlayerHistory" && clickOnNewPlayer(e))
         delete state.playerData;
     const statsPage: PageInstance = {
-        content: page.player.stats,
+        content: vues.player.stats,
         level: 2,
         create: stats,
     }

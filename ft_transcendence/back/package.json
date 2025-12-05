@@ -6,17 +6,28 @@
   "author": "",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon build/server.js --ignore logs.json",
+    "server": "nodemon build/server.js",
     "build": "tsc --watch --project config/tsconfig.json"
   },
   "dependencies": {
     "@fastify/cors": "^11.1.0",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
     "fastify": "^5.6.1",
+    "howler": "^2.2.4",
+    "jsonwebtoken": "^9.0.2",
+    "node-web-audio-api": "^1.0.7",
+    "nodemailer": "^7.0.11",
     "socket.io": "^4.8.1",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "web-audio-api": "^0.2.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/howler": "^2.2.12",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/nodemailer": "^7.0.4",
     "@types/socket.io": "^3.0.1",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",

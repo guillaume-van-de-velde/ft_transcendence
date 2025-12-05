@@ -1,5 +1,5 @@
 import { state } from "../../../../index.js";
-import { page } from "../../../../vues/index.js";
+import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
 import { TypeEvent } from "../../../core/state.js";
 import { changeModeCallApi } from "../../../utils/api.js";
@@ -11,7 +11,7 @@ import { renderTournament } from "./tournament.js";
 
 export function renderMatch() {
     const matchPage: PageInstance = {
-        content: page.mode[2]!.match!,
+        content: vues.mode[2]!.match!,
         level: 1,
         create: match,
     }

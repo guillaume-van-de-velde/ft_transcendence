@@ -1,5 +1,5 @@
 import { state } from "../../../../../index.js";
-import { page } from "../../../../../vues/index.js";
+import { vues } from "../../../../../vues/vues.js";
 import { render } from "../../../../core/render.js";
 import { quitTournamentCallAPI } from "../../../../utils/api.js";
 import { close2Event, closeEvent } from "../../../../utils/globalEvents.js";
@@ -9,7 +9,7 @@ import { renderResultsTournament } from "./results.js";
 
 export function renderQuitTournament() {
     const quitPage: PageInstance = {
-        content: page.mode[2]!.tournament!.action.quit,
+        content: vues.mode[2]!.tournament!.action.quit,
         level: 2,
         create: quitTournament,
     }

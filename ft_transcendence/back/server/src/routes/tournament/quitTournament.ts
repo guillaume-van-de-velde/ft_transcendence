@@ -10,6 +10,8 @@ export const quitTournament = async (req:FastifyRequest, res:FastifyReply) => {
     const id = reqBody.id;
     const idTournament = reqBody.tournament;
 
+    if (id != req.user!.id)
+        return res.code(403).send({message: "not authorised"});
     if (idTournament) {
         const dataTournament = await readTournament(idTournament, KeyTournament.ID);
         if (dataTournament) {

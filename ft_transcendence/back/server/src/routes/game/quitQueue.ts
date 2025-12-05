@@ -7,6 +7,9 @@ export const quitQueue = async (req:FastifyRequest, res:FastifyReply) => {
     const id = reqBody.id;
     const tournamentId = reqBody.tournament;
 
+    if (id != req.user!.id)
+        return res.code(403).send({message: "not authorised"});
+
     if (tournamentId) {
         const tournament = tournamentsManagement.find(t => t.id == tournamentId);
         if (!tournament)

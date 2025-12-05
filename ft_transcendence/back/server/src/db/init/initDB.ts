@@ -5,11 +5,11 @@ import path from "path";
 
 export async function initDB() {
 
-    const dbPath = path.resolve(__dirname, "../../../db.sqlite");
+    const dbPath = path.resolve(__dirname, process.env.DB_PATH!);
 
-    if (fs.existsSync(dbPath)) {
-        fs.unlinkSync(dbPath);
-    }
+    // if (fs.existsSync(dbPath)) {
+    //     fs.unlinkSync(dbPath);
+    // }
     const db = await open({
         filename: dbPath,
         driver: sqlite3.Database,

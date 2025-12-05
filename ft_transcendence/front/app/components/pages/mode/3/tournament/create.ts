@@ -1,5 +1,5 @@
 import { state } from "../../../../../index.js";
-import { page } from "../../../../../vues/index.js";
+import { vues } from "../../../../../vues/vues.js";
 import { render } from "../../../../core/render.js";
 import { createTournamentCallApi } from "../../../../utils/api.js";
 import { close2Event, closeEvent } from "../../../../utils/globalEvents.js";
@@ -7,7 +7,7 @@ import { PageInstance } from "../../../../utils/interfaces.js";
 
 export function renderCreateTournament() {
     const createPage: PageInstance = {
-        content: page.mode[2]!.tournament!.action.create,
+        content: vues.mode[2]!.tournament!.action.create,
         level: 2,
         create: createTournament,
     }

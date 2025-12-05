@@ -4,9 +4,17 @@ export function history_user_HTML(): string {
             <p class="translate-y-0.5">X</p>
         </span>
 
+        <span id="disconnect" class="absolute min-w-[200px] h-[50px] flex items-center justify-center text-2xl cursor-pointer hover:text-black hover:bg-white duration-300 translate-x-90 translate-y-15 rounded-full">
+            LOG OUT
+        </span>
+
+        <span id="changePicture" class="absolute min-w-[200px] h-[50px] flex items-center justify-center text-2xl cursor-pointer hover:text-black hover:bg-white duration-300 translate-x-90 translate-y-30 rounded-full">
+            PICTURE
+        </span>
+
         <div class="flex justify-center items-center h-1/4">
             <div class="w-[12%] flex justify-center items-center">
-                <button id="picture" class="logout avatar cursor-pointer hover:w-[120px] hover:h-[120px] duration-300 bg-button-white-bg text-black rounded-full h-[100px] w-[100px] text-6xl font-david">
+                <button id="picture" class="logout avatar bg-button-white-bg text-black rounded-full h-[100px] w-[100px] text-6xl font-david">
                     J
                 </button>
             </div>

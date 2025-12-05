@@ -1,5 +1,5 @@
 import { state } from "../../../../../index.js";
-import { page } from "../../../../../vues/index.js";
+import { vues } from "../../../../../vues/vues.js";
 import { render } from "../../../../core/render.js";
 import { joinTournamentCallApi } from "../../../../utils/api.js";
 import { close2Event } from "../../../../utils/globalEvents.js";
@@ -7,7 +7,7 @@ import { PageInstance } from "../../../../utils/interfaces.js";
 
 export function renderJoinTournament() {
     const joinPage: PageInstance = {
-        content: page.mode[2]!.tournament!.action.join,
+        content: vues.mode[2]!.tournament!.action.join,
         level: 2,
         create: joinTournament,
     }

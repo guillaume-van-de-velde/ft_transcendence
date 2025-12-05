@@ -18,9 +18,10 @@ export async function createUser(email:string, password:string, pseudo:string, p
                 player2KeyUp,
                 player2KeyDown,
                 friends,
-                blocked
+                blocked,
+                version
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `,
         [
             pseudo,
@@ -37,7 +38,8 @@ export async function createUser(email:string, password:string, pseudo:string, p
             "/",
             "ContextMenu",
             "",
-            ""
+            "",
+            1
         ]
     );
     return (result.lastID!);
@@ -118,7 +120,7 @@ export async function createTournament(name:string, mode: string, id:number) {
 
 export async function createMatch(idPlayer1:number, idPlayer2:number, pointsPlayer1:number, pointsPlayer2:number, mode:string, date:string, hour:string) {
     await db.run(`
-            INSERT INTO Matches (
+            INSERT INTO matches (
                 idPlayer1,
                 idPlayer2,
                 pointsPlayer1,

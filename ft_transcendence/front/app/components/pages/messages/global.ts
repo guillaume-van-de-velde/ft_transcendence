@@ -1,5 +1,5 @@
 import { state } from "../../../index.js";
-import { page } from "../../../vues/index.js";
+import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
@@ -12,7 +12,7 @@ import { globalMessageSend } from "../../utils/emitSocket.js";
 
 export function renderGlobal() {
     const globalPage: PageInstance = {
-        content: page.messages.global,
+        content: vues.messages.global,
         level: 1,
         create: global,
     }

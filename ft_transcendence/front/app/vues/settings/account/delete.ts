@@ -21,13 +21,13 @@ export function delete_HTML(): string {
             </div>
             <div class="flex justify-around w-[60%] h-1/2">
                 <div class="w-1/2 flex justify-center">
-                    <button class="h-[100px] w-[100px] bg-button-white-bg text-black rounded-full text-4xl hover:tracking-[10px] hover:h-[120px] hover:w-[120px] duration-300 cursor-pointer">
-                    YES
+                    <button id="yesDelete" class="h-[100px] w-[100px] bg-button-white-bg text-black rounded-full text-4xl hover:tracking-[10px] hover:h-[120px] hover:w-[120px] duration-300 cursor-pointer">
+                        YES
                     </button>
                 </div>
                 <div class="w-1/2 flex justify-center">
-                    <button class="h-[100px] w-[100px] bg-button-white-bg text-black rounded-full text-4xl hover:tracking-[10px] hover:h-[120px] hover:w-[120px] duration-300 cursor-pointer">
-                    NO
+                    <button id="noDelete" class="h-[100px] w-[100px] bg-button-white-bg text-black rounded-full text-4xl hover:tracking-[10px] hover:h-[120px] hover:w-[120px] duration-300 cursor-pointer">
+                        NO
                     </button>
                 </div>
             </div>

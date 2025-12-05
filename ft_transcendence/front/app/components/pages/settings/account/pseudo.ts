@@ -1,5 +1,5 @@
 import { state } from "../../../../index.js";
-import { page } from "../../../../vues/index.js";
+import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
 import { TypeEvent } from "../../../core/state.js";
 import { closeEvent } from "../../../utils/globalEvents.js";
@@ -10,7 +10,7 @@ import { renderSettings } from "../settings.js";
 
 export function renderPseudo() {
     const pseudoPage: PageInstance = {
-        content: page.settings.account.action.pseudo,
+        content: vues.settings.account.action.pseudo,
         level: 1,
         create: pseudo,
     }

@@ -1,7 +1,7 @@
 export function login_HTML(): string {
     return `
     <div class="app bg-home-bg text-white h-screen justify-center items-center font-dangrek flex flex-col">
-        <div class="felx flex-col h-2/3 w-full justify-around items-center mx-auto">
+        <div class="h-2/3 w-full mx-auto">
             <span class="text-3xl flex justify-center items-center tracking-widest">
             <p>
                 <p id="connexionBtn" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">CONNEXION</p><p class="whitespace-pre opacity-50"> > LOG IN</p>
@@ -19,14 +19,14 @@ export function login_HTML(): string {
                     </div>
                     <input type="text" id="password" name="password" class="bg-form-bg text-white text-5xl w-[100%] rounded-2xl text-center focus:outline-none">
                 </div>
-                <button type="submit" class="absolute h-[75px] w-[75px] rounded-full bg-button-white-bg bottom-18 translate-y-1/2 right-140 translate-x-40 text-black text-3xl hover:h-[80px] hover:w-[80px] duration-300 cursor-pointer">
+                <button id="forgotBtn" class="absolute h-[75px] w-[75px] rounded-full bg-button-white-bg bottom-18 translate-y-1/2 right-140 translate-x-40 text-black text-3xl hover:h-[80px] hover:w-[80px] duration-300 cursor-pointer">
                     <i class="fa-solid fa-question"></i>
                 </button>
                 <button type="submit" class="absolute h-[75px] w-[75px] rounded-full bg-button-white-bg -bottom-10 translate-y-1/2 right-140 translate-x-40 text-black text-3xl hover:h-[80px] hover:w-[80px] duration-300 cursor-pointer">
                     <i class="fa-solid fa-check"></i>
                 </button>
             </form>
-        </div> 
+        </div>
     </div>
     `
 }

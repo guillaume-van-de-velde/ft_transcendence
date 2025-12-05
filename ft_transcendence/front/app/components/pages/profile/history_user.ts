@@ -1,17 +1,18 @@
 import { state } from "../../../index.js";
-import { page } from "../../../vues/index.js";
+import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
-import { historyAPI, pictureAPI, profileAPI } from "../../utils/api.js";
+import { disconnect, historyAPI, pictureAPI, profileAPI } from "../../utils/api.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderFriends } from "./friends.js";
 import { renderSearch } from "./search.js";
 import { renderStatsUser } from "./stats_user.js";
+import { renderPicture } from "./picture/picture.js";
 
 export function renderHistoryUser() {
     const historyUserPage: PageInstance = {
-        content: page.profile.history,
+        content: vues.profile.history,
         level: 1,
         create: historyUser,
     }
@@ -23,15 +24,21 @@ export function historyUser() {
     const friends = document.getElementById("friends");
     const search = document.getElementById("search");
     const matchs = document.getElementById("matchs");
+    const changePicture = document.getElementById("changePicture");
+    const disconnectBtn = document.getElementById("disconnect");
 
     profileAPI();
     historyAPI(matchs);
 
+    disconnectBtn?.addEventListener("click", disconnect);
+    changePicture?.addEventListener("click", renderPicture);
     stats?.addEventListener("click", renderStatsUser);
     friends?.addEventListener("click", renderFriends);
     search?.addEventListener("click", renderSearch);
 
     state.events = new Map<Element | null, TypeEvent>([
+        [disconnectBtn, {type: "click", callback: disconnect}],
+        [changePicture, {type: "click", callback: renderPicture}],
         [stats, {type: "click", callback: renderStatsUser}],
         [friends, {type: "click", callback: renderFriends}],
         [search, {type: "click", callback: renderSearch}]

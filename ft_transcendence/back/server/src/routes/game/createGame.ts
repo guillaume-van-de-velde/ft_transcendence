@@ -1,11 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { userSockets } from "../../socket/socket";
+import { userSockets } from "../../sockets/sockets";
 import { Match, Tournament, UserShortData } from "../../utils/enums";
-import { io } from "../../../server";
+import { musicLevels, musicTime } from "../../../server";
 import { createMatch } from "../../db/crud/create";
 import { sendTournamentStateToPlayers, tournamentsManagement } from "../tournament/tournament";
-import { write } from "../../../server";
-import util from "util";
 import { updateTournaments } from "../../db/crud/update";
 
 export const gameManagement: Match[] | null = [];
@@ -116,8 +114,15 @@ function renderGame(match:Match) {
         stopPlayer(2, direction);
     });
 
-    const intervalId = setInterval(update, 1000 / 120);
-    
+    match.renderGameAPI = {
+        move: (player:number, direction:string) => movePlayer(player, direction),
+        stop: (player:number, direction:string) => stopPlayer(player, direction)
+    };
+
+    let intervalId:any;
+
+    intervalId = setInterval(update, 1000 / 120);
+
     function update() {
         let nextPlayer1Y = player1.y + player1.velocityY;
         if (!outOfBounds(nextPlayer1Y))
@@ -127,20 +132,34 @@ function renderGame(match:Match) {
         if (!outOfBounds(nextPlayer2Y))
             player2.y = nextPlayer2Y;
 
-        ball.x += ball.velocityX;
-        ball.y += ball.velocityY;
+        if (match.mode[0] == 'M') {
+            ball.x += parseFloat((ball.velocityX * getLevel()!).toFixed(2));
+            ball.y += parseFloat((ball.velocityY * getLevel()!).toFixed(2));
+        } else {
+            ball.x += ball.velocityX;
+            ball.y += ball.velocityY;
+        }
 
         if (ball.y <= 0 || (ball.y + ball.height) >= boardHeight) {
             ball.velocityY *= -1;
         }
 
         if (detectCollision(ball, player1)) {
-            if (ball.x <= player1.x + player1.width)
-                ball.velocityX *= -1;
-        }
-        else if (detectCollision(ball, player2)) {
-            if (ball.x + ballWidth > player2.x)
-                ball.velocityX *= -1;
+            if (ball.x <= player1.x + player1.width) {
+                ball.x = player1.x + player1.width + 1;
+                const random = 0.5 - parseFloat(Math.random().toFixed(2));
+                const oldVelocity = Math.abs(ball.velocityX) + Math.abs(ball.velocityY);
+                ball.velocityY = random * oldVelocity;
+                ball.velocityX = oldVelocity - Math.abs(ball.velocityY);
+            }
+        } else if (detectCollision(ball, player2)) {
+            if (ball.x + ballWidth > player2.x) {
+                ball.x = player2.x - ballWidth - 1;
+                const random = 0.5 - parseFloat(Math.random().toFixed(2));
+                const oldVelocity = Math.abs(ball.velocityX) + Math.abs(ball.velocityY);
+                ball.velocityY = random * oldVelocity;
+                ball.velocityX = - (oldVelocity - Math.abs(ball.velocityY));
+            }
         }
 
         if (ball.x < 0) {
@@ -243,6 +262,20 @@ function renderGame(match:Match) {
             velocityY: velocity
         }
     }
+
+    let musicStart = Date.now();
+    let delta = musicLevels.length / musicTime;
+    let elapsed = 0;
+
+    function getLevel() {
+        elapsed = Date.now() - musicStart;
+        const index = Math.round((elapsed / 1000) * delta);
+        if (index >= musicLevels.length) {
+            musicStart = Date.now();
+            return 0;
+        }
+        return musicLevels[index]!;
+    }
 }
 
 function startMatch(match:Match) {
@@ -340,6 +373,8 @@ export const createGame = async (req:FastifyRequest, res:FastifyReply) => {
     const tournamentId = reqBody.tournament;
     const tournament = tournamentsManagement.find(t => t.id == tournamentId);
 
+    if (user.id != req.user!.id)
+        return res.code(403).send({message: "not authorised"});
     if (tournamentId && tournament?.status == "START")
         manageTournamentQueue(tournament, user);
     else if (tournamentId || mode[3] == "T")

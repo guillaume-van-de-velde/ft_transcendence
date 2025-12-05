@@ -15,7 +15,6 @@ export function home_HTML(): string {
                 </div>
                 <div class="flex justify-center w-1/3">
                     <button id="profile" class="cursor-pointer text-black bg-button-white-bg h-25 w-25 rounded-full text-7xl hover:scale-110 duration-300">
-                        J
                     </button>
                 </div>
             </header>

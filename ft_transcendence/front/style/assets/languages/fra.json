@@ -1,0 +1,89 @@
+{
+    "settings": "PARAMETRES",
+    "volume": "VOLUME",
+    "key": "TOUCHES",
+    "account": "COMPTE",
+    "language": "LANGUAGE",
+    "general": "GENERAL",
+    "noises": "BRUITS",
+    "sMusic": "MUSIQUE",
+    "email": "EMAIL",
+    "password": "MOT DE PASSE",
+    "pseudo": "PSEUDO",
+    "delete": "SUPPRIMER",
+    "sure": "ES-TU SUR ?",
+    "yes": "OUI",
+    "no": "NON",
+    "yourEmail": "TON EMAIL : ",
+    "newEmail": "NOUVEAU EMAIL : ",
+    "confirm": "CONFIRME : ",
+    "yourPassword": "TON MOT DE PASSE : ",
+    "newPassword": "NOUVEAU PASSWORD : ",
+    "yourPseudo": "TON PSEUDO : ",
+    "newPseudo": "NOUVEAU PSEUDO : ",
+    "player1": "JOUEUR 1",
+    "player2": "JOUEUR 2",
+    "up": "HAUT",
+    "down": "BAS",
+
+    "classic": "TU ES EN CLASSIQUE MODE. CE MODE EST LE PONG ORIGINAL SANS AJOUTS.",
+    "mmusic": "TU ES EN MODE MUSIQUE. C'EST PARTI POUR JOUER AVEC FUN !",
+
+    "online": "TU ES EN MODE EN LIGNE. TU VA JOUER DES PARTIES CONTRE D'AUTRES JOUEURS EN LIGNE.",
+    "local": "TU ES EN MODEE LOCAL. CE MODE NECESSITE 2 JOUEURS SUR LE MEME ORDINATEUR.",
+    "ai": "TU ES EN MODE IA. TU VA JOUER CONTRE UN INTELLIGENCE ARTIFICIELLE.",
+
+    "match": "TU ES EN MODE MATCH. TU VA JOUER DES MATCHS SOUS UN FORMAT NORMAL.",
+    "mtournament": "TU ES EN MODE TOURNOI. TU VA JOUER DES MATCHS DANS UN TOURNOI",
+
+
+    "goMusic": "ALLER EN MODE MUSIQUE",
+    "goClassic": "ALLER EN MODE CLASSIQUE",
+
+    "goOnline": "ALLER EN MODE EN LIGNE",
+    "goLocal": "ALLER EN MODE LOCAL",
+    "goAi": "ALLER EN MODE IA",
+
+    "goMatch": "ALLER EN MODE MATCH",
+    "goTournament": "ALLER EN MODE TOURNOI",
+
+    "create": "CREE",
+    "JOIN": "REJOINDRE",
+    "nameTournament": "NOM DU TOURNOI",
+
+    "private": "PRIVEE",
+    "global": "GLOBALE",
+    "notify": "NOTIFICATIONS",
+
+    "noFriends": "PAS D'AMIS",
+    "noNotify": "PAS DE NOTIFICATIONS",
+
+    "logOut": "DECONNEXION",
+    "picture": "PHOTO",
+
+    "stats": "STATS :",
+    "played": "JOUEES :",
+    "winsLoses": "VIC / DEF :",
+    "stournaments": "TOURNOIS :",
+    "winsTournaments": "TOURNOIS GAGNES :",
+
+    "history": "HISTORIQUE",
+    "noHistory": "PAS D'HISTORIQUE",
+
+    "friends": "AMIS",
+    "searchFriend": "recherche un ami",
+
+    "search": "RECHERCHE",
+    "searchPlayer": "recherche un joueur",
+
+    "add": "AJOUTER +",
+    "takeOff": "RETIRER",
+    "remove": "SUPPRIMER",
+
+    "victory": "VICTOIRE",
+    "defeat": "DEFAITE",
+
+    "quit": "QUITTER LE TOURNOI",
+    "finished": "TOURNOI FINI",
+    "wait": "ATTENDRE LES JOUEURS"
+}

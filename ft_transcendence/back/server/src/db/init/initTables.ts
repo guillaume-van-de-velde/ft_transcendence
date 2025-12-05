@@ -19,7 +19,8 @@ export async function initTableUsers() {
             player2KeyUp TEXT,
             player2KeyDown TEXT,
             friends TEXT,
-            blocked TEXT
+            blocked TEXT,
+            version INTEGER
         )
     `)
 }

@@ -2,9 +2,8 @@ import { Socket } from "socket.io";
 import { readTournament } from "../../db/crud/read";
 import { updateStatusTournaments, updateTournaments } from "../../db/crud/update";
 import { KeyTournament, StatusTournament, Tournament } from "../../utils/enums";
-import { userSockets } from "../../socket/socket";
+import { userSockets } from "../../sockets/sockets";
 import { gameManagement } from "../game/createGame";
-import { write } from "../../../server";
 import util from "util";
 
 export const tournamentsManagement: Tournament[] = [];

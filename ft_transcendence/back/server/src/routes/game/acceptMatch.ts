@@ -3,7 +3,7 @@ import { deleteNotify } from "../../db/crud/z-delete";
 import { readNotifyById, readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 import { gameManagement } from "./createGame";
-import { userSockets } from "../../socket/socket";
+import { userSockets } from "../../sockets/sockets";
 import { createPrivateMessage } from "../../db/crud/create";
 
 export const acceptMatch = async (req:FastifyRequest, res:FastifyReply) => {
@@ -11,6 +11,9 @@ export const acceptMatch = async (req:FastifyRequest, res:FastifyReply) => {
     const idNotify = reqBody.idNotify;
 
     const notify = await readNotifyById(idNotify);
+
+    if (notify.idReceiver != req.user!.id)
+        return res.code(403).send({message: "not authorised"});
 
     deleteNotify(idNotify);
 

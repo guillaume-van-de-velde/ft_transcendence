@@ -3,7 +3,7 @@ import { readTournament, readUser } from "../../db/crud/read";
 import { KeyTournament, KeyUser, StatusTournament, Tournament } from "../../utils/enums";
 import { updateStatusTournaments, updateUsers, updateUserTournaments } from "../../db/crud/update";
 import { parseUsersTournament } from "../connexion/parse/usersTournament";
-import { userSockets } from "../../socket/socket";
+import { userSockets } from "../../sockets/sockets";
 import { Socket } from "socket.io";
 import { sendTournamentStateToPlayers, startTournament, tournamentsManagement } from "./tournament";
 
@@ -12,6 +12,8 @@ export const joinTournament = async (req:FastifyRequest, res:FastifyReply) => {
     const id = reqBody.id;
     const nameTournament = reqBody.name;
 
+    if (id != req.user!.id)
+        return res.code(403).send({message: "not authorised"});
     const searchTournament = await readTournament(nameTournament, KeyTournament.NAME);
     if (searchTournament) {
         let i = 1;

@@ -1,5 +1,5 @@
 import { state } from "../../index.js";
-import { page } from "../../vues/index.js";
+import { vues } from "../../vues/vues.js";
 import { render } from "../core/render.js";
 import { TypeEvent } from "../core/state.js";
 import { pictureAPI, searchGame } from "../utils/api.js";
@@ -14,7 +14,7 @@ import { renderSettings } from "./settings/settings.js";
 
 export function renderHome() {
     const homePage: PageInstance = {
-        content: page.home,
+        content: vues.home,
         level: 0,
         create: home,
     }

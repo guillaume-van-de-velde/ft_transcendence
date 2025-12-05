@@ -5,7 +5,7 @@ import { requestAPI } from "./components/utils/requestApi.js";
 import { closeClicked } from "./components/utils/globalEvents.js";
 import { PageInstance } from "./components/utils/interfaces.js";
 import { pageRegistery } from "./components/utils/pageRegistery.js";
-import { page } from "./vues/index.js";
+import { vues } from "./vues/vues.js";
 import { friends } from "./components/pages/profile/friends.js";
 import { renderPrivateMessage } from "./components/pages/messages/private.js";
 import { renderGlobal } from "./components/pages/messages/global.js";
@@ -16,8 +16,22 @@ import { renderResultsTournament } from "./components/pages/mode/3/tournament/re
 
 export let state: AppState;
 declare const io:any;
-
 export let socket:any;
+export let token:string | null = null;
+
+export function getToken() {
+  return token;
+}
+
+export function setToken(newToken: string) {
+  token = newToken;
+  localStorage.setItem("TokenTranscendence", newToken);
+}
+
+export function removeToken() {
+  token = null;
+  localStorage.removeItem("TokenTranscendence");
+}
 
 function reRenderForNotify() {
 	switch (state.actual) {
@@ -119,15 +133,14 @@ function socketManagement() {
 	});
 }
 
-export async function initState(API:any) {
-	// API = await requestAPI("http://localhost:4400/api/login", {
-	// 	method: "GET",
-	// 	headers: {
-	// 		"Content-Type": "application/json",
-    //         "email": "doudou@gmail.com",
-    //         "password": "123"
-	// 	}
-	// });
+export async function initState(APIandToken:any) {
+	if (APIandToken.token) {
+		localStorage.setItem("TokenTranscendence", APIandToken.token);
+		token = APIandToken.token;
+	}
+	const API = APIandToken.data;
+	console.log("init", API);
+	
 	state = {
 		link: "http://localhost:4400",
 		events: new Map<Element | null, TypeEvent>(),
@@ -157,6 +170,10 @@ export async function initState(API:any) {
 		})
 	}
 	console.log(state);
+}
+
+export function userConnexionAccepted(API:any) {
+	initState(API);
 	socketManagement();
 	setInterval(timer, 1000);
 	renderHome();
@@ -169,7 +186,7 @@ function timer() {
 	}
 }
 
-function setStateUserNotConnected() {
+export function setStateUserNotConnected() {
 	state = {
 		link: "",
 		events: new Map<Element | null, TypeEvent>(),
@@ -229,13 +246,28 @@ function setStateUserNotConnected() {
 	}
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-	// const token = tokenAccepted();
-	// if (token)
-	// 	initState(token);
+async function tryConnexionWithToken() {
+	token = localStorage.getItem("TokenTranscendence");
+	if (!token)
+		return null;
+	
+	const API = await requestAPI("http://localhost:4400", {
+		method: "GET"
+	});
 
-	// initState(null);
+	console.log(API);
+	
+	if (!API || API == "token connexion refused")
+		return null;
+	return API;
+}
 
-	setStateUserNotConnected();
-	renderConnexion();
+document.addEventListener("DOMContentLoaded", async () => {
+	const API = await tryConnexionWithToken();
+	if (API)
+		userConnexionAccepted(API);
+	else {
+		setStateUserNotConnected();
+		renderConnexion();
+	}
 });
