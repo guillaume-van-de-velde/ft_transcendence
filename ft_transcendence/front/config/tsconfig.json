@@ -27,5 +27,6 @@
   },
 
   "include": ["../app/**/*"],
-  "exclude": ["../build"]
+  "exclude": ["../build"],
+
 }

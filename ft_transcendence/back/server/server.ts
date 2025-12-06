@@ -13,6 +13,8 @@ import jwt from "jsonwebtoken";
 import { authentication } from "./src/authentication/authentication.js";
 import nodemailer from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport/index.js";
+import fastifyStatic from "@fastify/static";
+import path from "path";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -62,6 +64,14 @@ function setupMusic() {
 	console.log(`[SERVER] Musique analysée chargée (${musicLevels.length} valeurs)`);
 }
 
+function setupFront() {
+	const frontPath = process.env.FRONT_PATH!;
+	app.register(fastifyStatic, {
+		root: frontPath,
+		prefix: "/"
+	});
+}
+
 const start = () => {
 	try {
 		app.listen({ port, host: process.env.HOST! });
@@ -76,6 +86,7 @@ async function backendStart() {
 	await setupCors();
 	app.decorate("user", null);
 	app.decorate('auth', authentication);
+	setupFront();
 	setupNodemailer();
 	setupSocket();
 	activeSocket();

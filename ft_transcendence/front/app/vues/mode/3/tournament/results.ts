@@ -165,7 +165,7 @@ export function results_HTML(): string {
             <p class="text-2xl"></p>
         </span>
         <button id="quit" class="absolute right-20 bottom-20 bg-button-white-bg text-black font-dangrek tracking-widest text-xl rounded-full h-[50px] w-[300px] hover:h-[calc(50px*1.1)] hover:w-[calc(300px*1.1)] cursor-pointer duration-300">
-            QUIT THE TOURNAMENT
+            ${i18next.t("quitTournament")}
         </button>
     `
 }

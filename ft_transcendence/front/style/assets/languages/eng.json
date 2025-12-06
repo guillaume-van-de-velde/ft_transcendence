@@ -6,7 +6,7 @@
     "language": "LANGUAGE",
     "general": "GENERAL",
     "noises": "NOISES",
-    "sMusic": "MUSIC",
+    "smusic": "MUSIC",
     "email": "EMAIL",
     "password": "PASSWORD",
     "pseudo": "PSEUDO",
@@ -14,19 +14,18 @@
     "sure": "ARE YOU SURE ?",
     "yes": "YES",
     "no": "NO",
-    "yourEmail": "YOUR EMAIL : ",
-    "newEmail": "NEW EMAIL : ",
-    "confirm": "CONFIRM : ",
-    "yourPassword": "YOUR PASSWORD : ",
-    "newPassword": "NEW PASSWORD : ",
-    "yourPseudo": "YOUR PSEUDO : ",
-    "newPseudo": "NEW PSEUDO : ",
-    "player1": "PLAYER 1",
-    "player2": "PLAYER 2",
+    "yourEmail": "YOUR EMAIL",
+    "newEmail": "NEW EMAIL",
+    "confirm": "CONFIRM",
+    "yourPassword": "YOUR PASSWORD",
+    "newPassword": "NEW PASSWORD",
+    "yourPseudo": "YOUR PSEUDO",
+    "newPseudo": "NEW PSEUDO",
+    "player": "PLAYER",
     "up": "UP",
     "down": "DOWN",
 
-    "classic": "YOU ARE IN CLASSIC MODE. THIS MODE IS THE PONG WITHOUT FEATURES IN THE GAMEPLAY.",
+    "classic": "YOU ARE IN CLASSIC MODE. <br>THIS MODE IS THE PONG WITHOUT <br>FEATURES IN THE GAMEPLAY.",
     "mmusic": "YOU ARE IN MUSIC MODE. LET'S PLAY WITH FUN !",
 
     "online": "YOU ARE IN ONLINE MODE. YOU WILL PLAY GAMES AGAINST ONLINE PLAYERS.",
@@ -47,8 +46,11 @@
     "goMatch": "GO IN MATCH MODE",
     "goTournament": "GO IN TOURNAMENT MODE",
 
+    "out": "YOU WILL BE OUT OF THIS<br>TOURNAMENT.",
+    "quit": "QUIT",
+    "stay": "STAY",
     "create": "CREATE",
-    "JOIN": "JOIN",
+    "join": "JOIN",
     "nameTournament": "TOURNAMENT'S NAME",
 
     "private": "PRIVATE",
@@ -61,11 +63,11 @@
     "logOut": "LOG OUT",
     "picture": "PICTURE",
 
-    "stats": "STATS :",
-    "played": "PLAYED :",
-    "winsLoses": "WINS / LOSES :",
-    "stournaments": "TOURNAMENTS :",
-    "winsTournaments": "WINS TOURNAMENTS :",
+    "stats": "STATS",
+    "played": "PLAYED",
+    "winsLoses": "WINS / LOSES",
+    "stournaments": "TOURNAMENTS",
+    "winsTournaments": "WINS TOURNAMENTS",
 
     "history": "HISTORY",
     "noHistory": "NO HISTORY",
@@ -82,7 +84,20 @@
     "victory": "VICTORY",
     "defeat": "DEFEAT",
 
-    "quit": "QUIT THE TOURNAMENT",
+    "quitTournament": "QUIT THE TOURNAMENT",
     "finished": "TOURNAMENT FINISHED",
-    "wait": "WAIT FOR PLAYERS"
+    "wait": "WAIT FOR PLAYERS",
+
+    "inSearch": "SEARCH",
+    "squit": "Q U I T",
+    "play": "P L A Y",
+
+    "connexion": "CONNEXION",
+    "logIn": "LOG IN",
+    "signIn": "SIGN IN",
+    "code": "CODE",
+    "verify": "VERIFY",
+
+    "pictureLink": "PICTURE'S LINK",
+    "apply": "APPLY"
 }

@@ -38,77 +38,81 @@ import { language_HTML } from "./settings/language.js";
 import { settings_HTML } from "./settings/settings.js";
 import { volume_HTML } from "./settings/volume.js";
 
-export const vues = {
-    home: home_HTML(),
-    connexion: {
-        connexion: connexion_HTML(),
-        login: login_HTML(),
-        signin: signin_HTML(),
-        verify: verify_HTML()
-    },
-    game: {
-        game: game_HTML(),
-        insearch: insearch_HTML()
-    },
-    messages: {
-        global: global_HTML(),
-        notify: notify_HTML(),
-        private: private_HTML()
-    },
-    mode: [
-        {
-            classic: classic_HTML(),
-            music: music_HTML(),
+export let vues:any;
+
+export function setVues() {
+    vues = {
+        home: home_HTML(),
+        connexion: {
+            connexion: connexion_HTML(),
+            login: login_HTML(),
+            signin: signin_HTML(),
+            verify: verify_HTML()
         },
-        {
-            ai: ai_HTML(),
-            local: local_HTML(),
-            online: online_HTML()
+        game: {
+            game: game_HTML(),
+            insearch: insearch_HTML()
         },
-        {
-            tournament : {
-                tournament: tournament_HTML(),
+        messages: {
+            global: global_HTML(),
+            notify: notify_HTML(),
+            private: private_HTML()
+        },
+        mode: [
+            {
+                classic: classic_HTML(),
+                music: music_HTML(),
+            },
+            {
+                ai: ai_HTML(),
+                local: local_HTML(),
+                online: online_HTML()
+            },
+            {
+                tournament : {
+                    tournament: tournament_HTML(),
+                    action: {
+                        create: create_HTML(),
+                        join: join_HTML(),
+                        quit: quit_HTML(),
+                        results: results_HTML()
+                    }
+                },
+                match: match_HTML(),
+            }
+        ],
+        player: {
+            history: history_HTML(),
+            stats: stats_HTML(),
+        },
+        profile: {
+            picture: {
+                picture: picture_HTML()
+            },
+            friends: friends_HTML(),
+            history: history_user_HTML(),
+            search: search_HTML(),
+            stats: stats_user_HTML(),
+        },
+        settings : {
+            settings: settings_HTML(),
+            language: language_HTML(),
+            volume: volume_HTML(),
+            account: {
+                account: account_HTML(),
                 action: {
-                    create: create_HTML(),
-                    join: join_HTML(),
-                    quit: quit_HTML(),
-                    results: results_HTML()
+                    delete: delete_HTML(),
+                    email: email_HTML(),
+                    password: password_HTML(),
+                    pseudo: pseudo_HTML(),
+                    verify: verifyEmail_HTML()
                 }
             },
-            match: match_HTML(),
-        }
-    ],
-    player: {
-        history: history_HTML(),
-        stats: stats_HTML(),
-    },
-    profile: {
-        picture: {
-            picture: picture_HTML()
-        },
-        friends: friends_HTML(),
-        history: history_user_HTML(),
-        search: search_HTML(),
-        stats: stats_user_HTML(),
-    },
-    settings : {
-        settings: settings_HTML(),
-        language: language_HTML(),
-        volume: volume_HTML(),
-        account: {
-            account: account_HTML(),
-            action: {
-                delete: delete_HTML(),
-                email: email_HTML(),
-                password: password_HTML(),
-                pseudo: pseudo_HTML(),
-                verify: verifyEmail_HTML()
-            }
-        },
-        key: {
-            key: key_HTML(),
-            action: {
-                player: player_HTML()
+            key: {
+                key: key_HTML(),
+                action: {
+                    player: player_HTML()
+                }
             }
         }
     }

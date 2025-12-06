@@ -18,12 +18,10 @@ export function classic_HTML(): string {
         </div>
         <div class="flex flex-col items-center justify-between h-4/10 mt-30">
             <h2 class="text-center text-4xl leading-14">
-                YOU ARE IN CLASSIC MODE. <br>
-                THIS MODE IS THE PONG WITHOUT <br>
-                FEATURES IN THE GAMEPLAY.
+                ${i18next.t("classic")}
             </h2>
             <button id="music" class="bg-button-white-bg text-black font-dangrek tracking-widest text-4xl rounded-full h-[100px] w-[500px] hover:h-[calc(100px*1.1)] hover:w-[calc(500px*1.1)] cursor-pointer duration-300">
-                GO IN MUSIC MODE
+                ${i18next.t("goMusic")}
             </button>
             </div>
     `

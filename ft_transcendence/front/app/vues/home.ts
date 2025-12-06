@@ -5,7 +5,7 @@ export function home_HTML(): string {
             <header class="flex justify-between w-full mx-auto h-1/6 items-center">
                 <div class="flex justify-center w-1/3">
                     <h2 id="settings" class="cursor-pointer text-4xl font-julee tracking-widest hover:tracking-[8px] duration-300">
-                        SETTINGS
+                        ${i18next.t("settings")}
                     </h2>
                 </div>
                 <div class="flex justify-center w-1/3">
@@ -25,7 +25,7 @@ export function home_HTML(): string {
                 </div>
                 <div class="flex justify-center w-1/3">
                     <h1 id="play" class="cursor-pointer text-6xl font-julee tracking-widest hover:tracking-[18px] duration-300">
-                        P L A Y
+                        ${i18next.t("play")}
                     </h1>
                 </div>
                 <div id="messageHome" class="relative flex justify-center w-1/3">

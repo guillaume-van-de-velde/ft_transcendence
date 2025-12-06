@@ -4,18 +4,18 @@ export function login_HTML(): string {
         <div class="h-2/3 w-full mx-auto">
             <span class="text-3xl flex justify-center items-center tracking-widest">
             <p>
-                <p id="connexionBtn" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">CONNEXION</p><p class="whitespace-pre opacity-50"> > LOG IN</p>
+                <p id="connexionBtn" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">${i18next.t("connexion")}</p><p class="whitespace-pre opacity-50"> > ${i18next.t("logIn")}</p>
             </p>
             </span>
             <form id="formLogIn" action="" class="grid grid-rows-2 relative -translate-x-30 justify-around items-center h-1/2 mt-20">
                 <div class="grid grid-cols-[1fr_2fr] items-center justify-center w-full h-1/2">
                     <div class="flex justify-center">
-                    <label for="email" class="text-4xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">EMAIL : </label>            </div>
+                    <label for="email" class="text-4xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">${i18next.t("email")} : </label>            </div>
                     <input type="text" name="email" id="email" class="bg-form-bg text-white text-5xl w-[100%] rounded-2xl text-center">
                 </div>
                 <div class="grid grid-cols-[1fr_2fr] items-center justify-center w-full h-1/2">
                     <div class="flex justify-center">
-                        <label for="password" class="text-4xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">PASSWORD : </label>
+                        <label for="password" class="text-4xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">${i18next.t("password")} : </label>
                     </div>
                     <input type="text" id="password" name="password" class="bg-form-bg text-white text-5xl w-[100%] rounded-2xl text-center focus:outline-none">
                 </div>

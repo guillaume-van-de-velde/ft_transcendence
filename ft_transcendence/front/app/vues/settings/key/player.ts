@@ -5,19 +5,19 @@ export function player_HTML(): string {
         </span>
         <div class="w-full h-1/4 flex justify-center items-center">
             <h1 id="settingsAction" class="text-8xl font-dangrek tracking-widest text-center cursor-pointer hover:tracking-[18px] duration-300">
-                SETTINGS
+                ${i18next.t("settings")}
             </h1>
         </div>
         <span class="text-3xl flex justify-center items-center tracking-widest">
             <p>
-                <p id="key" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">KEY</p><p id="idPlayer" class="whitespace-pre opacity-50"> > PLAYER 2</p>
+                <p id="key" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">${i18next.t("key")}</p><p id="idPlayer" class="whitespace-pre opacity-50"> > ${i18next.t("player")} 2</p>
             </p>
         </span>
         <div class="flex flex-col justify-around items-center h-1/2 [&_h2]:text-5xl mt-10">
             <div class="flex justify-around items-center w-[60%] h-1/2">
                 <div class="w-1/2 h-full flex justify-center items-center">
                     <h2 class="opacity-50">
-                        UP
+                        ${i18next.t("up")}
                     </h2>
                 </div>
                 <div class="w-1/2 h-full flex justify-center items-center">
@@ -28,7 +28,7 @@ export function player_HTML(): string {
             <div class="flex justify-around items-center w-[60%] h-1/2">
                 <div class="w-1/2 h-full flex justify-center items-center">
                     <h2 class="opacity-50">
-                        DOWN
+                        ${i18next.t("down")}
                     </h2>
                 </div>
                 <div class="w-1/2 h-full flex justify-center items-center">

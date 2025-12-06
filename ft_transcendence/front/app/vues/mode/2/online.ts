@@ -19,15 +19,13 @@ export function online_HTML(): string {
         </div>
         <div class="flex flex-col items-center justify-between h-5/10 mt-15">
             <h2 class="text-center text-4xl leading-14">
-                YOU ARE IN ONLINE MODE. <br>
-                YOU WILL PLAY GAMES AGAINST <br>
-                ONLINE PLAYERS.
+                ${i18next.t("online")}
             </h2>
             <button id="local" class="bg-button-white-bg text-black font-dangrek tracking-widest text-4xl rounded-full h-[100px] w-[500px] hover:scale-110 cursor-pointer duration-300">
-                GO IN LOCAL MODE
+                ${i18next.t("goLocal")}
             </button>
             <button id="ai" class="bg-button-white-bg text-black font-dangrek tracking-widest text-4xl rounded-full h-[100px] w-[500px] hover:scale-110 cursor-pointer duration-300">
-                GO IN AI MODE
+                ${i18next.t("goAi")}
             </button>
         </div>
     `

@@ -5,11 +5,11 @@ export function history_user_HTML(): string {
         </span>
 
         <span id="disconnect" class="absolute min-w-[200px] h-[50px] flex items-center justify-center text-2xl cursor-pointer hover:text-black hover:bg-white duration-300 translate-x-90 translate-y-15 rounded-full">
-            LOG OUT
+            ${i18next.t("logOut")}
         </span>
 
         <span id="changePicture" class="absolute min-w-[200px] h-[50px] flex items-center justify-center text-2xl cursor-pointer hover:text-black hover:bg-white duration-300 translate-x-90 translate-y-30 rounded-full">
-            PICTURE
+            ${i18next.t("picture")}
         </span>
 
         <div class="flex justify-center items-center h-1/4">
@@ -26,16 +26,16 @@ export function history_user_HTML(): string {
             [&_button]:cursor-pointer">
 
             <button id="stats" class="flex justify-center items-center border-white w-[18%] border-r-2 border-b-2">
-                <p class="text-4xl tracking-widest py-3">STATS</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("stats")}</p>
             </button>
             <button id="history" class="bg-button-white-bg text-black flex justify-center items-center border-white w-[18%] border-r-2 border-b-2">
-                <p class="text-4xl tracking-widest py-3">HISTORY</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("history")}</p>
             </button>
             <button id="friends" class="flex justify-center items-center border-white w-[18%] border-r-2 border-b-2">
-                <p class="text-4xl tracking-widest py-3">FRIENDS</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("friends")}</p>
             </button>
             <button id="search" class="flex justify-center items-center border-white w-[18%] border-b-2">
-                <p class="text-4xl tracking-widest py-3">SEARCH</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("search")}</p>
             </button>
         </div>
 

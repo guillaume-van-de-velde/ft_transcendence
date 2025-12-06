@@ -19,15 +19,13 @@ export function local_HTML(): string {
         </div>
         <div class="flex flex-col items-center justify-between h-5/10 mt-15">
             <h2 class="text-center text-4xl leading-14">
-                YOU ARE IN LOCAL MODE. <br>
-                THIS MODE NEED 2 PLAYERS ON THE<br>
-                SAME COMPUTER.
+                ${i18next.t("local")}
             </h2>
             <button id="online" class="bg-button-white-bg text-black font-dangrek tracking-widest text-4xl rounded-full h-[100px] w-[500px] hover:h-[calc(100px*1.1)] hover:w-[calc(500px*1.1)] cursor-pointer duration-300">
-                GO IN ONLINE MODE
+                ${i18next.t("goOnline")}
             </button>
             <button id="ai" class="bg-button-white-bg text-black font-dangrek tracking-widest text-4xl rounded-full h-[100px] w-[500px] hover:h-[calc(100px*1.1)] hover:w-[calc(500px*1.1)] cursor-pointer duration-300">
-                GO IN AI MODE
+                ${i18next.t("goAi")}
             </button>
         </div>
     `

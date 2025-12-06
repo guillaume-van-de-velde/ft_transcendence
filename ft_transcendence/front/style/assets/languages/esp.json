@@ -6,7 +6,7 @@
     "language": "IDIOMA",
     "general": "GENERAL",
     "noises": "RUIDOS",
-    "sMusic": "MÚSICA",
+    "smusic": "MÚSICA",
     "email": "EMAIL",
     "password": "CONTRASEÑA",
     "pseudo": "SEUDO",
@@ -14,19 +14,18 @@
     "sure": "¿ESTÁ SEGURO?",
     "yes": "SÍ",
     "no": "NO",
-    "yourEmail": "SU EMAIL :",
-    "newEmail": "NUEVO EMAIL :",
-    "confirm": "CONFIRMADO : ",
-    "yourPassword": "TU CONTRASEÑA : ",
-    "newPassword": "NUEVA CONTRASEÑA : ",
-    "yourPseudo": "SU SEUDO : ",
-    "newPseudo": "NUEVO PSEUDO : ",
-    "player1": "JUGADOR 1",
-    "player2": "JUGADOR 2",
+    "yourEmail": "SU EMAIL",
+    "newEmail": "NUEVO EMAIL",
+    "confirm": "CONFIRMADO",
+    "yourPassword": "TU CONTRASEÑA",
+    "newPassword": "NUEVA CONTRASEÑA",
+    "yourPseudo": "SU SEUDO",
+    "newPseudo": "NUEVO PSEUDO",
+    "player": "JUGADOR",
     "up": "ALTO",
     "down": "ABAJO",
 
-    "classic": "ESTÁS EN MODO CLÁSICO. ESTE MODO ES EL PONG ORIGINAL SIN ADICIONES.",
+    "classic": "ESTÁS EN MODO CLÁSICO. <br>ESTE MODO ES EL PONG <br>ORIGINAL SIN ADICIONES.",
     "mmusic": "ESTÁS EN MODO MÚSICA. ¡VAMOS A JUGAR CON DIVERSIÓN!",
 
     "online": "ESTÁS EN MODO ONLINE. JUGARÁS CONTRA OTROS JUGADORES ONLINE.",
@@ -47,8 +46,11 @@
     "goMatch": "ENTRAR EN MODO PARTIDO",
     "goTournament": "ENTRA EN MODO TORNEO",
 
+    "out": "QUEDARÁS FUERA DE ESTE<br>TORNEO.",
+    "quit": "DEJAR",
+    "stay": "PERMANECER",
     "create": "CREE",
-    "JOIN": "UNIRSE",
+    "join": "UNIRSE",
     "nameTournament": "NOMBRE DEL TORNEO",
 
     "private": "PRIVADO",
@@ -61,11 +63,11 @@
     "logOut": "DESCONEXION",
     "picture": "FOTO",
 
-    "stats": "ESTADÍSTICAS :",
-    "played": "JUEGOS :",
-    "winsLoses": "VIC / DER :",
-    "stournaments": "TORNEOS :",
-    "winsTournaments": "TORNEOS GANADOS :",
+    "stats": "ESTADÍSTICAS",
+    "played": "JUEGOS",
+    "winsLoses": "VIC / DER",
+    "stournaments": "TORNEOS",
+    "winsTournaments": "TORNEOS GANADOS",
 
     "history": "HISTÓRICO",
     "noHistory": "SIN HISTORIA",
@@ -83,7 +85,20 @@
     "victory": "VICTORIA",
     "defeat": "DERROTA",
 
-    "quit": "SALIR EL TORNEO",
+    "quitTournament": "SALIR EL TORNEO",
     "finished": "TORNEO TERMINADO",
-    "wait": "ESPERA A LOS JUGADORES"
+    "wait": "ESPERA A LOS JUGADORES",
+
+    "inSearch": "BUSCAR",
+    "squit": "D E J A R",
+    "play": "J U G A R",
+    
+    "connexion": "SESIÓN",
+    "logIn": "SESIÓN",
+    "signIn": "REGISTRARSE",
+    "code": "CÓDIGO",
+    "verify": "VERIFICAR",
+
+    "pictureLink": "ENLACE DE LA IMAGEN",
+    "apply": "APLICAR"
 }

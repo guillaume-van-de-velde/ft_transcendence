@@ -9,13 +9,13 @@ export function private_HTML(): string {
             h-1/5">
 
             <button id="private" class="relative flex justify-center items-center border-white w-[18%] border-r-2 border-b-2 bg-button-white-bg text-black">
-                <p class="text-4xl tracking-widest py-3">PRIVATE</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("private")}</p>
             </button>
             <button id="global" class="flex justify-center items-center border-white w-[18%] border-r-2 border-b-2">
-                <p class="text-4xl tracking-widest py-3">GLOBAL</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("global")}</p>
             </button>
             <button id="notify" class="relative flex justify-center items-center border-white w-[18%] border-b-2">
-                <p class="text-4xl tracking-widest py-3">NOTIFY</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("notify")}</p>
             </button>
         </div>
 

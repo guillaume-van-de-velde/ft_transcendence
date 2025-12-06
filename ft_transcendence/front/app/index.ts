@@ -5,7 +5,7 @@ import { requestAPI } from "./components/utils/requestApi.js";
 import { closeClicked } from "./components/utils/globalEvents.js";
 import { PageInstance } from "./components/utils/interfaces.js";
 import { pageRegistery } from "./components/utils/pageRegistery.js";
-import { vues } from "./vues/vues.js";
+import { setVues, vues } from "./vues/vues.js";
 import { friends } from "./components/pages/profile/friends.js";
 import { renderPrivateMessage } from "./components/pages/messages/private.js";
 import { renderGlobal } from "./components/pages/messages/global.js";
@@ -133,6 +133,25 @@ function socketManagement() {
 	});
 }
 
+async function loadLanguage(langFile: string) {
+    const response = await fetch(langFile);
+    return await response.json();
+}
+
+async function setupLanguage() {
+	i18next.init({
+		lng: state.language,
+		fallbackLng: "ENG",
+		resources: {
+			ENG: { translation: await loadLanguage("../style/assets/languages/eng.json") },
+			FRA: { translation: await loadLanguage("../style/assets/languages/fra.json") },
+			ESP: { translation: await loadLanguage("../style/assets/languages/esp.json") },
+			RUS: { translation: await loadLanguage("../style/assets/languages/rus.json") }
+		},
+	});
+	setVues();
+}
+
 export async function initState(APIandToken:any) {
 	if (APIandToken.token) {
 		localStorage.setItem("TokenTranscendence", APIandToken.token);
@@ -169,11 +188,12 @@ export async function initState(APIandToken:any) {
 			tournament: API.mode.tournament
 		})
 	}
+	await setupLanguage();
 	console.log(state);
 }
 
-export function userConnexionAccepted(API:any) {
-	initState(API);
+export async function userConnexionAccepted(API:any) {
+	await initState(API);
 	socketManagement();
 	setInterval(timer, 1000);
 	renderHome();
@@ -186,7 +206,61 @@ function timer() {
 	}
 }
 
-export function setStateUserNotConnected() {
+function foundLanguage() {
+	switch (navigator.language) {
+		case "fr":
+			return "FRA";
+		case "fr-FR":
+			return "FRA";
+		case "fr-CA":
+			return "FRA";
+		case "fr-BE":
+			return "FRA";
+		case "fr-CH":
+			return "FRA";
+		case "fr-LU":
+			return "FRA";
+		case "fr-MC":
+			return "FRA";
+
+		case "es":
+			return "ESP";
+		case "es-ES":
+			return "ESP";
+		case "es-MX":
+			return "ESP";
+		case "es-AR":
+			return "ESP";
+		case "es-CO":
+			return "ESP";
+		case "es-CL":
+			return "ESP";
+		case "es-PE":
+			return "ESP";
+		case "es-VE":
+			return "ESP";
+		case "es-US":
+			return "ESP";
+
+		case "ru":
+			return "RUS";
+		case "ru-RU":
+			return "RUS";
+		case "ru-BY":
+			return "RUS";
+		case "ru-KZ":
+			return "RUS";
+		case "ru-UA":
+			return "RUS";
+
+		default:
+			return "ENG";
+	}
+}
+
+
+
+export async function setStateUserNotConnected() {
 	state = {
 		link: "",
 		events: new Map<Element | null, TypeEvent>(),
@@ -229,7 +303,7 @@ export function setStateUserNotConnected() {
 			email: "",
         	pseudo: ""
 		},
-		language: "",
+		language: foundLanguage(),
 		profile: {
 			picture: "",
 			stats: {
@@ -244,6 +318,7 @@ export function setStateUserNotConnected() {
 		},
 		messages: {}
 	}
+	await setupLanguage();
 }
 
 async function tryConnexionWithToken() {
@@ -251,11 +326,9 @@ async function tryConnexionWithToken() {
 	if (!token)
 		return null;
 	
-	const API = await requestAPI("http://localhost:4400", {
+	const API = await requestAPI("http://localhost:4400/connect", {
 		method: "GET"
 	});
-
-	console.log(API);
 	
 	if (!API || API == "token connexion refused")
 		return null;
@@ -267,7 +340,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	if (API)
 		userConnexionAccepted(API);
 	else {
-		setStateUserNotConnected();
+		await setStateUserNotConnected();
 		renderConnexion();
 	}
 });

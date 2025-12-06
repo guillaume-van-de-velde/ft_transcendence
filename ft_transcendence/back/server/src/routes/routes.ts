@@ -27,13 +27,15 @@ import { deleteAccount } from "./changeUser/delete";
 import { deleteAccountVerify } from "./changeUser/deleteVerify";
 import { movePaddle } from "./game/paddle/move";
 import { stopPaddle } from "./game/paddle/stop";
+import { giveFront } from "./connexion/giveFront";
 
 export function routes() {
-    app.get("/", tryToConnect);
+    app.get("/", giveFront);
+    app.get("/connect", tryToConnect);
     app.get("/api/login", connexionAccount);
     app.post("/api/signin", createAccount);
     app.get("/api/verify", verifyCode);
-    
+
     app.put("/api/settings/volume/general", { preHandler: authentication}, changeUser);
     app.put("/api/settings/volume/noises", { preHandler: authentication}, changeUser);
     app.put("/api/settings/volume/music", { preHandler: authentication}, changeUser);

@@ -5,21 +5,21 @@ export function settings_HTML(): string {
         </span>
         <div class="w-full h-1/4 flex justify-center items-center">
             <h1 id="settingsAction" class="text-8xl font-dangrek tracking-widest text-center cursor-pointer hover:tracking-[18px] duration-300">
-                SETTINGS
+                ${i18next.t("settings")}
             </h1>
         </div>
         <div class="w-full h-1/2 flex flex-col justify-around items-center font-dangrek text-5xl tracking-widest [&_p]:cursor-pointer [&_p]:hover:tracking-[10px] [&_p]:duration-300">
             <div>
-                <p id="volume">VOLUME</p>
+                <p id="volume">${i18next.t("volume")}</p>
             </div>
             <div>
-                <p id="key">KEY</p>
+                <p id="key">${i18next.t("key")}</p>
             </div>
             <div>
-                <p id="account">ACCOUNT</p>
+                <p id="account">${i18next.t("account")}</p>
             </div>
             <div>
-                <p id="language">LANGUAGE</p>
+                <p id="language">${i18next.t("language")}</p>
             </div>
         </div>
     `

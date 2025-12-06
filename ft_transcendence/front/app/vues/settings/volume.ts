@@ -5,16 +5,16 @@ export function volume_HTML(): string {
     </span>
     <div class="w-full h-1/4 flex justify-center items-center">
         <h1 id="settingsAction" class="text-8xl font-dangrek tracking-widest text-center cursor-pointer hover:tracking-[18px] duration-300">
-            SETTINGS
+            ${i18next.t("settings")}
         </h1>
     </div>
     <span class="text-3xl opacity-50 flex justify-center items-center tracking-widest">
-        <p>VOLUME</p>
+        <p>${i18next.t("volume")}</p>
     </span>
     <div class="[&_h2]:text-5xl [&_h2]:text-center h-1/2 flex flex-col justify-around items-center mt-10">
         <div class="flex justify-between w-[70%]">
             <div class="w-[25%]">
-                <h2>GENERAL</h2>
+                <h2>${i18next.t("general")}</h2>
             </div>
             <div id="volumeBar1" class="relative w-[576px] cursor-pointer">
                 <span id="scrollBar1" class="absolute w-full h-[1px] bg-white top-1/2 -translate-y-1/2"></span>
@@ -26,7 +26,7 @@ export function volume_HTML(): string {
         </div>
         <div class="flex justify-between w-[70%]">
             <div class="w-[25%]">
-                <h2>NOISES</h2>
+                <h2>${i18next.t("noises")}</h2>
             </div>
             <div id="volumeBar2" class="relative w-[576px] cursor-pointer">
                 <span id="scrollBar2" class="absolute w-full h-[1px] bg-white top-1/2 -translate-y-1/2"></span>
@@ -38,7 +38,7 @@ export function volume_HTML(): string {
         </div>
         <div class="flex justify-between w-[70%]">
             <div class="w-[25%]">
-                <h2>MUSIC</h2>
+                <h2>${i18next.t("smusic")}</h2>
             </div>
             <div id="volumeBar3" class="relative w-[576px] cursor-pointer">
                 <span id="scrollBar1" class="absolute w-full h-[1px] bg-white top-1/2 -translate-y-1/2"></span>

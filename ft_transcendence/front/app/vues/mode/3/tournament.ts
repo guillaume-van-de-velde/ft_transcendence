@@ -19,20 +19,18 @@ export function tournament_HTML(): string {
         </div>
         <div class="flex flex-col items-center justify-between h-1/2 mt-30">
             <h2 class="text-center text-4xl leading-14">
-                YOU ARE IN TOURNAMENT MODE. <br>
-                YOU WILL PLAY MATCHS IN A<br>
-                TOURNAMENT.
+                ${i18next.t("mtournament")}
             </h2>
             <div class="flex justify-around items-center w-1/2">
                 <button id="create" class="bg-button-white-bg text-black font-dangrek tracking-widest text-3xl rounded-full h-[70px] w-[250px] hover:scale-110 cursor-pointer duration-300">
-                    CREATE
+                    ${i18next.t("create")}
                 </button>
                 <button id="join" class="bg-button-white-bg text-black font-dangrek tracking-widest text-3xl rounded-full h-[70px] w-[250px] hover:scale-110 cursor-pointer duration-300">
-                    JOIN
+                    ${i18next.t("join")}
                 </button>
             </div>
             <button id="match" class="bg-button-white-bg text-black font-dangrek tracking-widest text-3xl rounded-full h-[100px] w-[500px] hover:scale-110 cursor-pointer duration-300">
-                GO IN MATCH MODE
+                ${i18next.t("goMatch")}
             </button>
         </div>
     `

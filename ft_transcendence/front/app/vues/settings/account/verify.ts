@@ -5,18 +5,18 @@ export function verifyEmail_HTML(): string {
         </span>
         <div class="w-full h-1/4 flex justify-center items-center">
             <h1 id="settingsAction" class="text-8xl font-dangrek tracking-widest text-center cursor-pointer hover:tracking-[18px] duration-300">
-                SETTINGS
+                ${i18next.t("settings")}
             </h1>
         </div>
         <span class="text-3xl flex justify-center items-center tracking-widest">
             <p>
-                <p id="account" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">ACCOUNT</p><p class="whitespace-pre opacity-50"> > VERIFY</p>
+                <p id="account" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">${i18next.t("account")}</p><p class="whitespace-pre opacity-50"> > ${i18next.t("verify")}</p>
             </p>
         </span>
         <form action="" id="verifyForm" class="h-1/2 grid grid-rows-3 w-[80%] mt-10 relative">
             <div class="grid grid-cols-[1fr_2fr] items-center justify-center w-full">
                 <div class="flex justify-center">
-                    <label for="code" class="text-5xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">CODE : </label>
+                    <label for="code" class="text-5xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">${i18next.t("code")} : </label>
                 </div>
                 <input type="text" name="code" id="code" class="bg-form-bg text-white text-5xl w-[100%] rounded-2xl text-center focus:outline-none">
             </div>

@@ -20,17 +20,17 @@ export function stats_HTML(): string {
         <div class="flex justify-center items-center 
             [&_button]:cursor-pointer">
             <button id="statsPlayer" class="flex justify-center items-center border-white w-[18%] border-r-2 border-b-2 bg-button-white-bg text-black">
-                <p class="text-4xl tracking-widest py-3">STATS</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("stats")}</p>
             </button>
             <button id="historyPlayer" class="flex justify-center items-center border-white w-[18%] border-b-2">
-                <p class="text-4xl tracking-widest py-3">HISTORY</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("history")}</p>
             </button>
         </div>
 
         <div class="flex h-1/2 flex-col justify-center items-center mt-20">
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
                 <div>
-                    <p class="text-right">PLAYED :</p>
+                    <p class="text-right">${i18next.t("played")} :</p>
                 </div>
                 <div>
                     <p id="resultPlayed" class="text-left pl-50">30</p>
@@ -38,7 +38,7 @@ export function stats_HTML(): string {
             </div>
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
                 <div>
-                    <p class="text-right">WINS / LOSES :</p>
+                    <p class="text-right">${i18next.t("winsLoses")} :</p>
                 </div>
                 <div>
                     <p id="resultRatio" class="text-left pl-50">55%</p>
@@ -46,7 +46,7 @@ export function stats_HTML(): string {
             </div>
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
                 <div>
-                    <p class="text-right">TOURNAMENTS :</p>
+                    <p class="text-right">${i18next.t("stournaments")} :</p>
                 </div>
                 <div>
                     <p id="resultTournaments" class="text-left pl-50">3</p>
@@ -54,7 +54,7 @@ export function stats_HTML(): string {
             </div>
             <div class="grid grid-cols-2 [&_p]:text-5xl h-1/4 justify-center items-center">
                 <div>
-                    <p class="text-right">WINS TOURNAMENTS :</p>
+                    <p class="text-right">${i18next.t("winsTournaments")} :</p>
                 </div>
                 <div>
                     <p id="resultWinTournaments" class="text-left pl-50">1</p>

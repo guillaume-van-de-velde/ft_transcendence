@@ -5,30 +5,30 @@ export function email_HTML(): string {
         </span>
         <div class="w-full h-1/4 flex justify-center items-center">
             <h1 id="settingsAction" class="text-8xl font-dangrek tracking-widest text-center cursor-pointer hover:tracking-[18px] duration-300">
-                SETTINGS
+                ${i18next.t("settings")}
             </h1>
         </div>
         <span class="text-3xl flex justify-center items-center tracking-widest">
             <p>
-                <p id="account" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">ACCOUNT</p><p class="whitespace-pre opacity-50"> > EMAIL</p>
+                <p id="account" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">${i18next.t("account")}</p><p class="whitespace-pre opacity-50"> > ${i18next.t("email")}</p>
             </p>
         </span>
         <form action="" id="emailForm" class="h-1/2 grid grid-rows-3 w-[80%] mt-10 relative">
             <div class="opacity-30 grid grid-cols-[1fr_2fr] items-center justify-center w-full">
                 <div class="flex justify-center">
-                    <label for="youremail" class="text-5xl text-center inline-block mx-auto">YOUR EMAIL : </label>
+                    <label for="youremail" class="text-5xl text-center inline-block mx-auto">${i18next.t("yourEmail")} : </label>
                 </div>
                 <input type="text" name="youremail" id="youremail" placeholder="example@gmail.com" class="bg-black text-white text-5xl w-[100%] rounded-2xl text-center cursor-default" disabled>
             </div>
             <div class="grid grid-cols-[1fr_2fr] items-center justify-center w-full">
                 <div class="flex justify-center">
-                    <label for="newemail" class="text-5xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">NEW EMAIL : </label>
+                    <label for="newemail" class="text-5xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">${i18next.t("newEmail")} : </label>
                 </div>
                 <input type="text" id="newemail" name="newemail" class="bg-form-bg text-white text-5xl w-[100%] rounded-2xl text-center focus:outline-none">
             </div>
             <div class="grid grid-cols-[1fr_2fr] items-center justify-center w-full">
                 <div class="flex justify-center">
-                    <label for="confirm" class="text-5xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">CONFIRM : </label>
+                    <label for="confirm" class="text-5xl text-center inline-block mx-auto cursor-pointer hover:tracking-widest duration-300">${i18next.t("confirm")} : </label>
                 </div>
                 <input type="text" name="confirm" id="confirm" class="bg-form-bg text-white text-5xl w-[100%] rounded-2xl text-center focus:outline-none">
             </div>

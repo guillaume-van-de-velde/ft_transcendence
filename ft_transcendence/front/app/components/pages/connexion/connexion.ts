@@ -18,7 +18,7 @@ export function renderConnexion() {
 export function connexion() {
     const logInBtn = document.getElementById("logInBtn");
     const signInBtn = document.getElementById("signInBtn");
-
+    
     logInBtn?.addEventListener("click", renderLogIn);
     signInBtn?.addEventListener("click", renderSignIn);
 

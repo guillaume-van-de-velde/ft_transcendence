@@ -1,4 +1,5 @@
 import { initState, removeToken, setToken, socket, state, token, userConnexionAccepted } from "../../index.js";
+import { setVues } from "../../vues/vues.js";
 import { render } from "../core/render.js";
 import { Notify, StatusTournament } from "../core/state.js";
 import { renderLogIn } from "../pages/connexion/log_in.js";
@@ -100,7 +101,7 @@ export function friendsAPI(element: HTMLElement | null) {
     if (!state.profile.friends![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
-        p.textContent = "NO FRIENDS";
+        p.textContent = `${i18next.t("no")} ${i18next.t("friends")}`;
         element?.appendChild(p);
         return ;
     }
@@ -132,7 +133,7 @@ export function privateMessagesAPI(element: HTMLElement | null) {
     if (!state.messages.private![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
-        p.textContent = "NO FRIENDS";
+        p.textContent = `${i18next.t("no")} ${i18next.t("friends")}`;
         element?.appendChild(p);
         return ;
     }
@@ -229,7 +230,7 @@ export function notifyAPI(element: HTMLElement | null) {
     if (!state.messages.notify || !state.messages.notify![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
-        p.textContent = "NO NOTIFICATION";
+        p.textContent = `${i18next.t("no")} ${i18next.t("notify")}`;
         element?.appendChild(p);
         return ;
     }
@@ -244,7 +245,7 @@ export function notifyAPI(element: HTMLElement | null) {
     if (!notifyList || !notifyList![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
-        p.textContent = "NO NOTIFICATION";
+        p.textContent = `${i18next.t("no")} ${i18next.t("notify")}`;
         element?.appendChild(p);
         return ;
     }
@@ -280,16 +281,16 @@ export function notifyAPI(element: HTMLElement | null) {
     }
 }
 
-export function languageAddBorder() {
-    const element = document.getElementById(state.language);
+export function languageAddBorder(language: string) {
+    const element = document.getElementById(language);
 
-    element?.classList.add("border-4", "border-black");
+    element?.classList.add("border-4", "border-black", "selected");
 }
 
 export function languageRemoveBorder(language: string) {
     const element = document.getElementById(language);
 
-    element?.classList.remove("border-4", "border-black");
+    element?.classList.remove("border-4", "border-black", "selected");
 }
 
 export function placeholderAPI(idElement:string, dataAPI:string) {
@@ -971,10 +972,9 @@ export async function verifyDeleteFormCallApi(e: Event) {
     renderVerify();
 }
 
-export function languageCallAPI(e: Event) {
-    const oldLanguage = state.language;
-    state.language = (e.target! as HTMLElement).id;
-    requestAPI(`http://localhost:4400/api/settings/language`, {
+export async function languageCallAPI() {
+    state.language = document.querySelector(".selected")!.id;
+    await requestAPI(`http://localhost:4400/api/settings/language`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -984,6 +984,16 @@ export function languageCallAPI(e: Event) {
             language: state.language
         })
     });
-    languageAddBorder();
+    await i18next.changeLanguage(state.language);
+    setVues();
+    renderHome();
+}
+
+export function languageBorder(e: Event) {
+    const selected = document.querySelector(".selected")!.id;
+    if ((e.target! as HTMLElement).id == selected)
+        return ;
+    const oldLanguage = selected;
+    languageAddBorder((e.target! as HTMLElement).id);
     languageRemoveBorder(oldLanguage);
 }

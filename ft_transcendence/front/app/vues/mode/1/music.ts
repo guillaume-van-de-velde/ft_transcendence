@@ -19,11 +19,10 @@ export function music_HTML(): string {
         </div>
         <div class="flex flex-col items-center justify-between h-4/10 mt-30">
             <h2 class="text-center text-4xl leading-14">
-                YOU ARE IN MUSIC MODE. <br>
-                LET'S PLAY WITH FUN !
+                ${i18next.t("mmusic")}
             </h2>
             <button id="classic" class="bg-button-white-bg text-black font-dangrek tracking-widest text-4xl rounded-full h-[100px] w-[500px] hover:h-[calc(100px*1.1)] hover:w-[calc(500px*1.1)] cursor-pointer duration-300">
-                GO IN CLASSIC MODE
+                ${i18next.t("goClassic")}
             </button>
             </div>
     `

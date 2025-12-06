@@ -6,7 +6,7 @@
     "language": "LANGUAGE",
     "general": "GENERAL",
     "noises": "BRUITS",
-    "sMusic": "MUSIQUE",
+    "smusic": "MUSIQUE",
     "email": "EMAIL",
     "password": "MOT DE PASSE",
     "pseudo": "PSEUDO",
@@ -14,19 +14,18 @@
     "sure": "ES-TU SUR ?",
     "yes": "OUI",
     "no": "NON",
-    "yourEmail": "TON EMAIL : ",
-    "newEmail": "NOUVEAU EMAIL : ",
-    "confirm": "CONFIRME : ",
-    "yourPassword": "TON MOT DE PASSE : ",
-    "newPassword": "NOUVEAU PASSWORD : ",
-    "yourPseudo": "TON PSEUDO : ",
-    "newPseudo": "NOUVEAU PSEUDO : ",
-    "player1": "JOUEUR 1",
-    "player2": "JOUEUR 2",
+    "yourEmail": "TON EMAIL",
+    "newEmail": "NOUVEAU EMAIL",
+    "confirm": "CONFIRME",
+    "yourPassword": "TON MOT DE PASSE",
+    "newPassword": "NOUVEAU MOT DE PASSE",
+    "yourPseudo": "TON PSEUDO",
+    "newPseudo": "NOUVEAU PSEUDO",
+    "player": "JOUEUR",
     "up": "HAUT",
     "down": "BAS",
 
-    "classic": "TU ES EN CLASSIQUE MODE. CE MODE EST LE PONG ORIGINAL SANS AJOUTS.",
+    "classic": "TU ES EN CLASSIQUE MODE. <br>CE MODE EST LE PONG <br>ORIGINAL SANS AJOUTS.",
     "mmusic": "TU ES EN MODE MUSIQUE. C'EST PARTI POUR JOUER AVEC FUN !",
 
     "online": "TU ES EN MODE EN LIGNE. TU VA JOUER DES PARTIES CONTRE D'AUTRES JOUEURS EN LIGNE.",
@@ -47,8 +46,11 @@
     "goMatch": "ALLER EN MODE MATCH",
     "goTournament": "ALLER EN MODE TOURNOI",
 
+    "out": "VOUS SEREZ ÉLIMINÉ DE CE<br>TOURNOI.",
+    "quit": "QUITTER",
+    "stay": "RESTER",
     "create": "CREE",
-    "JOIN": "REJOINDRE",
+    "join": "REJOINDRE",
     "nameTournament": "NOM DU TOURNOI",
 
     "private": "PRIVEE",
@@ -61,11 +63,11 @@
     "logOut": "DECONNEXION",
     "picture": "PHOTO",
 
-    "stats": "STATS :",
-    "played": "JOUEES :",
-    "winsLoses": "VIC / DEF :",
-    "stournaments": "TOURNOIS :",
-    "winsTournaments": "TOURNOIS GAGNES :",
+    "stats": "STATS",
+    "played": "JOUEES",
+    "winsLoses": "VIC / DEF",
+    "stournaments": "TOURNOIS",
+    "winsTournaments": "TOURNOIS GAGNES",
 
     "history": "HISTORIQUE",
     "noHistory": "PAS D'HISTORIQUE",
@@ -83,7 +85,20 @@
     "victory": "VICTOIRE",
     "defeat": "DEFAITE",
 
-    "quit": "QUITTER LE TOURNOI",
+    "quitTournament": "QUITTER LE TOURNOI",
     "finished": "TOURNOI FINI",
-    "wait": "ATTENDRE LES JOUEURS"
+    "wait": "ATTENDRE LES JOUEURS",
+
+    "inSearch": "RECHERCHE",
+    "squit": "Q U I T T E R",
+    "play": "J O U E R",
+
+    "connexion": "CONNEXION",
+    "logIn": "SE CONNECTER",
+    "signIn": "S'INSCRIRE",
+    "code": "CODE",
+    "verify": "VERIFICATION",
+
+    "pictureLink": "LIEN VERS L'IMAGE",
+    "apply": "APPLIQUER"
 }

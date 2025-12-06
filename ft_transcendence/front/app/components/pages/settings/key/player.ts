@@ -61,12 +61,12 @@ function initPlayer() {
     const key2 = document.getElementById("keyName2");
 
     if (state.key.active == IDPLAYER.PLAYER1) {
-        idPlayer!.textContent = " > PLAYER 1";
+        idPlayer!.textContent = ` > ${i18next.t("player")} 1`;
         key1!.textContent = state.key.player1.up![0]!;
         key2!.textContent = state.key.player1.down![0]!;
     }
     else {
-        idPlayer!.textContent = " > PLAYER 2";
+        idPlayer!.textContent = ` > ${i18next.t("player")} 2`;
         key1!.textContent = state.key.player2.up![0]!;
         key2!.textContent = state.key.player2.down![0]!;
     }

@@ -21,10 +21,10 @@ export function history_HTML(): string {
             [&_button]:cursor-pointer">
 
             <button id="statsPlayer" class="flex justify-center items-center border-white w-[18%] border-r-2 border-b-2">
-                <p class="text-4xl tracking-widest py-3">STATS</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("stats")}</p>
             </button>
             <button id="historyPlayer" class="flex justify-center items-center border-white w-[18%] border-b-2 bg-button-white-bg text-black">
-                <p class="text-4xl tracking-widest py-3">HISTORY</p>
+                <p class="text-4xl tracking-widest py-3">${i18next.t("history")}</p>
             </button>
         </div>
 
