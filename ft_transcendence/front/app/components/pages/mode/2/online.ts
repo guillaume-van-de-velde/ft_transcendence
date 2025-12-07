@@ -14,7 +14,7 @@ export function renderOnline() {
     const onlinePage: PageInstance = {
         content: vues.mode[1]!.online!,
         level: 1,
-        create: online,
+        create: online
     }
     render(onlinePage);
 }

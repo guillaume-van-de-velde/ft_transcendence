@@ -1,4 +1,4 @@
-export function stats_user_HTML(): string {
+export function statsUserHTML(): string {
     return `
         <span id="close" class="close">
             <p class="translate-y-0.5">X</p>

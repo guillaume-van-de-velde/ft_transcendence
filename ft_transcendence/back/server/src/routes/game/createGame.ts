@@ -66,7 +66,7 @@ function renderGame(match:Match) {
     let playerWidth = 10;
     let playerHeight = 100;
     let playerVelocityY = 0;
-    let velocity = 5;
+    let velocity = 10;
 
     let player1 = {
         x: 10,
@@ -121,7 +121,7 @@ function renderGame(match:Match) {
 
     let intervalId:any;
 
-    intervalId = setInterval(update, 1000 / 120);
+    intervalId = setInterval(update, 1000 / 60);
 
     function update() {
         let nextPlayer1Y = player1.y + player1.velocityY;

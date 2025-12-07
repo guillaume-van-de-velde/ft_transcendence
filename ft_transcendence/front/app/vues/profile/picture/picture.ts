@@ -1,4 +1,4 @@
-export function picture_HTML(): string {
+export function pictureHTML(): string {
     return `
         <span id="close2" class="close">
             <p class="translate-y-0.5">X</p>

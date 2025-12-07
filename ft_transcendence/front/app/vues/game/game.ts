@@ -1,6 +1,6 @@
-export function game_HTML(): string {
+export function gameHTML(): string {
     return `
-    <div class="app bg-home-bg text-white h-screen">
+    <div class="app bg-home-bg text-white h-screen flex flex-col justify-between">
         <header class="h-1/6 flex w-full justify-center items-center gap-12">
             <div class="bg-player-display-bg flex justify-around items-center h-[75px] w-[300px] rounded-2xl">
                 <div class="h-[75px] w-[100px] flex justify-center items-center">
@@ -30,7 +30,15 @@ export function game_HTML(): string {
         </header>
         <canvas id="board" class="bg-black mx-auto relative border-t-[5px] border-b-[5px] border-white">
         </canvas>
-        <footer class="w-full h-1/6 bg-gray-600"></footer>
+        <div class="h-1/24"></div>
+        <footer class="relative w-full h-3/24 bg-gray-600 overflow-hidden">
+            <div class="absolute bottom-18 left-0 w-[20%] h-30 rounded-[50%] rounded-l-[90%] bg-home-bg animate-simple-wave"></div>
+            <div class="absolute bottom-18 left-[20%] w-[20%] h-30 rounded-[50%] rounded-l-[90%] bg-home-bg animate-simple-wave"></div>
+            <div class="absolute bottom-18 left-[40%] w-[20%] h-30 rounded-[50%] rounded-l-[90%] bg-home-bg animate-simple-wave"></div>
+            <div class="absolute bottom-18 left-[60%] w-[20%] h-30 rounded-[50%] rounded-l-[90%] bg-home-bg animate-simple-wave"></div>
+            <div class="absolute bottom-18 left-[80%] w-[20%] h-30 rounded-[50%] rounded-l-[90%] bg-home-bg animate-simple-wave"></div>
+            <div class="absolute bottom-18 left-full w-[20%] h-30 rounded-[50%] rounded-l-[90%] bg-home-bg animate-simple-wave"></div>
+        </footer>
     </div>
     `
 }

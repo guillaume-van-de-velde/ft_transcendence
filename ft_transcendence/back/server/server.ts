@@ -18,7 +18,12 @@ import path from "path";
 import dotenv from "dotenv";
 
 dotenv.config();
-export const app = fastify();
+export const app = fastify({
+	https: {
+		key: fs.readFileSync(process.env.KEY_PATH!),
+		cert: fs.readFileSync(process.env.CERT_PATH!)
+	}
+});
 const port = parseInt(process.env.PORT!);
 export let db: Database;
 export let io: SocketIOServer;

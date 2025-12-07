@@ -6,14 +6,14 @@ import { closeClicked } from "./components/utils/globalEvents.js";
 import { PageInstance } from "./components/utils/interfaces.js";
 import { pageRegistery } from "./components/utils/pageRegistery.js";
 import { setVues, vues } from "./vues/vues.js";
-import { friends } from "./components/pages/profile/friends.js";
 import { renderPrivateMessage } from "./components/pages/messages/private.js";
 import { renderGlobal } from "./components/pages/messages/global.js";
 import { renderNotify } from "./components/pages/messages/notify.js";
 import { renderConnexion } from "./components/pages/connexion/connexion.js";
-import { game, renderGame } from "./components/pages/game/game.js";
+import { renderGame } from "./components/pages/game/game.js";
 import { renderResultsTournament } from "./components/pages/mode/3/tournament/results.js";
 
+export const link = "https://localhost:4400";
 export let state: AppState;
 declare const io:any;
 export let socket:any;
@@ -37,24 +37,24 @@ function reRenderForNotify() {
 	switch (state.actual) {
 		case "home":
 			renderHome();
-			break;
+			break ;
 		case "private":
 			renderPrivateMessage();
-			break;
+			break ;
 		case "global":
 			renderGlobal();
-			break;
+			break ;
 		case "notify":
 			renderNotify();
-			break;
+			break ;
 		default:
-			break;
+			break ;
 	}
 }
 
 function socketManagement() {
 	const listPageNotify = ["private", "global", "notification", "home"];
-	socket = io("http://localhost:4400", {
+	socket = io(link, {
 		auth: {
 			id: state.id
 		}
@@ -161,7 +161,7 @@ export async function initState(APIandToken:any) {
 	console.log("init", API);
 	
 	state = {
-		link: "http://localhost:4400",
+		link: link,
 		events: new Map<Element | null, TypeEvent>(),
 		index: 0,
 		id: API.id,
@@ -276,7 +276,7 @@ export async function setStateUserNotConnected() {
 			value: "",
 			focused: false,
 			start: null,
-			end: null,
+			end: null
 		},
 		socket: {
 			notify: false,
@@ -291,11 +291,11 @@ export async function setStateUserNotConnected() {
 		key: {
 			player1: {
 				up: null,
-				down: null,
+				down: null
 			},
 			player2: {
 				up: null,
-				down: null,
+				down: null
 			},
 			active: IDPLAYER.NONE
 		},
@@ -326,7 +326,7 @@ async function tryConnexionWithToken() {
 	if (!token)
 		return null;
 	
-	const API = await requestAPI("http://localhost:4400/connect", {
+	const API = await requestAPI(`${link}/connect`, {
 		method: "GET"
 	});
 	

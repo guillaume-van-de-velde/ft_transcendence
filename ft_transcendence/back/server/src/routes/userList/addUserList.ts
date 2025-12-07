@@ -50,11 +50,9 @@ export const addPlayerToFriendList = async (req:FastifyRequest, res:FastifyReply
 
 export const addPlayerToBlockedList = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const id = reqBody.id;
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
+    const id = req.user!.id;
     const keys = Object.keys(reqBody);
-    const idPlayer = reqBody[keys[1]!];
+    const idPlayer = reqBody[keys[0]!];
 
-    addUserList(id, keys[1]!, idPlayer);
+    addUserList(id, keys[0]!, idPlayer);
 }

@@ -8,12 +8,10 @@ import { readTournament } from "../../db/crud/read";
 
 export const openTournament = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const id = reqBody.id;
+    const id = req.user!.id;
     const nameTournament = reqBody.name;
     const mode = reqBody.mode;
 
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
     const tournamentId = await createTournament(nameTournament, mode, id);
     await updateUsers(id, "tournament", tournamentId);
     const tournament = await readTournament(tournamentId, KeyTournament.ID);

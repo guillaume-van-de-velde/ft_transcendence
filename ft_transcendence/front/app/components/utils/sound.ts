@@ -1,3 +1,5 @@
+import { state } from "../../index.js";
+
 const clickSound = new Audio("./style/assets/mp3/click.mp3");
 
 const eventsToCatch = [
@@ -14,7 +16,8 @@ export function soundLaunch() {
                 if (cursorStyle !== "pointer")
                     return;
                 clickSound.currentTime = 0;
-                // clickSound.play();
+                clickSound.volume = state.volume.general / 100 * state.volume.noises / 100;
+                clickSound.play();
             },
             true
         );

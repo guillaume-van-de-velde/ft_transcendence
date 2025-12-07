@@ -10,7 +10,7 @@ export function renderVerify() {
     const verifyPage: PageInstance = {
         content: vues.connexion.verify,
         level: 0,
-        create: verify,
+        create: verify
     }
     render(verifyPage);
 }

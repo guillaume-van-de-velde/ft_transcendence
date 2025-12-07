@@ -1,4 +1,4 @@
-import { Socket } from "socket.io"
+import { Socket } from "socket.io";
 
 export enum Notify { ASK = "ASK", MATCH = "MATCH" }
 export enum StatusTournament { START = "START", WAIT = "WAIT", FINISHED = "FINISHED" }
@@ -38,7 +38,7 @@ export interface MessageGlobal {
 }
 
 export interface MessageNotify {
-    id: number
+    id: number,
     user: UserShortData,
     type: string,
     seen: boolean

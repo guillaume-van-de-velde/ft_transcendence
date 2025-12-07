@@ -10,7 +10,7 @@ export function renderMusic() {
     const musicPage: PageInstance = {
         content: vues.mode[0]!.music!,
         level: 1,
-        create: music,
+        create: music
     }
     render(musicPage);
 }

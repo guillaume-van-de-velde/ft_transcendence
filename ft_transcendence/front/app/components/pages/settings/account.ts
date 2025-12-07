@@ -14,7 +14,7 @@ export function renderAccount() {
     const accountPage: PageInstance = {
         content: vues.settings.account.account,
         level: 1,
-        create: account,
+        create: account
     }
     render(accountPage);
 }

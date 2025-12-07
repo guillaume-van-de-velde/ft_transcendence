@@ -1,4 +1,4 @@
-export function private_HTML(): string {
+export function privateHTML(): string {
     return `
         <span id="close" class="close">
             <p class="translate-y-0.5">X</p>
@@ -21,8 +21,6 @@ export function private_HTML(): string {
 
         <div class="grid grid-cols-[1fr_3fr] flex-grow w-9/10 mx-auto gap-5 min-h-0 pb-10">
             <div id="friendsList" class="flex flex-col justify-start items-center pt-10">
-
-                <!-- <span class="absolute h-[80px] w-[10px] bg-form-bg left-0 translate-x-15 translate-y-1 rounded-full cursor-pointer"></span> -->
             </div>
 
             <div class="min-h-0 bg-black rounded-4xl relative flex flex-col justify-start items-center font-david">

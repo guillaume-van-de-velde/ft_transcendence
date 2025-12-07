@@ -3,12 +3,10 @@ import { updateUsers } from "../../db/crud/update";
 
 export const changeUser = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const id = reqBody.id;
+    const id = req.user!.id;
 
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
     const keys = Object.keys(reqBody);
-    const value = reqBody[keys[1]!];
+    const value = reqBody[keys[0]!];
 
-    await updateUsers(id, keys[1]!, value);
+    await updateUsers(id, keys[0]!, value);
 }

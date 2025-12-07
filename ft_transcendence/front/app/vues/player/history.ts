@@ -1,4 +1,4 @@
-export function history_HTML(): string {
+export function historyHTML(): string {
     return `
         <span id="close2" class="close">
             <p class="translate-y-0.5">X</p>

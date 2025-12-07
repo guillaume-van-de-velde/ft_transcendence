@@ -5,18 +5,17 @@ import { TypeEvent } from "../core/state.js";
 import { pictureAPI, searchGame } from "../utils/api.js";
 import { PageInstance } from "../utils/interfaces.js";
 import { checkSeen } from "../utils/notifySocket.js";
-import { renderInSearch } from "./game/in_search.js";
 import { renderPrivateMessage } from "./messages/private.js";
 import { renderClassic } from "./mode/1/classic.js";
 import { renderMusic } from "./mode/1/music.js";
-import { renderStatsUser } from "./profile/stats_user.js";
+import { renderStatsUser } from "./profile/statsUser.js";
 import { renderSettings } from "./settings/settings.js";
 
 export function renderHome() {
     const homePage: PageInstance = {
         content: vues.home,
         level: 0,
-        create: home,
+        create: home
     }
     render(homePage);
 }

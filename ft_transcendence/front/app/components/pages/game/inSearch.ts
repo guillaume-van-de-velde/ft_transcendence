@@ -10,7 +10,7 @@ export function renderInSearch() {
     const inSearchPage: PageInstance = {
         content: vues.game.insearch,
         level: 0,
-        create: inSearch,
+        create: inSearch
     }
     render(inSearchPage);
 }

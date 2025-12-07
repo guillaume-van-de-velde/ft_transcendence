@@ -12,7 +12,7 @@ export function renderDeleteAccount() {
     const deletePage: PageInstance = {
         content: vues.settings.account.action.delete,
         level: 1,
-        create: deleteAccount,
+        create: deleteAccount
     }
     render(deletePage);
 }

@@ -11,7 +11,7 @@ export function renderLanguage() {
     const languagePage: PageInstance = {
         content: vues.settings.language,
         level: 1,
-        create: language,
+        create: language
     }
     render(languagePage);
 }

@@ -11,7 +11,7 @@ export function renderLocal() {
     const localPage: PageInstance = {
         content: vues.mode[1]!.local!,
         level: 1,
-        create: local,
+        create: local
     }
     render(localPage);
 }

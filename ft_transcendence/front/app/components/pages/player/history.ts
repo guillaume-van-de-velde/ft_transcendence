@@ -11,7 +11,7 @@ export function renderHistory() {
     const historyPage: PageInstance = {
         content: vues.player.history,
         level: 2,
-        create: history,
+        create: history
     }
     render(historyPage);
 }

@@ -5,16 +5,16 @@ import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
 import { disconnect, friendsAPI, profileAPI } from "../../utils/api.js";
 import { PageInstance } from "../../utils/interfaces.js";
-import { renderHistoryUser } from "./history_user.js";
+import { renderHistoryUser } from "./historyUser.js";
 import { renderSearch } from "./search.js";
-import { renderStatsUser } from "./stats_user.js";
+import { renderStatsUser } from "./statsUser.js";
 import { picture, renderPicture } from "./picture/picture.js";
 
 export function renderFriends() {
     const friendsPage: PageInstance = {
         content: vues.profile.friends,
         level: 1,
-        create: friends,
+        create: friends
     }
     render(friendsPage);
 }

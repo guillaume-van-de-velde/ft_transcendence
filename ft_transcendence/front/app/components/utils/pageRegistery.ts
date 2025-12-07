@@ -1,8 +1,8 @@
 import { connexion } from "../pages/connexion/connexion.js";
-import { logIn } from "../pages/connexion/log_in.js";
-import { signIn } from "../pages/connexion/sign_in.js";
+import { logIn } from "../pages/connexion/logIn.js";
+import { signIn } from "../pages/connexion/signIn.js";
 import { game } from "../pages/game/game.js";
-import { inSearch } from "../pages/game/in_search.js";
+import { inSearch } from "../pages/game/inSearch.js";
 import { home } from "../pages/home.js";
 import { global } from "../pages/messages/global.js";
 import { notify } from "../pages/messages/notify.js";
@@ -21,9 +21,9 @@ import { resultsTournament } from "../pages/mode/3/tournament/results.js";
 import { history } from "../pages/player/history.js";
 import { stats } from "../pages/player/stats.js";
 import { friends } from "../pages/profile/friends.js";
-import { historyUser } from "../pages/profile/history_user.js";
+import { historyUser } from "../pages/profile/historyUser.js";
 import { search } from "../pages/profile/search.js";
-import { statsUser } from "../pages/profile/stats_user.js";
+import { statsUser } from "../pages/profile/statsUser.js";
 import { account } from "../pages/settings/account.js";
 import { deleteAccount } from "../pages/settings/account/delete.js";
 import { email } from "../pages/settings/account/email.js";
@@ -71,5 +71,5 @@ export const pageRegistery: Record<string, Function> = {
     notify,
     global,
     inSearch,
-    game,
+    game
 }

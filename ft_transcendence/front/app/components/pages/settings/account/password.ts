@@ -12,7 +12,7 @@ export function renderPassword() {
     const passwordPage: PageInstance = {
         content: vues.settings.account.action.password,
         level: 1,
-        create: password,
+        create: password
     }
     render(passwordPage);
 }

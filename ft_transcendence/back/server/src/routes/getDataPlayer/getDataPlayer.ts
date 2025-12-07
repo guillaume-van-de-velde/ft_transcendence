@@ -30,11 +30,8 @@ export async function parseLink(id:number, idAsked:number): Promise<Link> {
 }
 
 export const getDataPlayer = async (req:FastifyRequest, res:FastifyReply) => {
-    const id = parseInt((req.headers.id as string));
+    const id = req.user!.id;
     const idAsked = parseInt((req.headers.idasked as string));
-
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
 
     const playerStats = await readStats(idAsked);
 

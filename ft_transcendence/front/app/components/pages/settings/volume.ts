@@ -11,7 +11,7 @@ export function renderVolume() {
     const volumePage: PageInstance = {
         content: vues.settings.volume,
         level: 1,
-        create: volume,
+        create: volume
     }
     render(volumePage);
 }
@@ -45,7 +45,6 @@ function requestVolume(type:string, value:number) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            id: state.id,
             [type]: value
         })
     });

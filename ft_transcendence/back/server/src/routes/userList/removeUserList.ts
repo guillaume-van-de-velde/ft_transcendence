@@ -12,9 +12,7 @@ export async function removeUserList(id: any, key: string, value: any) {
 
 export const removeUserInFriendsList = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const id = reqBody.id;
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
+    const id = req.user!.id;
     const idPlayer = reqBody.friend;
 
     await removeUserList(id, "friends", idPlayer);
@@ -23,9 +21,7 @@ export const removeUserInFriendsList = async (req:FastifyRequest, res:FastifyRep
 
 export const removeUserInBlockedList = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const id = reqBody.id;
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
+    const id = req.user!.id;
     const idPlayer = reqBody.blocked;
 
     await removeUserList(id, "blocked", idPlayer);

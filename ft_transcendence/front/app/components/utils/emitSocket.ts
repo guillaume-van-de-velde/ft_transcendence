@@ -11,8 +11,8 @@ export function sendMessageToUser(e: Event) {
     const data = Object.fromEntries(formData.entries());
 
     console.log(data.writeBar);
-    
-    if (!data.writeBar)
+
+    if (!data.writeBar || !state.messages.private![state.friend])
         return ;
 
     const chat = state.messages.private![state.friend]!.chat;

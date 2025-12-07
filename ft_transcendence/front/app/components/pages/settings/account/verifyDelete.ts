@@ -12,7 +12,7 @@ export function renderVerifyDelete() {
     const verifyDeletePage: PageInstance = {
         content: vues.settings.account.action.verify,
         level: 1,
-        create: verifyDelete,
+        create: verifyDelete
     }
     render(verifyDeletePage);
 }

@@ -14,7 +14,7 @@ export function renderPrivateMessage() {
     const privatePage: PageInstance = {
         content: vues.messages.private,
         level: 1,
-        create: privateMessage,
+        create: privateMessage
     }
     render(privatePage);
 }

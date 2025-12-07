@@ -2,30 +2,28 @@ import { state } from "../../../index.js";
 import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
-import { forgotCallAPI, logInAPI } from "../../utils/api.js";
+import { signInAPI } from "../../utils/api.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderConnexion } from "./connexion.js";
 
-export function renderLogIn() {
-    const logInPage: PageInstance = {
-        content: vues.connexion.login,
+export function renderSignIn() {
+    const signInPage: PageInstance = {
+        content: vues.connexion.signin,
         level: 0,
-        create: logIn,
+        create: signIn
     }
-    render(logInPage);
+    render(signInPage);
 }
 
-export function logIn() {
+export function signIn() {
     const connexionBtn = document.getElementById("connexionBtn");
-    const form = document.getElementById("formLogIn");
-    const forgot = document.getElementById("forgotBtn");
+    const form = document.getElementById("formSignIn");
 
     connexionBtn?.addEventListener("click", renderConnexion);
-    form?.addEventListener("submit", logInAPI);
-    forgot?.addEventListener("click", forgotCallAPI);
+    form?.addEventListener("submit", signInAPI);
 
     state.events = new Map<Element | null, TypeEvent>([
         [connexionBtn, {type: "click", callback: renderConnexion}],
-        [form, {type: "submit", callback: logInAPI}]
+        [form, {type: "submit", callback: signInAPI}]
     ]);
 }

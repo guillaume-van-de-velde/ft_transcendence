@@ -8,13 +8,11 @@ import jwt from "jsonwebtoken";
 
 export const changePassword = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const { id, oldpassword } = reqBody;
+    const oldpassword = reqBody.oldpassword;
+    const id = req.user!.id;
     const password = await bcrypt.hash(reqBody.newpassword, 1);
 
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
-
-    const user = await readUser(id, KeyUser.ID);
+    const user = await readUser(id.toString(), KeyUser.ID);
 
     if (!(await bcrypt.compare(oldpassword, user.password)))
         return res.code(401).send("password not valid");

@@ -1,4 +1,4 @@
-export function login_HTML(): string {
+export function logInHTML(): string {
     return `
     <div class="app bg-home-bg text-white h-screen justify-center items-center font-dangrek flex flex-col">
         <div class="h-2/3 w-full mx-auto">

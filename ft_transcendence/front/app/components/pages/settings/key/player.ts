@@ -16,7 +16,7 @@ export function renderPlayer(e: Event) {
     const playerPage: PageInstance = {
         content: vues.settings.key.action.player,
         level: 1,
-        create: player,
+        create: player
     }
     render(playerPage);
 }
@@ -49,7 +49,6 @@ function requestKey(key:string, value:string, path:string) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            id: state.id,
             [key]: value
         })
     });

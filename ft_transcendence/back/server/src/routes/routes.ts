@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { app } from "../../server";
 import { changeUser } from "./changeUser/user";
-import { addPlayerToBlockedList, addPlayerToFriendList, addUserList } from "./userList/addUserList";
-import { removeUserInBlockedList, removeUserInFriendsList, removeUserList } from "./userList/removeUserList";
+import { addPlayerToBlockedList, addPlayerToFriendList } from "./userList/addUserList";
+import { removeUserInBlockedList, removeUserInFriendsList } from "./userList/removeUserList";
 import { putNotification } from "./notify/putNotification";
 import { removeNotification } from "./notify/removeNotification";
 import { openTournament } from "./tournament/openTournament";
@@ -22,7 +22,6 @@ import { verifyCode } from "./connexion/code";
 import { changeEmail } from "./changeUser/email";
 import { changePassword } from "./changeUser/password";
 import { verifyEmail } from "./changeUser/verify";
-import { sendPassword } from "./connexion/sendPassword";
 import { deleteAccount } from "./changeUser/delete";
 import { deleteAccountVerify } from "./changeUser/deleteVerify";
 import { movePaddle } from "./game/paddle/move";

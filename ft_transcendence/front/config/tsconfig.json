@@ -23,7 +23,7 @@
     "removeComments": true,
 
     "rootDir": "../app",
-    "outDir": "../build",
+    "outDir": "../build"
   },
 
   "include": ["../app/**/*"],

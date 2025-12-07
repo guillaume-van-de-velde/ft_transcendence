@@ -13,7 +13,7 @@ export function renderStats(e:Event) {
     const statsPage: PageInstance = {
         content: vues.player.stats,
         level: 2,
-        create: stats,
+        create: stats
     }
     render(statsPage);
     dataPlayerCallAPI(e);

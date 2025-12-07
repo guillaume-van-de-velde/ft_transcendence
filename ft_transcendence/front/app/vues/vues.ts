@@ -1,117 +1,117 @@
-import { connexion_HTML } from "./connexion/connexion.js";
-import { login_HTML } from "./connexion/log_in.js";
-import { signin_HTML } from "./connexion/sign_in.js";
-import { verify_HTML } from "./connexion/verify.js";
-import { game_HTML } from "./game/game.js";
-import { insearch_HTML } from "./game/in_search.js";
-import { home_HTML } from "./home.js";
-import { global_HTML } from "./messages/global.js";
-import { notify_HTML } from "./messages/notify.js";
-import { private_HTML } from "./messages/private.js";
-import { classic_HTML } from "./mode/1/classic.js";
-import { music_HTML } from "./mode/1/music.js";
-import { ai_HTML } from "./mode/2/ai.js";
-import { local_HTML } from "./mode/2/local.js";
-import { online_HTML } from "./mode/2/online.js";
-import { match_HTML } from "./mode/3/match.js";
-import { tournament_HTML } from "./mode/3/tournament.js";
-import { create_HTML } from "./mode/3/tournament/create.js";
-import { join_HTML } from "./mode/3/tournament/join.js";
-import { quit_HTML } from "./mode/3/tournament/quit.js";
-import { results_HTML } from "./mode/3/tournament/results.js";
-import { history_HTML } from "./player/history.js";
-import { stats_HTML } from "./player/stats.js";
-import { friends_HTML } from "./profile/friends.js";
-import { history_user_HTML } from "./profile/history_user.js";
-import { picture_HTML } from "./profile/picture/picture.js";
-import { search_HTML } from "./profile/search.js";
-import { stats_user_HTML } from "./profile/stats_user.js";
-import { account_HTML } from "./settings/account.js";
-import { delete_HTML } from "./settings/account/delete.js";
-import { email_HTML } from "./settings/account/email.js";
-import { password_HTML } from "./settings/account/password.js";
-import { pseudo_HTML } from "./settings/account/pseudo.js";
-import { verifyEmail_HTML } from "./settings/account/verify.js";
-import { key_HTML } from "./settings/key.js";
-import { player_HTML } from "./settings/key/player.js";
-import { language_HTML } from "./settings/language.js";
-import { settings_HTML } from "./settings/settings.js";
-import { volume_HTML } from "./settings/volume.js";
+import { connexionHTML } from "./connexion/connexion.js";
+import { logInHTML } from "./connexion/logIn.js";
+import { signInHTML } from "./connexion/signIn.js";
+import { verifyHTML } from "./connexion/verify.js";
+import { gameHTML } from "./game/game.js";
+import { insearchHTML } from "./game/inSearch.js";
+import { homeHTML } from "./home.js";
+import { globalHTML } from "./messages/global.js";
+import { notifyHTML } from "./messages/notify.js";
+import { privateHTML } from "./messages/private.js";
+import { classicHTML } from "./mode/1/classic.js";
+import { musicHTML } from "./mode/1/music.js";
+import { aiHTML } from "./mode/2/ai.js";
+import { localHTML } from "./mode/2/local.js";
+import { onlineHTML } from "./mode/2/online.js";
+import { matchHTML } from "./mode/3/match.js";
+import { tournamentHTML } from "./mode/3/tournament.js";
+import { createHTML } from "./mode/3/tournament/create.js";
+import { joinHTML } from "./mode/3/tournament/join.js";
+import { quitHTML } from "./mode/3/tournament/quit.js";
+import { resultsHTML } from "./mode/3/tournament/results.js";
+import { historyHTML } from "./player/history.js";
+import { statsHTML } from "./player/stats.js";
+import { friendsHTML } from "./profile/friends.js";
+import { historyUserHTML } from "./profile/historyUser.js";
+import { pictureHTML } from "./profile/picture/picture.js";
+import { searchHTML } from "./profile/search.js";
+import { statsUserHTML } from "./profile/statsUser.js";
+import { accountHTML } from "./settings/account.js";
+import { deleteHTML } from "./settings/account/delete.js";
+import { emailHTML } from "./settings/account/email.js";
+import { passwordHTML } from "./settings/account/password.js";
+import { pseudoHTML } from "./settings/account/pseudo.js";
+import { verifyEmailHTML } from "./settings/account/verify.js";
+import { keyHTML } from "./settings/key.js";
+import { playerHTML } from "./settings/key/player.js";
+import { languageHTML } from "./settings/language.js";
+import { settingsHTML } from "./settings/settings.js";
+import { volumeHTML } from "./settings/volume.js";
 
 export let vues:any;
 
 export function setVues() {
     vues = {
-        home: home_HTML(),
+        home: homeHTML(),
         connexion: {
-            connexion: connexion_HTML(),
-            login: login_HTML(),
-            signin: signin_HTML(),
-            verify: verify_HTML()
+            connexion: connexionHTML(),
+            login: logInHTML(),
+            signin: signInHTML(),
+            verify: verifyHTML()
         },
         game: {
-            game: game_HTML(),
-            insearch: insearch_HTML()
+            game: gameHTML(),
+            insearch: insearchHTML()
         },
         messages: {
-            global: global_HTML(),
-            notify: notify_HTML(),
-            private: private_HTML()
+            global: globalHTML(),
+            notify: notifyHTML(),
+            private: privateHTML()
         },
         mode: [
             {
-                classic: classic_HTML(),
-                music: music_HTML(),
+                classic: classicHTML(),
+                music: musicHTML()
             },
             {
-                ai: ai_HTML(),
-                local: local_HTML(),
-                online: online_HTML()
+                ai: aiHTML(),
+                local: localHTML(),
+                online: onlineHTML()
             },
             {
                 tournament : {
-                    tournament: tournament_HTML(),
+                    tournament: tournamentHTML(),
                     action: {
-                        create: create_HTML(),
-                        join: join_HTML(),
-                        quit: quit_HTML(),
-                        results: results_HTML()
+                        create: createHTML(),
+                        join: joinHTML(),
+                        quit: quitHTML(),
+                        results: resultsHTML()
                     }
                 },
-                match: match_HTML(),
+                match: matchHTML()
             }
         ],
         player: {
-            history: history_HTML(),
-            stats: stats_HTML(),
+            history: historyHTML(),
+            stats: statsHTML()
         },
         profile: {
             picture: {
-                picture: picture_HTML()
+                picture: pictureHTML()
             },
-            friends: friends_HTML(),
-            history: history_user_HTML(),
-            search: search_HTML(),
-            stats: stats_user_HTML(),
+            friends: friendsHTML(),
+            history: historyUserHTML(),
+            search: searchHTML(),
+            stats: statsUserHTML()
         },
         settings : {
-            settings: settings_HTML(),
-            language: language_HTML(),
-            volume: volume_HTML(),
+            settings: settingsHTML(),
+            language: languageHTML(),
+            volume: volumeHTML(),
             account: {
-                account: account_HTML(),
+                account: accountHTML(),
                 action: {
-                    delete: delete_HTML(),
-                    email: email_HTML(),
-                    password: password_HTML(),
-                    pseudo: pseudo_HTML(),
-                    verify: verifyEmail_HTML()
+                    delete: deleteHTML(),
+                    email: emailHTML(),
+                    password: passwordHTML(),
+                    pseudo: pseudoHTML(),
+                    verify: verifyEmailHTML()
                 }
             },
             key: {
-                key: key_HTML(),
+                key: keyHTML(),
                 action: {
-                    player: player_HTML()
+                    player: playerHTML()
                 }
             }
         }

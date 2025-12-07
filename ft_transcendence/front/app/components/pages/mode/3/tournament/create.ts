@@ -9,7 +9,7 @@ export function renderCreateTournament() {
     const createPage: PageInstance = {
         content: vues.mode[2]!.tournament!.action.create,
         level: 2,
-        create: createTournament,
+        create: createTournament
     }
     render(createPage);
 }

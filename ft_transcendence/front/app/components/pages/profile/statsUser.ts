@@ -2,48 +2,53 @@ import { state } from "../../../index.js";
 import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
-import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
-import { disconnect, historyAPI, pictureAPI, profileAPI } from "../../utils/api.js";
+import { closeEvent } from "../../utils/globalEvents.js";
+import { disconnect, pictureAPI, profileAPI } from "../../utils/api.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderFriends } from "./friends.js";
+import { renderHistoryUser } from "./historyUser.js";
 import { renderSearch } from "./search.js";
-import { renderStatsUser } from "./stats_user.js";
 import { renderPicture } from "./picture/picture.js";
 
-export function renderHistoryUser() {
-    const historyUserPage: PageInstance = {
-        content: vues.profile.history,
+export function renderStatsUser() {
+    const statsUserPage: PageInstance = {
+        content: vues.profile.stats,
         level: 1,
-        create: historyUser,
+        create: statsUser
     }
-    render(historyUserPage);
+    render(statsUserPage);
 }
 
-export function historyUser() {
-    const stats = document.getElementById("stats");
+export function statsUser() {
+    const history = document.getElementById("history");
     const friends = document.getElementById("friends");
     const search = document.getElementById("search");
-    const matchs = document.getElementById("matchs");
     const changePicture = document.getElementById("changePicture");
+    const played = document.getElementById("played");
+    const ratio = document.getElementById("ratio");
+    const tournaments = document.getElementById("tournaments");
+    const winsTournaments = document.getElementById("winsTournaments");
     const disconnectBtn = document.getElementById("disconnect");
 
     profileAPI();
-    historyAPI(matchs);
+    changePicture?.addEventListener("click", renderPicture);
+    played!.textContent = `${state.profile.stats.played}`;
+    ratio!.textContent = `${state.profile.stats.ratio}`;
+    tournaments!.textContent = `${state.profile.stats.tournaments}`;
+    winsTournaments!.textContent = `${state.profile.stats.winsTournaments}`;
 
     disconnectBtn?.addEventListener("click", disconnect);
-    changePicture?.addEventListener("click", renderPicture);
-    stats?.addEventListener("click", renderStatsUser);
+    history?.addEventListener("click", renderHistoryUser);
     friends?.addEventListener("click", renderFriends);
     search?.addEventListener("click", renderSearch);
 
     state.events = new Map<Element | null, TypeEvent>([
         [disconnectBtn, {type: "click", callback: disconnect}],
         [changePicture, {type: "click", callback: renderPicture}],
-        [stats, {type: "click", callback: renderStatsUser}],
+        [history, {type: "click", callback: renderHistoryUser}],
         [friends, {type: "click", callback: renderFriends}],
         [search, {type: "click", callback: renderSearch}]
     ]);
 
-    renderPlayer();
     closeEvent();
 }

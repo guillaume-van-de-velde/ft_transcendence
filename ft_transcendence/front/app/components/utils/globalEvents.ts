@@ -16,7 +16,7 @@ export function closeClicked() {
     const closePage: PageInstance = {
         content: "",
         level: -1,
-        create: null,
+        create: null
     }
     render(closePage);
 }

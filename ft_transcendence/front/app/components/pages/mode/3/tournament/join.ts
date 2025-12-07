@@ -9,7 +9,7 @@ export function renderJoinTournament() {
     const joinPage: PageInstance = {
         content: vues.mode[2]!.tournament!.action.join,
         level: 2,
-        create: joinTournament,
+        create: joinTournament
     }
     render(joinPage);
 }

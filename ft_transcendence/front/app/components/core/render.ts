@@ -35,13 +35,16 @@ export function render(newPage:PageInstance, fromPopState = false) {
 
     destroyEvents();
     state.events.clear();
+    root!.classList.remove("pointer-events-none");
+    const pointerAllowed = document.querySelectorAll(".pointer-events-auto");
+    pointerAllowed.forEach(el => el.classList.remove("pointer-events-auto"));
     if (currentIndex > 0 && displayManager[currentIndex]!.level == displayManager[currentIndex - 1]!.level) {
         let oldElement = document.querySelector(`.level${displayManager[currentIndex - 1]!.level}`);
         if (oldElement)
             oldElement.remove();
     }
     if (activePage!.level) {
-        newElement.className = `level${activePage!.level} flex flex-col flex-grow min-h-0`;
+        newElement.className = `level${activePage!.level} flex flex-col flex-grow min-h-0 pointer-events-auto`;
         newElement!.innerHTML = activePage!.content;
         const oldLevels = document.querySelectorAll(`[class*="level"]`);
         oldLevels.forEach(el => {
@@ -50,6 +53,7 @@ export function render(newPage:PageInstance, fromPopState = false) {
                 el.remove();
             }
         });
+        root?.classList.add("pointer-events-none");
         elementParent!.appendChild(newElement);
     }
     else

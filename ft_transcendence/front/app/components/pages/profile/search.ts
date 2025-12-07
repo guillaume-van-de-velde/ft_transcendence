@@ -6,15 +6,15 @@ import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
 import { disconnect, profileAPI, searchFormCallApi } from "../../utils/api.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderFriends } from "./friends.js";
-import { renderHistoryUser } from "./history_user.js";
-import { renderStatsUser } from "./stats_user.js";
+import { renderHistoryUser } from "./historyUser.js";
+import { renderStatsUser } from "./statsUser.js";
 import { renderPicture } from "./picture/picture.js";
 
 export function renderSearch() {
     const searchPage: PageInstance = {
         content: vues.profile.search,
         level: 1,
-        create: search,
+        create: search
     }
     render(searchPage);
 }

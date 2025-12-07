@@ -12,7 +12,7 @@ export function renderVerifyEmail() {
     const verifyEmailPage: PageInstance = {
         content: vues.settings.account.action.verify,
         level: 1,
-        create: verifyEmail,
+        create: verifyEmail
     }
     render(verifyEmailPage);
 }

@@ -1,19 +1,19 @@
-import { initState, removeToken, setToken, socket, state, token, userConnexionAccepted } from "../../index.js";
+import { initState, link, removeToken, setToken, socket, state, token, userConnexionAccepted } from "../../index.js";
 import { setVues } from "../../vues/vues.js";
 import { render } from "../core/render.js";
 import { Notify, StatusTournament } from "../core/state.js";
-import { renderLogIn } from "../pages/connexion/log_in.js";
-import { renderSignIn } from "../pages/connexion/sign_in.js";
+import { renderLogIn } from "../pages/connexion/logIn.js";
+import { renderSignIn } from "../pages/connexion/signIn.js";
 import { renderVerify } from "../pages/connexion/verify.js";
 import { renderGame } from "../pages/game/game.js";
-import { renderInSearch } from "../pages/game/in_search.js";
+import { renderInSearch } from "../pages/game/inSearch.js";
 import { renderHome } from "../pages/home.js";
 import { renderNotify } from "../pages/messages/notify.js";
 import { renderTournament, tournament } from "../pages/mode/3/tournament.js";
 import { renderCreateTournament } from "../pages/mode/3/tournament/create.js";
 import { renderJoinTournament } from "../pages/mode/3/tournament/join.js";
 import { renderResultsTournament } from "../pages/mode/3/tournament/results.js";
-import { renderStatsUser } from "../pages/profile/stats_user.js";
+import { renderStatsUser } from "../pages/profile/statsUser.js";
 import { renderEmail } from "../pages/settings/account/email.js";
 import { renderPassword } from "../pages/settings/account/password.js";
 import { renderPseudo } from "../pages/settings/account/pseudo.js";
@@ -185,11 +185,6 @@ export function messagerieAPI(element: HTMLElement | null) {
         div.appendChild(p);
         element?.appendChild(div);
     }
-    // let friendSendOneTime = false;
-    // for (const message of chat)
-    //     if (message.isUser == false)
-    //         friendSendOneTime = true;
-    // if (friendSendOneTime)
     socket.emit("seen", state.messages.private[state.friend]!.user.id);
 }
 
@@ -312,7 +307,6 @@ export async function emailFormCallApi(e: Event) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: state.id,
                 oldemail: state.account.email,
                 email: data.newemail
             })
@@ -337,7 +331,6 @@ export async function pseudoFormCallApi(e: Event) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: state.id,
                 pseudo: data.newpseudo
             })
         });
@@ -354,7 +347,7 @@ export async function searchFormCallApi(e: Event) {
     const data = Object.fromEntries(formData.entries());
     let player = null;
 
-    if (data.pseudoPlayerSearch) {
+    if (data.pseudoPlayerSearch && data.pseudoPlayerSearch != "") {
         player = await requestAPI(`${state.link}/api/profile/search`, {
             method: "GET",
             headers: {
@@ -362,6 +355,10 @@ export async function searchFormCallApi(e: Event) {
                 "pseudo": data.pseudoPlayerSearch.toString()
             }
         });
+    } else {
+        const element = document.getElementById("searchResult");
+        element!.innerHTML = '';
+        return ;
     }
 
     const element = document.getElementById("searchResult");
@@ -385,8 +382,13 @@ export async function searchFormCallApi(e: Event) {
         element!.appendChild(playerElement);
         renderPlayer();
     }
-    else
+    else {
+        const p = document.createElement("p");
+        p.className = "text-4xl mx-auto";
+        p.textContent = `NO PLAYER`;
         element!.innerHTML = '';
+        element?.appendChild(p);
+    }
 }
 
 export function changeModeCallApi() {
@@ -398,7 +400,6 @@ export function changeModeCallApi() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            id: state.id,
             mode: newMode
         })
     })
@@ -418,7 +419,6 @@ export async function createTournamentCallApi(e:Event) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: state.id,
                 name: data.inputNameTournament,
                 mode: state.mode.join("").toUpperCase()
             })
@@ -458,7 +458,6 @@ export async function joinTournamentCallApi(e: Event) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: state.id,
                 name: data.inputNameTournament
             })
         });
@@ -613,7 +612,7 @@ export async function logInAPI(e: Event) {
     if (!emailValid(email) || !passwordValid(password))
         return renderLogIn();
 
-    const response = await requestAPI("http://localhost:4400/api/login", {
+    const response = await requestAPI(`${link}/api/login`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -645,7 +644,7 @@ export async function signInAPI(e: Event) {
         return renderSignIn();
     }
 
-    const response = await requestAPI("http://localhost:4400/api/signin", {
+    const response = await requestAPI(`${link}/api/signin`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -669,18 +668,18 @@ export async function dataPlayerCallAPI(e: Event) {
         let idPlayer = (e.target as HTMLElement).dataset.id;
         if (!idPlayer)
             idPlayer = (e.target as HTMLElement).parentElement!.dataset.id;
-        playerData = await requestAPI("http://localhost:4400/api/player", {
+        if (idPlayer == state.id.toString())
+            return renderStatsUser();
+        playerData = await requestAPI(`${link}/api/player`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "id": state.id.toString(),
                 "idasked": idPlayer!
             }
         });
         state.playerData = playerData;
     } else 
         playerData = state.playerData;
-
     const picturePlayer = document.getElementById("picturePlayer");
     const pseudoPlayer = document.getElementById("pseudoPlayer");
     const resultPlayed = document.getElementById("resultPlayed");
@@ -716,6 +715,7 @@ export function printHistory() {
         p.className = "text-4xl";
         p.textContent = "NO HISTORY";
         historyList?.appendChild(p);
+        playerLink();
         return ;
     }
 
@@ -758,7 +758,7 @@ export async function searchGame() {
         renderGame();
         return ;
     }
-    requestAPI("http://localhost:4400/api/game/search", {
+    requestAPI(`${link}/api/game/search`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -777,13 +777,12 @@ export async function searchGame() {
 }
 
 export async function quitQueue() {
-    requestAPI("http://localhost:4400/api/game/quit", {
+    requestAPI(`${link}/api/game/quit`, {
         method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",
 		},
         body: JSON.stringify({
-            id: state.id,
             tournament: state.tournament?.id ? state.tournament.id : 0
         })
     });
@@ -797,7 +796,6 @@ export function quitTournamentCallAPI() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            id: state.id,
             tournament: state.tournament!.id
         })
     });
@@ -815,7 +813,7 @@ export async function verifyAPI(e: Event) {
     if (!data.code)
         return renderVerify();
 
-    const API = await requestAPI(`http://localhost:4400/api/verify`, {
+    const API = await requestAPI(`${link}/api/verify`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -845,7 +843,6 @@ export async function pictureCallAPI(e: Event) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: state.id,
                 picture: data.inputPicture.toString()
             })
         });
@@ -873,7 +870,6 @@ export async function passwordFormCallAPI(e: Event) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: state.id,
                 oldpassword: data.yourpassword,
                 newpassword: data.newpassword
             })
@@ -894,7 +890,7 @@ export async function verifyFormCallApi(e:Event) {
     if (!data.code)
         return renderVerify();
 
-    const response = await requestAPI(`http://localhost:4400/api/settings/account/verify`, {
+    const response = await requestAPI(`${link}/api/settings/account/verify`, {
         method: "PUT",
         headers: {
             "code": data.code.toString()
@@ -918,7 +914,7 @@ export async function forgotCallAPI(e: Event) {
     const data = Object.fromEntries(formData.entries());
     
     if (data.email) {
-        requestAPI(`http://localhost:4400/api/forgot`, {
+        requestAPI(`${link}/api/forgot`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -936,14 +932,8 @@ export async function forgotCallAPI(e: Event) {
 }
 
 export async function deleteAccountCallAPI() {
-    requestAPI(`http://localhost:4400/api/settings/delete`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            id: state.id
-        })
+    requestAPI(`${link}/api/settings/delete`, {
+        method: "DELETE"
     });
     renderVerifyDelete();
 }
@@ -957,7 +947,7 @@ export async function verifyDeleteFormCallApi(e: Event) {
 
     if (!data.code)
         return renderVerify();
-    const response = await requestAPI(`http://localhost:4400/api/settings/delete/verify`, {
+    const response = await requestAPI(`${link}/api/settings/delete/verify`, {
         method: "DELETE",
         headers: {
             "code": data.code.toString()
@@ -974,13 +964,12 @@ export async function verifyDeleteFormCallApi(e: Event) {
 
 export async function languageCallAPI() {
     state.language = document.querySelector(".selected")!.id;
-    await requestAPI(`http://localhost:4400/api/settings/language`, {
+    await requestAPI(`${link}/api/settings/language`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            id: state.id,
             language: state.language
         })
     });

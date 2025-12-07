@@ -1,4 +1,4 @@
-export function create_HTML(): string {
+export function createHTML(): string {
     return `
         <span id="close2" class="close">
             <p class="translate-y-0.5">X</p>

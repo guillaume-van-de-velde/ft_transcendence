@@ -1,4 +1,4 @@
-import { state } from "../../index.js";
+import { link, state } from "../../index.js";
 import { Link, Notify } from "../core/state.js";
 import { renderPrivateMessage } from "../pages/messages/private.js";
 import { requestAPI } from "./requestApi.js";
@@ -14,13 +14,12 @@ function blockPlayer() {
     addPlayerBtn?.removeEventListener("click", sendPlayer);
     blockPlayerBtn?.removeEventListener("click", blockPlayer);
 
-    requestAPI("http://localhost:4400/api/profile/blocked/add", {
+    requestAPI(`${link}/api/profile/blocked/add`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            id: state.id,
             blocked: state.playerData!.user.id
         })
     });
@@ -40,13 +39,12 @@ function sendPlayer() {
     addPlayerBtn?.removeEventListener("click", sendPlayer);
     blockPlayerBtn?.removeEventListener("click", blockPlayer);
 
-    requestAPI("http://localhost:4400/api/profile/notify/put", {
+    requestAPI(`${link}/api/profile/notify/put`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            id: state.id,
             notify: {
                 for: state.playerData!.user.id,
                 type: Notify.ASK
@@ -101,13 +99,12 @@ function unblockPlayer() {
 
     unblockPlayerBtn?.removeEventListener("click", unblockPlayer);
 
-    requestAPI("http://localhost:4400/api/profile/blocked/remove", {
+    requestAPI(`${link}/api/profile/blocked/remove`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            id: state.id,
             blocked: state.playerData!.user.id
         })
     });
@@ -156,13 +153,12 @@ function removeFriendRequest() {
 
     sentPlayerBtn?.removeEventListener("click", removeFriendRequest);
 
-    requestAPI("http://localhost:4400/api/profile/notify/takeoff", {
+    requestAPI(`${link}/api/profile/notify/takeoff`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            id: state.id,
             for: state.playerData!.user.id,
         })
     });
@@ -207,13 +203,12 @@ function removeFriend() {
     removeFriendBtn?.removeEventListener("click", removeFriend);
     chatFriendBtn?.removeEventListener("click", chatFriend);
 
-    requestAPI("http://localhost:4400/api/profile/friends/remove", {
+    requestAPI(`${link}/api/profile/friends/remove`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            id: state.id,
             friend: state.playerData!.user.id
         })
     });

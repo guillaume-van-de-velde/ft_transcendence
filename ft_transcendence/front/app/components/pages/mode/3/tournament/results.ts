@@ -11,7 +11,7 @@ export function renderResultsTournament() {
     const resultsPage: PageInstance = {
         content: vues.mode[2]!.tournament!.action.results,
         level: 1,
-        create: resultsTournament,
+        create: resultsTournament
     }
     render(resultsPage);
 }

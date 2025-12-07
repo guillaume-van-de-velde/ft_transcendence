@@ -14,7 +14,7 @@ export function renderGlobal() {
     const globalPage: PageInstance = {
         content: vues.messages.global,
         level: 1,
-        create: global,
+        create: global
     }
     render(globalPage);
 }

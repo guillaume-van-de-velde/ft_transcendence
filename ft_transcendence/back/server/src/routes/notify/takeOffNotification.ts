@@ -5,7 +5,7 @@ import { Notify } from "../../utils/enums";
 
 export const takeOffNotification = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const id = reqBody.id;
+    const id = req.user!.id;
 
     const notifyList = await readNotify(reqBody.for);
 

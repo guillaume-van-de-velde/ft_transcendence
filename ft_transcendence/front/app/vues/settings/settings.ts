@@ -1,4 +1,4 @@
-export function settings_HTML(): string {
+export function settingsHTML(): string {
     return `
         <span id="close" class="close"> 
             <p class="translate-y-0.5">X</p>

@@ -1,4 +1,4 @@
-export function match_HTML(): string {
+export function matchHTML(): string {
     return `
         <span id="close" class="close">
             <p class="translate-y-0.5">X</p>

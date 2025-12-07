@@ -9,11 +9,9 @@ import { sendTournamentStateToPlayers, startTournament, tournamentsManagement } 
 
 export const joinTournament = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const id = reqBody.id;
+    const id = req.user!.id;
     const nameTournament = reqBody.name;
 
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
     const searchTournament = await readTournament(nameTournament, KeyTournament.NAME);
     if (searchTournament) {
         let i = 1;
@@ -24,7 +22,7 @@ export const joinTournament = async (req:FastifyRequest, res:FastifyReply) => {
             await updateUsers(id, "tournament", searchTournament.id);
 
             const index = tournamentsManagement.findIndex(t => t.id == searchTournament.id);
-            const user = await readUser(id, KeyUser.ID, true);
+            const user = await readUser(id.toString(), KeyUser.ID, true);
             tournamentsManagement[index]!.users.push({
                 user: {
                     id: user.id,

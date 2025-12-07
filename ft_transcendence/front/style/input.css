@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: "david";
-    src: url("./assets/fonts/David_Libre/DavidLibre-Medium.ttf") format("truetype");
+    src: url("./assets/fonts/DavidLibre/DavidLibre-Medium.ttf") format("truetype");
 }
 
 @font-face {
@@ -15,10 +15,16 @@
     src: url("./assets/fonts/Julee/Julee-Regular.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "science";
+    src: url("./assets/fonts/ScienceGothic/ScienceGothic-Medium.ttf") format("truetype");
+}
+
 @theme {
     --font-dangrek: 'dangrek', 'arial';
     --font-david: 'david', 'arial';
     --font-julee: 'julee', 'arial';
+    --font-science: 'science', 'arial';
     --color-home-bg: #111111;
     --color-button-white-bg: #D9D9D9;
     --color-player-display-bg: #696969;
@@ -27,7 +33,6 @@
     --color-form-bg: #2B2B2B;
     --color-action-disabled: #1D1D1D;
 }
-
 
 @layer components {
     .level1 {
@@ -39,6 +44,17 @@
     .close {
         @apply h-18 w-18 bg-home-bg absolute right-0 flex items-center justify-center cursor-pointer rounded-full -translate-x-6 translate-y-6 text-3xl font-dangrek hover:h-20 hover:w-20 duration-300;
     }
+}
+
+@layer utilities {
+  @keyframes simple-wave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .animate-simple-wave {
+    animation: simple-wave 5s linear infinite;
+  }
 }
 
 .hide-scrollbar::-webkit-scrollbar {

@@ -1,4 +1,4 @@
-export function verify_HTML(): string {
+export function verifyHTML(): string {
     return `
     <div class="app bg-home-bg text-white h-screen justify-center items-center font-dangrek flex flex-col">
         <div class="felx flex-col h-2/3 w-full justify-around items-center mx-auto">

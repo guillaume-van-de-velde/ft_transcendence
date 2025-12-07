@@ -6,7 +6,6 @@ import { KeyUser } from "../../utils/enums";
 
 export const deleteAccountVerify = async (req:FastifyRequest, res:FastifyReply) => {
     const codeReq = parseInt(req.headers.code as string);
-    const id = req.user!.id;
 
     for (const verifyCode of verifyCodes) {
         if (verifyCode.code === codeReq) {

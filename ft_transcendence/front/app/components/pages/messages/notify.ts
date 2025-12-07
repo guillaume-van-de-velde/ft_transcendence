@@ -13,7 +13,7 @@ export function renderNotify() {
     const notifyPage: PageInstance = {
         content: vues.messages.notify,
         level: 1,
-        create: notify,
+        create: notify
     }
     render(notifyPage);
 }

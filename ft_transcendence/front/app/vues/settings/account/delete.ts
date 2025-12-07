@@ -1,4 +1,4 @@
-export function delete_HTML(): string {
+export function deleteHTML(): string {
     return `
         <span id="close" class="close"> 
             <p class="translate-y-0.5">X</p>

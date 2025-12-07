@@ -11,7 +11,7 @@ export function renderQuitTournament() {
     const quitPage: PageInstance = {
         content: vues.mode[2]!.tournament!.action.quit,
         level: 2,
-        create: quitTournament,
+        create: quitTournament
     }
     render(quitPage);
 }

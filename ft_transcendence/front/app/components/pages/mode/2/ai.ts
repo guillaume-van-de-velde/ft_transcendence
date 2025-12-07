@@ -11,7 +11,7 @@ export function renderAi() {
     const aiPage: PageInstance = {
         content: vues.mode[1]!.ai!,
         level: 1,
-        create: ai,
+        create: ai
     }
     render(aiPage);
 }

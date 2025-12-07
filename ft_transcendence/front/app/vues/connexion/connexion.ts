@@ -1,4 +1,4 @@
-export function connexion_HTML(): string {
+export function connexionHTML(): string {
     return `
     <div class="app bg-home-bg text-white h-screen flex justify-center items-center">
         <div class="flex flex-col h-1/2 w-[50%] justify-around items-center">

@@ -13,7 +13,7 @@ export function renderSettings() {
     const settingsPage: PageInstance = {
         content: vues.settings.settings,
         level: 1,
-        create: settings,
+        create: settings
     }
     render(settingsPage);
 }

@@ -3,14 +3,14 @@ import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { PageInstance } from "../../utils/interfaces.js";
-import { renderLogIn } from "./log_in.js";
-import { renderSignIn } from "./sign_in.js";
+import { renderLogIn } from "./logIn.js";
+import { renderSignIn } from "./signIn.js";
 
 export function renderConnexion() {
     const connexionPage: PageInstance = {
         content: vues.connexion.connexion,
         level: 0,
-        create: connexion,
+        create: connexion
     }
     render(connexionPage);
 }

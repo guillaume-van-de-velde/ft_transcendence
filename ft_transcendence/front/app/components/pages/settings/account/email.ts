@@ -12,7 +12,7 @@ export function renderEmail() {
     const emailPage: PageInstance = {
         content: vues.settings.account.action.email,
         level: 1,
-        create: email,
+        create: email
     }
     render(emailPage);
 }

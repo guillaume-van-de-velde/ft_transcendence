@@ -1,4 +1,4 @@
-export function signin_HTML(): string {
+export function signInHTML(): string {
     return `
     <div class="app bg-home-bg text-white h-screen justify-center items-center font-dangrek flex flex-col">
         <span class="text-3xl flex justify-center items-center tracking-widest">

@@ -12,7 +12,7 @@ export function renderPseudo() {
     const pseudoPage: PageInstance = {
         content: vues.settings.account.action.pseudo,
         level: 1,
-        create: pseudo,
+        create: pseudo
     }
     render(pseudoPage);
 }

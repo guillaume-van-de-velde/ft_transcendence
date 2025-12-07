@@ -11,7 +11,7 @@ export function renderKey() {
     const keyPage: PageInstance = {
         content: vues.settings.key.key,
         level: 1,
-        create: key,
+        create: key
     }
     render(keyPage);
 }

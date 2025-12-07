@@ -4,11 +4,8 @@ import { tournamentsManagement } from "../tournament/tournament";
 
 export const quitQueue = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const id = reqBody.id;
+    const id = req.user!.id;
     const tournamentId = reqBody.tournament;
-
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
 
     if (tournamentId) {
         const tournament = tournamentsManagement.find(t => t.id == tournamentId);
@@ -17,7 +14,7 @@ export const quitQueue = async (req:FastifyRequest, res:FastifyReply) => {
         const userTournament = tournament?.users.find(u => u.user.id == id);
         if (userTournament!.level == tournament.round)
             userTournament!.queue = false;
-        const match = gameManagement!.find(m => m.users[0]?.id == id);
+        const match = gameManagement!.find(m => m.users[0]?.id == id); // ?
     }
     else {
         const index = gameManagement!.findIndex(m => m.users[0]?.id == id);

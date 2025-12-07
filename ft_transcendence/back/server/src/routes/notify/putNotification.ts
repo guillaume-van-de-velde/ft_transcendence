@@ -7,10 +7,7 @@ import { KeyUser } from "../../utils/enums";
 
 export const putNotification = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
-    const id = reqBody.id;
-
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
+    const id = req.user!.id;
 
     const idNotify = await createNotify(id, reqBody.notify.for, reqBody.notify.type);
 

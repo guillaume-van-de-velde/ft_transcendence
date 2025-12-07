@@ -10,7 +10,7 @@ export function renderGame() {
     const gamePage: PageInstance = {
         content: vues.game.game,
         level: 0,
-        create: game,
+        create: game
     }
     render(gamePage);
 }
@@ -351,10 +351,14 @@ function renderAiGame() {
         analyser = audioContext.createAnalyser();
         analyser.fftSize = 2048;
         analyser.smoothingTimeConstant = 0.8;
-
+        
+        const gain = audioContext.createGain();
+        gain.gain.value = state.volume.general / 100 * state.volume.music / 100;
+        console.log(state.volume.general, state.volume.music, gain.gain.value);
         let source = audioContext.createMediaElementSource(music);
         source.connect(analyser);
-        analyser.connect(audioContext.destination);
+        analyser.connect(gain);
+        gain.connect(audioContext.destination);
         dataArray = new Uint8Array(analyser.frequencyBinCount);
         music.play();
     }
@@ -368,7 +372,6 @@ function renderAiGame() {
             sum += dataArray[i] / 255;
         }
         var level = sum / dataArray.length;
-        console.log(level * 3);
         
         return level * 3;
     }
@@ -581,17 +584,21 @@ function renderLocalGame() {
 
     if (state.mode[0] == "m")
         loadMusic();
-    function loadMusic() {
+        function loadMusic() {
         music = new Audio("./style/assets/mp3/music.mp3");
         music.loop = true;
         audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
         analyser = audioContext.createAnalyser();
         analyser.fftSize = 2048;
         analyser.smoothingTimeConstant = 0.8;
-
+        
+        const gain = audioContext.createGain();
+        gain.gain.value = state.volume.general / 100 * state.volume.music / 100;
+        console.log(state.volume.general, state.volume.music, gain.gain.value);
         let source = audioContext.createMediaElementSource(music);
         source.connect(analyser);
-        analyser.connect(audioContext.destination);
+        analyser.connect(gain);
+        gain.connect(audioContext.destination);
         dataArray = new Uint8Array(analyser.frequencyBinCount);
         music.play();
     }
@@ -722,6 +729,8 @@ function renderOnlineGame() {
     function loadMusic() {
         music = new Audio("./style/assets/mp3/music.mp3");
         music.loop = true;
+        music.volume = state.volume.general / 100 * state.volume.music / 100;
+        console.log(state.volume.general, state.volume.music, music.volume);
         music.play();
     }
 }

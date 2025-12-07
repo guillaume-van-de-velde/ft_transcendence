@@ -16,7 +16,7 @@ export function renderClassic() {
     const classicPage: PageInstance = {
         content: vues.mode[0]!.classic!,
         level: 1,
-        create: classic,
+        create: classic
     }
     render(classicPage);
 }

@@ -13,7 +13,7 @@ export function renderMatch() {
     const matchPage: PageInstance = {
         content: vues.mode[2]!.match!,
         level: 1,
-        create: match,
+        create: match
     }
     render(matchPage);
 }

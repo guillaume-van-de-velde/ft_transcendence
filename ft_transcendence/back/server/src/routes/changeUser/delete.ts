@@ -4,13 +4,9 @@ import { KeyUser } from "../../utils/enums";
 import { createCode } from "../connexion/code";
 
 export const deleteAccount = async (req:FastifyRequest, res:FastifyReply) => {
-    const reqBody = (req.body as any);
-    const id = reqBody.id;
+    const id = req.user!.id;
 
-    if (id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
-
-    const user = await readUser(id, KeyUser.ID);
+    const user = await readUser(id.toString(), KeyUser.ID);
 
     createCode(user.email, user.password);
     return {flag: "good"};
