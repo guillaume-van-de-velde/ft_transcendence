@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { readMatches, readNotify, readStats, readUser } from "../../db/crud/read";
 import { parseHistory } from "../connexion/parse/history";
 import { KeyUser, Link, Notify } from "../../utils/enums";
+import { userSockets } from "../../sockets/sockets";
 
 export async function parseLink(id:number, idAsked:number): Promise<Link> {
     const user = await readUser(id.toString(), KeyUser.ID, false);
@@ -35,6 +36,11 @@ export const getDataPlayer = async (req:FastifyRequest, res:FastifyReply) => {
 
     const playerStats = await readStats(idAsked);
 
+    let isOnline = false;
+    for (const id of userSockets.values())
+        if (id == idAsked)
+            isOnline = true;
+
     return {
         link: await parseLink(id, idAsked),
         user: await readUser(idAsked.toString(), KeyUser.ID, true),
@@ -44,6 +50,7 @@ export const getDataPlayer = async (req:FastifyRequest, res:FastifyReply) => {
             tournaments: playerStats.tournaments,
             winsTournaments: playerStats.winsTournaments
         },
-        history: await parseHistory(idAsked)
+        history: await parseHistory(idAsked),
+        online: isOnline
     }
 }

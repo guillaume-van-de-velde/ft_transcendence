@@ -79,7 +79,7 @@ export async function testDB(db:Database) {
         && users[0].id != undefined && users[1].id != undefined && users[2].id != undefined && users[3].id != undefined && users[4].id != undefined && users[5].id != undefined && users[6].id != undefined && users[7].id != undefined
     ) { 
         for (let i = 0; i < 9; i++) {
-            users[i]!.id = await createUser(users[i]!.email, users[i]!.password!, users[i]!.pseudo, pictureTortipous);
+            users[i]!.id = await createUser(users[i]!.email, users[i]!.password!, users[i]!.pseudo, pictureTortipous, "ENG");
             createStat(users[i]!.id);
         }
         await updateUsers(users[5].id, "picture", pictureCarapuce);

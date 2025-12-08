@@ -1,4 +1,4 @@
-import fastify, { FastifyReply, FastifyRequest } from "fastify";
+import fastify, { FastifyError, FastifyReply, FastifyRequest } from "fastify";
 import { initDB } from "./src/db/init/initDB.js";
 import { testDB } from "./modelTest.js";
 import { Database } from "sqlite";
@@ -60,6 +60,20 @@ function setupSocket() {
 		cors: { origin: process.env.ORIGIN }
 	});
 }
+
+app.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
+    console.error("Erreur attrapée globalement:", error);
+
+    res.status(500).send({ error: "Une erreur est survenue !" });
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+    console.error("Promise non gérée :", reason);
+});
+
+process.on("uncaughtException", (err) => {
+    console.error("Exception non catchée :", err);
+});
 
 function setupMusic() {
 	const json = JSON.parse(fs.readFileSync(process.env.MUSIC!, "utf-8"));

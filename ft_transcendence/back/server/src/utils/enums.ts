@@ -125,6 +125,7 @@ export interface Verify {
     expire: number,
     email: string,
     password: string,
+    language: string | null,
     pseudo: string | null,
     newEmail: string | null
 }

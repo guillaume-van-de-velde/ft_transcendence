@@ -27,17 +27,15 @@ export const acceptMatch = async (req:FastifyRequest, res:FastifyReply) => {
         invite: [player1.id, player2.id]
     });
     let socketTransmitter = null;
-    for (const [socket, id] of userSockets) {
-        if (id == notify.idTransmitter) {
+    let socketReceiver = null;
+    for (const [socket, id] of userSockets)
+        if (id == notify.idTransmitter)
             socketTransmitter = socket;
-            break ;
-        }
-    }
     if (socketTransmitter) {
         socketTransmitter.emit("private", {
             id: notify.idReceiver,
             message: "accepted"
         });
     }
-    createPrivateMessage(notify.idTransmitter, notify.idReceiver, "accepted", false);
+    createPrivateMessage(notify.idReceiver, notify.idTransmitter, "accepted", false);
 }

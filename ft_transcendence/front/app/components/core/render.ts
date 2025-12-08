@@ -4,6 +4,9 @@ import { PageInstance } from "../utils/interfaces.js";
 import { pageRegistery } from "../utils/pageRegistery.js";
 import { soundLaunch } from "../utils/sound.js";
 import { state } from "../../index.js";
+import { home } from "../pages/home.js";
+import { history as historyFunction } from "../pages/player/history.js";
+import { stats } from "../pages/player/stats.js";
 
 const root = document.querySelector(".root");
 
@@ -38,6 +41,7 @@ export function render(newPage:PageInstance, fromPopState = false) {
     root!.classList.remove("pointer-events-none");
     const pointerAllowed = document.querySelectorAll(".pointer-events-auto");
     pointerAllowed.forEach(el => el.classList.remove("pointer-events-auto"));
+    
     if (currentIndex > 0 && displayManager[currentIndex]!.level == displayManager[currentIndex - 1]!.level) {
         let oldElement = document.querySelector(`.level${displayManager[currentIndex - 1]!.level}`);
         if (oldElement)
@@ -69,9 +73,8 @@ export function render(newPage:PageInstance, fromPopState = false) {
     // printStateEvent();
 }
 
-function pushStateAction(page: PageInstance, index: number, home = false) {
-    if (home) {
-        history.pushState(null, "", ""); 
+function pushStateAction(page: PageInstance, index: number, level0 = false) {
+    if (level0) {
         history.replaceState(
             {
                 index: 0,
@@ -82,6 +85,8 @@ function pushStateAction(page: PageInstance, index: number, home = false) {
             "",
             ""
         );
+    } else if (page.create == historyFunction || page.create == stats) {
+        return ;
     }
     else {
         history.pushState({
@@ -99,7 +104,6 @@ window.addEventListener("popstate", e => {
     if (!pageState) return;
 
     const { index, content, level, createName } = pageState;
-    const direction = index > state.index ? "forward" : "backward";
     state.index = index;
 
     let restoredPage = displayManager[index];

@@ -20,6 +20,6 @@ export const changeEmail = async (req:FastifyRequest, res:FastifyReply) => {
     
     const user = await readUser(id.toString(), KeyUser.ID);
 
-    createCode(user.email, user.password, user.pseudo, newEmail);
+    createCode(user.email, user.password, user.language, user.pseudo, newEmail);
     return {flag: "good"};
 }

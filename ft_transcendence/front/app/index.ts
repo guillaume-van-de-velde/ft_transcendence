@@ -12,6 +12,7 @@ import { renderNotify } from "./components/pages/messages/notify.js";
 import { renderConnexion } from "./components/pages/connexion/connexion.js";
 import { renderGame } from "./components/pages/game/game.js";
 import { renderResultsTournament } from "./components/pages/mode/3/tournament/results.js";
+import { changeModeCallApi } from "./components/utils/api.js";
 
 export const link = "https://localhost:4400";
 export let state: AppState;
@@ -33,15 +34,29 @@ export function removeToken() {
   localStorage.removeItem("TokenTranscendence");
 }
 
+function keepInput() {
+	const input = document.getElementById("writeBar") as HTMLInputElement;
+	if (input) {
+		console.log("coucou");
+		
+		state.input.value = input!.value;
+		state.input.focused = document.activeElement === input;
+		state.input.start = input!.selectionStart ?? 0;
+		state.input.end = input!.selectionEnd ?? 0;
+	}
+}
+
 function reRenderForNotify() {
 	switch (state.actual) {
 		case "home":
 			renderHome();
 			break ;
 		case "private":
+			keepInput();
 			renderPrivateMessage();
 			break ;
 		case "global":
+			keepInput();
 			renderGlobal();
 			break ;
 		case "notify":
@@ -60,12 +75,23 @@ function socketManagement() {
 		}
 	});
 
-	socket.on("match", (ennemy: UserShortData) => {
-		state.ennemy = ennemy;
+	socket.on("match", (match: any) => {
+		const mode = match.mode.toLowerCase();
+
+		state.mode = [mode[0], mode[1], mode[2]];
+		changeModeCallApi();
+		state.ennemy = match.ennemy;
 		renderGame();
 	});
 
 	socket.on("notify", (notify:MessageNotify) => {
+		const blocked = state.profile.blocked;
+		if (blocked && blocked[0]) {
+			for (const user of blocked!) {
+				if (notify.user.id == user.id)
+					return ;
+			}
+		}
 		state.messages.notify?.push(notify);
 		if (listPageNotify.includes(state.actual))
 			reRenderForNotify();
@@ -76,6 +102,15 @@ function socketManagement() {
 			state.profile.friends[0] = friend;
 		else
 			state.profile.friends?.push(friend);
+	});
+
+	socket.on("delete", (friend: UserShortData) => {
+		const index = state.profile.friends!.findIndex(f => f.id == friend.id);
+		state.profile.friends!.splice(index, 1);
+		if (state.messages.private) {
+			const indexChat = state.messages.private!.findIndex(c => c.user.id == friend.id);
+			state.messages.private!.splice(indexChat, 1);
+		}
 	});
 
 	socket.on("global", (global:MessageGlobal) => {
@@ -167,7 +202,12 @@ export async function initState(APIandToken:any) {
 		id: API.id,
 		mode: [API.mode.set[0].toLowerCase(), API.mode.set[1].toLowerCase(), API.mode.set[2].toLowerCase()],
 		friend: 0,
-		input: null,
+		input: {
+			value: "",
+			focused: false,
+			start: null,
+			end: null
+		},
 		checkMessage: false,
 		roundTournament: API.mode.tournament?.id ? API.mode.tournament.round : 0,
 		socket: {

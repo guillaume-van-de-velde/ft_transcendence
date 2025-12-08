@@ -9,6 +9,7 @@
       "Courier New", monospace;
     --color-red-600: oklch(57.7% 0.245 27.325);
     --color-red-700: oklch(50.5% 0.213 27.518);
+    --color-green-400: oklch(79.2% 0.209 151.711);
     --color-green-500: oklch(72.3% 0.219 149.579);
     --color-green-600: oklch(62.7% 0.194 149.214);
     --color-green-700: oklch(52.7% 0.154 150.069);
@@ -226,8 +227,14 @@
   .top-5\/20 {
     top: calc(5/20 * 100%);
   }
+  .top-30 {
+    top: calc(var(--spacing) * 30);
+  }
   .top-40 {
     top: calc(var(--spacing) * 40);
+  }
+  .top-50 {
+    top: calc(var(--spacing) * 50);
   }
   .right-0 {
     right: calc(var(--spacing) * 0);
@@ -282,6 +289,15 @@
   }
   .left-6\/10 {
     left: calc(6/10 * 100%);
+  }
+  .left-50 {
+    left: calc(var(--spacing) * 50);
+  }
+  .left-90 {
+    left: calc(var(--spacing) * 90);
+  }
+  .left-92 {
+    left: calc(var(--spacing) * 92);
   }
   .left-\[20\%\] {
     left: 20%;
@@ -397,6 +413,9 @@
   .h-2\/24 {
     height: calc(2/24 * 100%);
   }
+  .h-3 {
+    height: calc(var(--spacing) * 3);
+  }
   .h-3\/8 {
     height: calc(3/8 * 100%);
   }
@@ -405,6 +424,9 @@
   }
   .h-4\/10 {
     height: calc(4/10 * 100%);
+  }
+  .h-5 {
+    height: calc(var(--spacing) * 5);
   }
   .h-5\/10 {
     height: calc(5/10 * 100%);
@@ -484,11 +506,17 @@
   .w-1\/10 {
     width: calc(1/10 * 100%);
   }
+  .w-3 {
+    width: calc(var(--spacing) * 3);
+  }
   .w-4\/5 {
     width: calc(4/5 * 100%);
   }
   .w-4\/10 {
     width: calc(4/10 * 100%);
+  }
+  .w-5 {
+    width: calc(var(--spacing) * 5);
   }
   .w-6\/10 {
     width: calc(6/10 * 100%);
@@ -748,6 +776,9 @@
   .overflow-y-auto {
     overflow-y: auto;
   }
+  .rounded {
+    border-radius: 0.25rem;
+  }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
   }
@@ -814,6 +845,9 @@
   }
   .bg-gray-600 {
     background-color: var(--color-gray-600);
+  }
+  .bg-green-400 {
+    background-color: var(--color-green-400);
   }
   .bg-green-600 {
     background-color: var(--color-green-600);

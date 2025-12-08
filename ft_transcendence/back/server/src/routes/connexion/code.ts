@@ -5,6 +5,7 @@ import { createStat, createUser } from "../../db/crud/create";
 import { getAllDataForUser } from "./getAllDataForUser";
 import { readUserWithEmail } from "../../db/crud/read";
 import jwt from "jsonwebtoken";
+import { userSockets } from "../../sockets/sockets";
 
 export let verifyCodes:Verify[] = [];
 
@@ -12,7 +13,7 @@ export function generate2FACode(): number {
   return Math.floor(100000 + Math.random() * 900000);
 }
 
-export async function createCode(email: string, password: string, pseudo: string | null = null, newEmail: string | null = null) {
+export async function createCode(email: string, password: string, language:string | null = "ENG", pseudo: string | null = null, newEmail: string | null = null) {
     const code = generate2FACode();
     const info = await transporter.sendMail({
         from: `"Pong" <${process.env.EMAIL_VERIFY}>`,
@@ -24,6 +25,7 @@ export async function createCode(email: string, password: string, pseudo: string
         code,
         expire : Date.now() + 5 * 60 * 1000,
         email,
+        language,
         password,
         pseudo,
         newEmail
@@ -38,13 +40,13 @@ export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
     
     for (const verifyCode of verifyCodes) {
         if (verifyCode.code === codeReq) {
-            const { expire, email, password, pseudo } = verifyCode;
+            const { expire, email, password, pseudo, language } = verifyCode;
             verifyCodes.splice(verifyCodes.findIndex(v => v.code == verifyCode.code), 1);
             if (expire < Date.now())
                 return res.code(401).send("le code a expirer");
             if (pseudo) {
                 try {
-                    userId = await createUser(email, password, pseudo, "https://www.nicepng.com/png/detail/115-1150821_default-avatar-comments-sign-in-icon-png.png");
+                    userId = await createUser(email, password, pseudo, "https://www.nicepng.com/png/detail/115-1150821_default-avatar-comments-sign-in-icon-png.png", language!);
                 } catch (err) {
                     return res.code(409).send("error database");
                 }
@@ -65,6 +67,9 @@ export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
                 } catch (err) {
                     return res.code(409).send("error database");
                 }
+                for (const id of userSockets.values())
+                    if (id == user.id)
+                        return res.code(409).send("user already connected");
                 const data = await getAllDataForUser(user.id);
                 const token = jwt.sign(
                     {

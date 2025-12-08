@@ -7,11 +7,15 @@ import { createCode } from "./code";
 import bcrypt from "bcrypt";
 import { provisional } from "./sendPassword";
 import { updateUsers } from "../../db/crud/update";
+import { emailValid, passwordValid } from "./formValidity";
 
 export const connexionAccount = async (req:FastifyRequest, res:FastifyReply) => {
     const email = (req.headers.email as string);
     const password = (req.headers.password as string);
     let user:any;
+
+    if (!emailValid(email) || !passwordValid(password))
+        return res.code(409).send("email or password aren't format correctly");
 
     try {
         user = await readUserWithEmail(email);

@@ -38,6 +38,22 @@ export function privateMessage() {
     privateMessagesAPI(friendsList);
     messagerieAPI(chat);
 
+    if (state.input.value != "" || state.input.focused) {
+        const input = document.getElementById("writeBar") as HTMLInputElement;
+        if (input) {
+            input!.value = state.input.value;
+            input!.selectionStart = state.input.start;
+            input!.selectionEnd = state.input.end;
+            state.input.focused ? input.focus() : 0;
+        }
+        state.input = {
+			value: "",
+			focused: false,
+			start: null,
+			end: null
+		}
+    }
+
     chat!.scrollTop = chat!.scrollHeight;
     state.actual = "private";
 

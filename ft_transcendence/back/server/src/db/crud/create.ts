@@ -1,7 +1,7 @@
 import { Notify, StatusTournament } from "../../utils/enums.js";
 import { db } from "../../../server.js";
 
-export async function createUser(email:string, password:string, pseudo:string, picture:string): Promise<number> {
+export async function createUser(email:string, password:string, pseudo:string, picture:string, language:string): Promise<number> {
     const result = await db.run(`
             INSERT INTO users (
                 pseudo,
@@ -28,7 +28,7 @@ export async function createUser(email:string, password:string, pseudo:string, p
             email,
             password,
             picture,
-            "ENG",
+            language,
             "COM",
             "60",
             "60",

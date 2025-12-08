@@ -37,13 +37,7 @@ export function friendsHTML(): string {
                 <p class="text-4xl tracking-widest py-3">${i18next.t("search")}</p>
             </button>
         </div>
-
-        <div class="h-1/6 w-full flex justify-center items-center">
-            <form action="" class="bg-form-bg w-1/3 flex justify-between rounded-full h-1/3 text-4xl">
-                <input type="text" placeholder="${i18next.t("searchFriend")}" class="pl-5">
-                <button type="submit" class="cursor-pointer grayscale-100">🔍</button>
-            </form>
-        </div>
+        <div class="h-1/12 w-full"></div>
         <div id="friendsList" class="flex flex-wrap w-6/10 mx-auto">
             <!-- <span class="absolute h-[40px] w-[10px] bg-form-bg right-0 -translate-x-60 translate-y-1 rounded-full cursor-pointer"></span> -->
         </div>

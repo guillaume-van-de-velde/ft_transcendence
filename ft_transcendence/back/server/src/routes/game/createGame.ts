@@ -61,9 +61,9 @@ async function closingMatch(player1Score:number, player2Score:number, match:Matc
 
 function renderGame(match:Match) {
     const boardHeight = 630;
-    const boardWith = 1340;
+    const boardWidth = 1340;
 
-    let playerWidth = 10;
+    let playerWidth = 15;
     let playerHeight = 100;
     let playerVelocityY = 0;
     let velocity = 10;
@@ -77,7 +77,7 @@ function renderGame(match:Match) {
     }
 
     let player2 = {
-        x: boardWith - playerWidth - 10,
+        x: boardWidth - playerWidth - 10,
         y: boardHeight / 2 - playerHeight / 2,
         width: playerWidth,
         height: playerHeight,
@@ -88,7 +88,7 @@ function renderGame(match:Match) {
     let ballHeight = 10;
 
     let ball = {
-        x: boardWith / 2 - (ballWidth / 2),
+        x: boardWidth / 2 - (ballWidth / 2),
         y: boardHeight / 2 - (ballHeight / 2),
         width: ballWidth,
         height: ballHeight,
@@ -166,7 +166,7 @@ function renderGame(match:Match) {
             player2Score++;
             resetGame(2, player2Score);
         }
-        else if (ball.x + ballWidth > boardWith) {
+        else if (ball.x + ballWidth > boardWidth) {
             player1Score++;
             resetGame(1, player1Score);
         }
@@ -182,7 +182,7 @@ function renderGame(match:Match) {
             playerY: player2.y,
             ennemyY: player1.y,
             ball : {
-                x: boardWith - ball.x - ball.width,
+                x: boardWidth - ball.x - ball.width,
                 y: ball.y
             }
         });
@@ -254,7 +254,7 @@ function renderGame(match:Match) {
             return ;
         }
         ball = {
-            x: boardWith / 2 - ballWidth / 2,
+            x: boardWidth / 2 - ballWidth / 2,
             y: boardHeight / 2 - ballHeight / 2,
             width: ballWidth,
             height: ballHeight,
@@ -296,8 +296,8 @@ function startMatch(match:Match) {
         return ;
     }
 
-    match.sockets[0].emit("match", { ...match.users[1] });
-    match.sockets[1].emit("match", { ...match.users[0] });
+    match.sockets[0].emit("match", { ennemy: match.users[1], mode: match.mode });
+    match.sockets[1].emit("match", { ennemy: match.users[0], mode: match.mode });
     const index = gameManagement!.findIndex(m => m.users[0]?.id === match.users[0]?.id);
     gameManagement![index] = match;
     renderGame(match);

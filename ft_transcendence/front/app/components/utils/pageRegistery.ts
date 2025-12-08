@@ -1,6 +1,7 @@
 import { connexion } from "../pages/connexion/connexion.js";
 import { logIn } from "../pages/connexion/logIn.js";
 import { signIn } from "../pages/connexion/signIn.js";
+import { verify } from "../pages/connexion/verify.js";
 import { game } from "../pages/game/game.js";
 import { inSearch } from "../pages/game/inSearch.js";
 import { home } from "../pages/home.js";
@@ -22,6 +23,7 @@ import { history } from "../pages/player/history.js";
 import { stats } from "../pages/player/stats.js";
 import { friends } from "../pages/profile/friends.js";
 import { historyUser } from "../pages/profile/historyUser.js";
+import { picture } from "../pages/profile/picture/picture.js";
 import { search } from "../pages/profile/search.js";
 import { statsUser } from "../pages/profile/statsUser.js";
 import { account } from "../pages/settings/account.js";
@@ -29,6 +31,7 @@ import { deleteAccount } from "../pages/settings/account/delete.js";
 import { email } from "../pages/settings/account/email.js";
 import { password } from "../pages/settings/account/password.js";
 import { pseudo } from "../pages/settings/account/pseudo.js";
+import { verifyEmail } from "../pages/settings/account/verify.js";
 import { key } from "../pages/settings/key.js";
 import { player } from "../pages/settings/key/player.js";
 import { language } from "../pages/settings/language.js";
@@ -39,6 +42,7 @@ export const pageRegistery: Record<string, Function> = {
     connexion,
     logIn,
     signIn,
+    verify,
     home,
     settings,
     volume,
@@ -50,6 +54,8 @@ export const pageRegistery: Record<string, Function> = {
     email,
     password,
     pseudo,
+    verifyEmail,
+    picture,
     friends,
     historyUser,
     search,

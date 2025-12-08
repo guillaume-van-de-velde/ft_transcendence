@@ -7,7 +7,7 @@ export function statsHTML(): string {
 
         <div id="profilePlayer" class="h-1/4 flex justify-around items-center w-6/10 mx-auto">
             <div class="flex justify-center items-center h-full w-1/2 gap-5">
-                <div class="flex justify-center items-center">
+                <div id="pictureContainer" class="flex justify-center items-center">
                     <div id="picturePlayer" class="logout avatar  bg-button-white-bg text-black rounded-full h-[100px] w-[100px] text-6xl font-david">
                     </div>
                 </div>

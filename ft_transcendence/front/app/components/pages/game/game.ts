@@ -100,11 +100,11 @@ function renderAiGame() {
     let scorePlayer = document.getElementById("scorePlayer");
     let scoreEnnemy = document.getElementById("scoreEnnemy");
     const boardHeight = 630;
-    const boardWith = 1340;
+    const boardWidth = 1340;
     let board:HTMLCanvasElement;
     let context;
 
-    let playerWidth = 10;
+    let playerWidth = 15;
     let playerHeight = 100;
     let playerVelocityY = 0;
     let velocity = 10;
@@ -120,7 +120,7 @@ function renderAiGame() {
     }
 
     let player2 = {
-        x: boardWith - playerWidth - 10,
+        x: boardWidth - playerWidth - 10,
         y: boardHeight / 2 - playerHeight / 2,
         width: playerWidth,
         height: playerHeight,
@@ -131,7 +131,7 @@ function renderAiGame() {
     let ballHeight = 10;
 
     let ball = {
-        x: boardWith / 2 - (ballWidth / 2),
+        x: boardWidth / 2 - (ballWidth / 2),
         y: boardHeight / 2 - (ballHeight / 2),
         width: ballWidth,
         height: ballHeight,
@@ -159,7 +159,7 @@ function renderAiGame() {
         scoreEnnemy!.textContent = "0";
         board = document.getElementById("board") as HTMLCanvasElement;
         board.height = boardHeight;
-        board.width = boardWith;
+        board.width = boardWidth;
         context = board.getContext("2d")!;
 
         document.addEventListener("keydown", movePlayer);
@@ -192,7 +192,7 @@ function renderAiGame() {
             player2.y = nextPlayer2Y;
         context!.fillRect(player2.x, player2.y, player2.width, player2.height);
         
-        context!.fillRect(boardWith / 2 - 1, 0, 2, boardHeight);
+        context!.fillRect(boardWidth / 2 - 1, 0, 2, boardHeight);
         
         if (state.mode[0] == 'm') {
             ball.x += parseFloat((ball.velocityX * getLevel() * delta).toFixed(2));
@@ -236,7 +236,7 @@ function renderAiGame() {
             player2Score++;
             resetGame(2, player2Score);
         }
-        else if (ball.x + ballWidth > boardWith) {
+        else if (ball.x + ballWidth > boardWidth) {
             player1Score++;
             resetGame(1, player1Score);
         }
@@ -280,7 +280,7 @@ function renderAiGame() {
         const scorePlayerSpan = document.getElementById(`score${player == 1 ? "Player" : "Ennemy"}`);
         scorePlayerSpan!.textContent = score.toString();
         ball = {
-            x: boardWith / 2,
+            x: boardWidth / 2,
             y: boardHeight / 2,
             width: ballWidth,
             height: ballHeight,
@@ -299,11 +299,11 @@ function renderAiGame() {
     setPaddle();
 
     function calculNext(cBall:any):number {
-        while (cBall.y > 0 && cBall.y + cBall.height < boardHeight && cBall.x + cBall.width <= boardWith && cBall.x >= 0) {
+        while (cBall.y > 0 && cBall.y + cBall.height < boardHeight && cBall.x + cBall.width <= boardWidth && cBall.x >= 0) {
             cBall.x += nVelocityX;
             cBall.y += nVelocityY;
         }
-        if (cBall.x + cBall.width > boardWith) {
+        if (cBall.x + cBall.width > boardWidth) {
             return cBall.y + cBall.height / 2;
         } else if (cBall.x < 0) {
             return boardHeight / 2;
@@ -381,11 +381,11 @@ function renderLocalGame() {
     let scorePlayer = document.getElementById("scorePlayer");
     let scoreEnnemy = document.getElementById("scoreEnnemy");
     const boardHeight = 630;
-    const boardWith = 1340;
+    const boardWidth = 1340;
     let board:HTMLCanvasElement;
     let context;
 
-    let playerWidth = 10;
+    let playerWidth = 15;
     let playerHeight = 100;
     let playerVelocityY = 0;
     let velocity = 10;
@@ -401,7 +401,7 @@ function renderLocalGame() {
     }
 
     let player2 = {
-        x: boardWith - playerWidth - 10,
+        x: boardWidth - playerWidth - 10,
         y: boardHeight / 2 - playerHeight / 2,
         width: playerWidth,
         height: playerHeight,
@@ -414,7 +414,7 @@ function renderLocalGame() {
     let ballHeight = 10;
 
     let ball = {
-        x: boardWith / 2 - (ballWidth / 2),
+        x: boardWidth / 2 - (ballWidth / 2),
         y: boardHeight / 2 - (ballHeight / 2),
         width: ballWidth,
         height: ballHeight,
@@ -442,7 +442,7 @@ function renderLocalGame() {
         scoreEnnemy!.textContent = "0";
         board = document.getElementById("board") as HTMLCanvasElement;
         board.height = boardHeight;
-        board.width = boardWith;
+        board.width = boardWidth;
         context = board.getContext("2d")!;
 
         document.addEventListener("keydown", movePlayer);
@@ -474,7 +474,7 @@ function renderLocalGame() {
             player2.y = nextPlayer2Y;
         context!.fillRect(player2.x, player2.y, player2.width, player2.height);
         
-        context!.fillRect(boardWith / 2 - 1, 0, 2, boardHeight);
+        context!.fillRect(boardWidth / 2 - 1, 0, 2, boardHeight);
         
         if (state.mode[0] == 'm') {
             ball.x += parseFloat((ball.velocityX * getLevel()).toFixed(2));
@@ -518,7 +518,7 @@ function renderLocalGame() {
             player2Score++;
             resetGame(2, player2Score);
         }
-        else if (ball.x + ballWidth > boardWith) {
+        else if (ball.x + ballWidth > boardWidth) {
             player1Score++;
             resetGame(1, player1Score);
         }
@@ -573,7 +573,7 @@ function renderLocalGame() {
         const scorePlayerSpan = document.getElementById(`score${player == 1 ? "Player" : "Ennemy"}`);
         scorePlayerSpan!.textContent = score.toString();
         ball = {
-            x: boardWith / 2,
+            x: boardWidth / 2,
             y: boardHeight / 2,
             width: ballWidth,
             height: ballHeight,
@@ -620,11 +620,11 @@ function renderOnlineGame() {
     let scorePlayer = document.getElementById("scorePlayer");
     let scoreEnnemy = document.getElementById("scoreEnnemy");
     const boardHeight = 630;
-    const boardWith = 1340;
+    const boardWidth = 1340;
     let board:HTMLCanvasElement;
     let context;
 
-    let playerWidth = 10;
+    let playerWidth = 15;
     let playerHeight = 100;
 
     let player = {
@@ -635,7 +635,7 @@ function renderOnlineGame() {
     }
 
     let ennemy = {
-        x: boardWith - playerWidth - 10,
+        x: boardWidth - playerWidth - 10,
         y: boardHeight / 2 - playerHeight / 2,
         width: playerWidth,
         height: playerHeight,
@@ -645,7 +645,7 @@ function renderOnlineGame() {
     let ballHeight = 10;
 
     let ball = {
-        x: boardWith / 2 - (ballWidth / 2),
+        x: boardWidth / 2 - (ballWidth / 2),
         y: boardHeight / 2 - (ballHeight / 2),
         width: ballWidth,
         height: ballHeight,
@@ -679,7 +679,7 @@ function renderOnlineGame() {
         scoreEnnemy!.textContent = "0";
         board = document.getElementById("board") as HTMLCanvasElement;
         board.height = boardHeight;
-        board.width = boardWith;
+        board.width = boardWidth;
         context = board.getContext("2d")!;
 
         document.addEventListener("keydown", movePlayer);
@@ -703,7 +703,7 @@ function renderOnlineGame() {
         
         context!.fillRect(player.x, player.y, player.width, player.height);
         context!.fillRect(ennemy.x, ennemy.y, ennemy.width, ennemy.height);
-        context!.fillRect(boardWith / 2 - 1, 0, 2, boardHeight);
+        context!.fillRect(boardWidth / 2 - 1, 0, 2, boardHeight);
         context!.fillRect(ball.x, ball.y, ball.width, ball.height);
         requestAnimationFrame(update);
     }

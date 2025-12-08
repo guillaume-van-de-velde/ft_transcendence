@@ -33,6 +33,22 @@ export function global() {
 
     globalMessagerie!.scrollTop = globalMessagerie!.scrollHeight;
 
+    if (state.input.value != "" || state.input.focused) {
+        const input = document.getElementById("writeBar") as HTMLInputElement;
+        if (input) {
+            input!.value = state.input.value;
+            input!.selectionStart = state.input.start;
+            input!.selectionEnd = state.input.end;
+            state.input.focused ? input.focus() : 0;
+        }
+        state.input = {
+			value: "",
+			focused: false,
+			start: null,
+			end: null
+		}
+    }
+
     formWriteBar?.addEventListener("submit", globalMessageSend);
     privateMessage?.addEventListener("click", renderPrivateMessage);
     notify?.addEventListener("click", renderNotify);
@@ -43,5 +59,6 @@ export function global() {
         [notify, {type: "click", callback: renderNotify}]
     ]);
 
+    renderPlayer();
     closeEvent();
 }

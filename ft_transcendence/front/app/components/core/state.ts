@@ -4,7 +4,7 @@ export interface TypeEvent {
 }
 
 export enum IDPLAYER {NONE, PLAYER1, PLAYER2}
-export enum Notify { ASK = "ASK", MATCH = "MATCH", TOURNAMENT = "TOURNAMENT" }
+export enum Notify { ASK = "ASK", MATCH = "MATCH" }
 export enum StatusTournament { START = "START", WAIT = "WAIT", FINISHED = "FINISHED" }
 export enum Link { NONE = "NONE", FRIEND = "FRIEND", SENT = "SENT", BLOCKED = "BLOCKED"}
 
@@ -73,6 +73,7 @@ export interface AppState {
             winsTournaments: number
         },
         history?: MatchHistory[],
+        online: boolean
     }
     input: {
         value: string;

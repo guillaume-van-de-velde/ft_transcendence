@@ -4,6 +4,7 @@ import { KeyTournament, StatusTournament } from "../../utils/enums";
 import { updateTournaments, updateUsers, updateUserTournaments } from "../../db/crud/update";
 import { sendTournamentStateToPlayers, tournamentsManagement } from "./tournament";
 import { gameManagement } from "../game/createGame";
+import { deleteTournament } from "../../db/crud/z-delete";
 
 export const quitTournament = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
@@ -25,6 +26,10 @@ export const quitTournament = async (req:FastifyRequest, res:FastifyReply) => {
                     tournamentsManagement[index]!.users.splice(userIndex, 1);
                     sendTournamentStateToPlayers(index);
                     updateUserTournaments(dataTournament.name, 0, i);
+                    if (!tournamentsManagement[index]!.users[0]) {
+                        tournamentsManagement.splice(index, 1);
+                        deleteTournament(dataTournament.id);
+                    }
                     break ;
                 }
                 case StatusTournament.START : {

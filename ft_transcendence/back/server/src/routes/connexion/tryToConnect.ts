@@ -3,6 +3,7 @@ import { getAllDataForUser } from "./getAllDataForUser";
 import { readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 import jwt from "jsonwebtoken"
+import { userSockets } from "../../sockets/sockets";
 
 export const tryToConnect = async (req:FastifyRequest, res:FastifyReply) => {
     try {
@@ -17,6 +18,9 @@ export const tryToConnect = async (req:FastifyRequest, res:FastifyReply) => {
         const user = await readUser(req.user.id.toString(), KeyUser.ID);
         if (!user || user.version != req.user.version)
             return res.code(401).send("token refused");
+        for (const id of userSockets.values())
+            if (id == user.id)
+                return res.code(409).send("user already connected");
     } catch (err: any) {
         return res.code(200).send("invalid token");
     }

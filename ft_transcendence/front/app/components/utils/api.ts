@@ -130,6 +130,7 @@ export function friendsAPI(element: HTMLElement | null) {
 
 export function privateMessagesAPI(element: HTMLElement | null) {
 
+    console.log("coucou1", state.messages.private![0], "coucou2");
     if (!state.messages.private![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
@@ -212,7 +213,8 @@ export function globalAPI(element: HTMLElement | null) {
         const pseudo = document.createElement("div");
 
         pseudo.textContent = message.user.pseudo;
-        pseudo.className = "pseudo"
+        pseudo.className = "pseudo player cursor-pointer";
+        pseudo.dataset.id = `${message.user.id}`;
         p.textContent = message.message;
         div.className = classOptions;
         div.appendChild(pseudo);
@@ -652,7 +654,8 @@ export async function signInAPI(e: Event) {
         body: JSON.stringify({
             email: email,
             password: password,
-            pseudo: pseudo
+            pseudo: pseudo,
+            language: state.language
         })
 	});
 
@@ -687,6 +690,12 @@ export async function dataPlayerCallAPI(e: Event) {
     const resultTournaments = document.getElementById("resultTournaments");
     const resultWinTournaments = document.getElementById("resultWinTournaments");
 
+    if (playerData.online) {
+        const span = document.createElement("span");
+        span.classList = "h-3 w-3 absolute bg-green-400 rounded-full left-92 top-30";
+        const pictureContainer = document.getElementById("pictureContainer");
+        pictureContainer!.appendChild(span);
+    }
     const img = document.createElement("img");
     img.className = "w-full h-full rounded-full mx-auto";
     img.src = playerData.user.picture;
@@ -709,6 +718,13 @@ export function printHistory() {
     img.src = state.playerData!.user.picture;
     picturePlayer!.appendChild(img);
     pseudoPlayer!.textContent = `${state.playerData!.user.pseudo}`;
+
+    if (state.playerData!.online) {
+        const span = document.createElement("span");
+        span.classList = "h-3 w-3 absolute bg-green-400 rounded-full left-92 top-30";
+        const pictureContainer = document.getElementById("pictureContainer");
+        pictureContainer!.appendChild(span);
+    }
 
     if (!state.playerData!.history![0]) {
         const p = document.createElement("p");
