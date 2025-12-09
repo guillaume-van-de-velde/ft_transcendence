@@ -15,7 +15,7 @@ export const changePassword = async (req:FastifyRequest, res:FastifyReply) => {
     const user = await readUser(id.toString(), KeyUser.ID);
 
     if (!(await bcrypt.compare(oldpassword, user.password)))
-        return res.code(401).send("password not valid");
+        return res.code(401).send({ error: "password invalid" });
 
     updateUsers(id, "password", password);
     updateUsers(id, "version", user.version + 1);

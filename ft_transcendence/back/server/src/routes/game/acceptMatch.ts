@@ -13,7 +13,7 @@ export const acceptMatch = async (req:FastifyRequest, res:FastifyReply) => {
     const notify = await readNotifyById(idNotify);
 
     if (notify.idReceiver != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
+        return res.code(403).send({ error: "not authorised" });
 
     deleteNotify(idNotify);
 

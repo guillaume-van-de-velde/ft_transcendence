@@ -16,20 +16,20 @@ export const createAccount = async (req:FastifyRequest, res:FastifyReply) => {
     let userId:number = 0;
 
     if (!emailValid(email) || !passwordValid(reqBody.password) || !pseudoValid(pseudo))
-        return res.code(409).send("email, password, or pseudo aren't format correctly");
+        return res.code(409).send({ error: "bad format" });
 
     try {
         userId = await readUser(email, KeyUser.EMAIL, true);
         if (userId)
-            return res.code(409).send("email exists");
+            return res.code(409).send({ error: "email exist" });
         userId = await readUser(pseudo, KeyUser.PSEUDO, true);
         if (userId)
-            return res.code(409).send("pseudo exists");
+            return res.code(409).send({ error: "pseudo exist" });
     } catch (err) {
-        return res.code(409).send("database error");
+        return res.code(409).send({ error: "database error" });
     }
 
     await createCode(email, password, language, pseudo);
 
-    return res.code(200).send({flag: "ok"});
+    return res.code(200).send({ flag: "ok" });
 }

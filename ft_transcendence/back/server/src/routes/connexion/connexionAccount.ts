@@ -15,13 +15,15 @@ export const connexionAccount = async (req:FastifyRequest, res:FastifyReply) => 
     let user:any;
 
     if (!emailValid(email) || !passwordValid(password))
-        return res.code(409).send("email or password aren't format correctly");
+        return res.code(409).send({ error: "bad format" });
 
     try {
         user = await readUserWithEmail(email);
     } catch (err) {
-        return res.code(409).send("email doesn't exist");
+        return res.code(409).send({ error: "email doesn't exist" });
     }
+    if (!user)
+        return res.code(409).send({ error: "email doesn't exist" });
 
     let pass: Provisionnal | null = null;
     for (const passCode of provisional)  {
@@ -34,12 +36,12 @@ export const connexionAccount = async (req:FastifyRequest, res:FastifyReply) => 
     }
 
     if (!pass && !(await bcrypt.compare(password, user.password)))
-        return res.code(401).send("password not valid");
+        return res.code(401).send({ error: "password invalid" });
 
     if (user.id) {
         createCode(email, password);
-        return res.code(200).send({flag: "ok"});
+        return res.code(200).send({ flag: "ok" });
     }
 
-    return res.code(500).send("error server");
+    return res.code(500).send({ error: "error server" });
 }

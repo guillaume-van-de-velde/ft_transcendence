@@ -24,11 +24,11 @@ export const addPlayerToFriendList = async (req:FastifyRequest, res:FastifyReply
     try {
         notify = await readNotifyById(idNotify);
     } catch (err) {
-        return res.code(404).send({message: "notify not found"});
+        return res.code(404).send({ error: "notify not found" });
     }
 
     if (notify.idReceiver != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
+        return res.code(403).send({ error: "not authorised" });
 
     addUserList(notify.idTransmitter, "friends", notify.idReceiver);
     addUserList(notify.idReceiver, "friends", notify.idTransmitter);

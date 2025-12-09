@@ -1,6 +1,6 @@
 import { removeToken, token } from "../../index.js";
 
-export async function requestAPI(url:string, requestConfig:RequestInit):Promise<any> {
+export async function requestAPI(url: string, requestConfig: RequestInit): Promise<any> {
     try {
         if (token) {
             requestConfig.headers = {
@@ -8,22 +8,28 @@ export async function requestAPI(url:string, requestConfig:RequestInit):Promise<
                 "Authorization": `Bearer ${token}`
             };
         }
-        console.log(requestConfig);
         const response = await fetch(url, requestConfig);
-        console.log(response);
-        
         if (response.status == 401 && await response.text() == "token refused") {
-            console.error("token refused - rechargement de la page");
+            console.log("token refused - rechargement de la page");
             removeToken();
             window.location.reload();
-            return ;
+            return;
         }
         if (!response.ok) {
-            throw new Error(`Erreur HTTP : ${response.status}`);
+            const data = await response.json().catch(() => null);
+            throw new Error(data.error || `error ${response.status}`);
         }
         const data = await response.json().catch(() => null);
         return data;
-    } catch (error) {
-        console.error("Erreur lors de la requete: ", error);
+    } catch (error: any) {
+        console.log(error);
+
+        if (error) {
+            const span = document.createElement("span");
+            span.classList = "absolute left-1/2 top-10 -translate-x-1/2 bg-red-600 text-white font-dangrek text-md rounded-full h-[60px] w-[250px]";
+            span.textContent = error;
+            document.querySelector(".root")?.appendChild(span);
+            setTimeout(() => span.remove(), 2000);
+        }
     }
 }

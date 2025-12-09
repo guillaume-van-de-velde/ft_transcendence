@@ -14,16 +14,16 @@ export const verifyEmail = async (req:FastifyRequest, res:FastifyReply) => {
             if (!newEmail)
                 break ;
             if (expire < Date.now()) {
-                return res.code(401).send("le code a expirer");
+                return res.code(401).send({ error: "code expire" });
             }
             try {
                 user = await readUserWithEmail(email);
             } catch (err) {
-                return res.code(409).send("error database");
+                return res.code(409).send({ error: "error database" });
             }
             updateUsers(user.id, "email", newEmail);
             return {email: newEmail};
         }
     }
-    return res.code(401).send("le code est incorrect");
+    return res.code(401).send({ error: "code incorrect" });
 }

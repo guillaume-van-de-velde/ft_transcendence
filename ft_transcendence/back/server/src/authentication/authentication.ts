@@ -8,7 +8,7 @@ export const authentication = async (req: FastifyRequest, res: FastifyReply) => 
     try {
 
         const authHeader = req.headers.authorization;
-        if (!authHeader) return res.code(401).send("missing token");
+        if (!authHeader) return res.code(401).send({ error: "missing token" });
 
         const token = authHeader.split(' ')[1];
         

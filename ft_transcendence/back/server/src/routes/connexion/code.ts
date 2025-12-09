@@ -43,12 +43,12 @@ export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
             const { expire, email, password, pseudo, language } = verifyCode;
             verifyCodes.splice(verifyCodes.findIndex(v => v.code == verifyCode.code), 1);
             if (expire < Date.now())
-                return res.code(401).send("le code a expirer");
+                return res.code(401).send({ error: "code expire" });
             if (pseudo) {
                 try {
                     userId = await createUser(email, password, pseudo, "https://www.nicepng.com/png/detail/115-1150821_default-avatar-comments-sign-in-icon-png.png", language!);
                 } catch (err) {
-                    return res.code(409).send("error database");
+                    return res.code(409).send({ error: "error database" });
                 }
                 await createStat(userId);
                 const data = await getAllDataForUser(userId);
@@ -65,11 +65,11 @@ export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
                 try {
                     user = await readUserWithEmail(email);
                 } catch (err) {
-                    return res.code(409).send("error database");
+                    return res.code(409).send({ error: "error database" });
                 }
                 for (const id of userSockets.values())
                     if (id == user.id)
-                        return res.code(409).send("user already connected");
+                        return res.code(409).send({ error: "user connected" });
                 const data = await getAllDataForUser(user.id);
                 const token = jwt.sign(
                     {
@@ -83,5 +83,5 @@ export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
             }
         }
     }
-    return res.code(401).send("le code est incorrect");
+    return res.code(401).send({ error: "code incorrect" });
 }

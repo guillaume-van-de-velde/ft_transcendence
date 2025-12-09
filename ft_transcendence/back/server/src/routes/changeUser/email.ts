@@ -13,9 +13,9 @@ export const changeEmail = async (req:FastifyRequest, res:FastifyReply) => {
     try {
         userId = await readUser(newEmail, KeyUser.EMAIL);
         if (userId)
-            return res.code(409).send("email exists");
+            return res.code(409).send({ error: "email exist" });
     } catch (err) {
-        return res.code(409).send("database error");
+        return res.code(409).send({ error: "database error" });
     }
     
     const user = await readUser(id.toString(), KeyUser.ID);

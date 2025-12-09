@@ -8,7 +8,6 @@ export const giveFront = async (req:FastifyRequest, res:FastifyReply) => {
         const content = fs.readFileSync(absolutePath, 'utf8');
         res.type('text/html').send(content);
     } catch (error) {
-        console.error("Error reading file:", error);
-        res.status(500).send("Error loading page");
+        res.status(500).send({ error: "error load" });
     }
 }

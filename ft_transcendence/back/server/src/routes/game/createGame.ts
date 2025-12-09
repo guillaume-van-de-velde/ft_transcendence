@@ -382,7 +382,7 @@ export const createGame = async (req:FastifyRequest, res:FastifyReply) => {
     const tournament = tournamentsManagement.find(t => t.id == tournamentId);
 
     if (user.id != req.user!.id)
-        return res.code(403).send({message: "not authorised"});
+        return res.code(403).send({ error: "not authorised" });
     if (tournamentId && tournament?.status == "START")
         manageTournamentQueue(tournament, user);
     else if (tournamentId || mode[3] == "T")

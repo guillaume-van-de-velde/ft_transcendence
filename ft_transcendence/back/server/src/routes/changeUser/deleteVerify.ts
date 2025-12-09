@@ -12,7 +12,7 @@ export const deleteAccountVerify = async (req:FastifyRequest, res:FastifyReply) 
             const { expire, email } = verifyCode;
             verifyCodes.splice(verifyCodes.findIndex(v => v.code == verifyCode.code), 1);
             if (expire < Date.now()) {
-                return res.code(401).send("le code a expirer");
+                return res.code(401).send({ error: "code expire" });
             }
             const user = await readUser(email, KeyUser.EMAIL);
             updateUsers(user.id, "email", `delete${user.id}`);
@@ -23,5 +23,5 @@ export const deleteAccountVerify = async (req:FastifyRequest, res:FastifyReply) 
             return {delete: "ok"};
         }
     }
-    return res.code(401).send("le code est incorrect");
+    return res.code(401).send({ error: "code incorrect" });
 }

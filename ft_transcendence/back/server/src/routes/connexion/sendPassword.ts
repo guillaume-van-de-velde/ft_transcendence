@@ -16,10 +16,10 @@ export const sendPassword = async (req:FastifyRequest, res:FastifyReply) => {
     try {
         user = await readUserWithEmail(email);
     } catch (err) {
-        return res.code(409).send("email doesn't exist");
+        return res.code(409).send({ error: "email doesn't exist" });
     }
     if (!user)
-        return res.code(409).send("email doesn't exist");
+        return res.code(409).send({ error: "email doesn't exist" });
 
     const code = generate2FACode();
     await transporter.sendMail({

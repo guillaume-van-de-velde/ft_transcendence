@@ -62,8 +62,6 @@ function setupSocket() {
 }
 
 app.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
-    console.error("Erreur attrapée globalement:", error);
-
     res.status(500).send({ error: "Une erreur est survenue !" });
 });
 
