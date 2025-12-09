@@ -869,6 +869,9 @@ export async function pictureCallAPI(e: Event) {
 
 export function disconnect() {
     localStorage.removeItem("TokenTranscendence");
+    requestAPI(`${state.link}/api/disconnect`, {
+        method: "DELETE"
+    });
     window.location.reload();
 }
 

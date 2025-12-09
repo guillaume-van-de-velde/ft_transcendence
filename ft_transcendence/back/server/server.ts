@@ -33,7 +33,7 @@ export let musicTime:number = 1;
 
 async function fillDb() {
 	db = await initDB();
-	// initTables();
+	initTables();
 	// testDB(db);
 }
 

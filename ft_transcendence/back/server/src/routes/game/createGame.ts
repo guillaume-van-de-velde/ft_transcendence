@@ -5,6 +5,7 @@ import { musicLevels, musicTime } from "../../../server";
 import { createMatch } from "../../db/crud/create";
 import { sendTournamentStateToPlayers, tournamentsManagement } from "../tournament/tournament";
 import { updateTournaments } from "../../db/crud/update";
+import { updateStats } from "../../db/crud/update";
 
 export const gameManagement: Match[] | null = [];
 
@@ -37,6 +38,13 @@ async function closingMatch(player1Score:number, player2Score:number, match:Matc
     const now = new Date();
 
     await createMatch(match.users[0]!.id, match.users[1]!.id, player1Score, player2Score, match.mode, getDate(now), getHour(now));
+
+    const win = player1Score > player2Score ? match.users[0]!.id : match.users[1]!.id;
+    const lose = player1Score <= player2Score ? match.users[0]!.id : match.users[1]!.id;;
+    await updateStats(win, "wins");
+    await updateStats(lose, "loses");
+    await updateStats(win, "played");
+    await updateStats(lose, "played");
 
     if (match.booking) {
         const tournament = getTournamentOfMatch(match.users[0]!);

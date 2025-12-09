@@ -27,6 +27,7 @@ import { deleteAccountVerify } from "./changeUser/deleteVerify";
 import { movePaddle } from "./game/paddle/move";
 import { stopPaddle } from "./game/paddle/stop";
 import { giveFront } from "./connexion/giveFront";
+import { disconnect } from "./connexion/disconnect";
 
 export function routes() {
     app.get("/", giveFront);
@@ -34,7 +35,8 @@ export function routes() {
     app.get("/api/login", connexionAccount);
     app.post("/api/signin", createAccount);
     app.get("/api/verify", verifyCode);
-
+    
+    app.delete("/api/disconnect", { preHandler: authentication }, disconnect);
     app.put("/api/settings/volume/general", { preHandler: authentication}, changeUser);
     app.put("/api/settings/volume/noises", { preHandler: authentication}, changeUser);
     app.put("/api/settings/volume/music", { preHandler: authentication}, changeUser);

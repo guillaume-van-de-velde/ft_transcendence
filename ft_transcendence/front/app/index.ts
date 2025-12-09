@@ -14,7 +14,7 @@ import { renderGame } from "./components/pages/game/game.js";
 import { renderResultsTournament } from "./components/pages/mode/3/tournament/results.js";
 import { changeModeCallApi } from "./components/utils/api.js";
 
-export const link = "https://localhost:4400";
+export const link = "https://localhost:3000";
 export let state: AppState;
 declare const io:any;
 export let socket:any;

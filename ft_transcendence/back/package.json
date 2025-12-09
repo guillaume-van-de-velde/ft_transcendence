@@ -6,8 +6,8 @@
   "author": "",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon build/server.js",
-    "build": "tsc --watch --project config/tsconfig.json"
+    "server": "node build/server.js",
+    "build": "tsc --project config/tsconfig.json"
   },
   "dependencies": {
     "@fastify/cors": "^11.1.0",

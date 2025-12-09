@@ -46,7 +46,7 @@ export async function getAllDataForUser(idAsk: number) {
             picture: userData.picture,
             stats: {
                 played: userStats.played,
-                ratio: userStats.played ? (userStats.loses ? userStats.wins / userStats.loses : 1) : 0,
+                ratio: userStats.wins ? Number(Math.round(100 * userStats.wins / userStats.played) / 100) : 0,
                 tournaments: userStats.tournaments,
                 winsTournaments: userStats.winsTournaments
             },

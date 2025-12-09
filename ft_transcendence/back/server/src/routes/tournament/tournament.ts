@@ -1,12 +1,20 @@
 import { Socket } from "socket.io";
 import { readTournament } from "../../db/crud/read";
-import { updateStatusTournaments, updateTournaments } from "../../db/crud/update";
+import { updateStats, updateStatusTournaments, updateTournaments } from "../../db/crud/update";
 import { KeyTournament, StatusTournament, Tournament } from "../../utils/enums";
 import { userSockets } from "../../sockets/sockets";
 import { gameManagement } from "../game/createGame";
 import util from "util";
 
 export const tournamentsManagement: Tournament[] = [];
+
+export async function updateStatsTournamentPlayer(tournament: Tournament) {
+    for (const user of tournament.users) {
+        if (user.level >= 3)
+            await updateStats(user.user.id, "winsTournaments");
+        await updateStats(user.user.id, "tournaments");
+    }
+}
 
 export function sendTournamentStateToPlayers(index:number) {
     const tournament = tournamentsManagement![index];
@@ -121,6 +129,7 @@ export function updateTimerTournament(tournament: Tournament, index:number) {
                 updateStatusTournaments(tournament.id, StatusTournament.FINISHED);
                 tournament.status = StatusTournament.FINISHED;
                 sendTournamentStateToPlayers(index);
+                updateStatsTournamentPlayer(tournament);
                 tournamentsManagement.splice(index, 1);
                 return ;
             }
