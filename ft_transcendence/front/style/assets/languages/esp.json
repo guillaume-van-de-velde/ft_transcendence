@@ -55,10 +55,11 @@
 
     "private": "PRIVADO",
     "global": "GLOBAL",
-    "notify": "NOTIFICACIONES",
+    "notify": "NOTIFS",
 
     "noFriends": "SIN AMIGOS",
-    "noNotify": "SIN NOTIFICACIONES",
+    "noNotify": "SIN NOTIFS",
+    "noPlayer": "SIN JUGADOR",
 
     "logOut": "DESCONEXION",
     "picture": "FOTO",
@@ -73,9 +74,8 @@
     "noHistory": "SIN HISTORIA",
 
     "friends": "AMIGOS",
-    "searchFriend": "buscando un amigo",
 
-    "search": "INVESTIGACIÓN",
+    "search": "SEARCHER",
     "searchPlayer": "buscando un jugador",
 
     "add": "AGREGAR +",
@@ -95,7 +95,7 @@
     
     "connexion": "SESIÓN",
     "logIn": "SESIÓN",
-    "signIn": "REGISTRARSE",
+    "signIn": "FICHAR",
     "code": "CÓDIGO",
     "verify": "VERIFICAR",
 

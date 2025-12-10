@@ -67,9 +67,12 @@ export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
                 } catch (err) {
                     return res.code(409).send({ error: "error database" });
                 }
-                for (const id of userSockets.values())
-                    if (id == user.id)
-                        return res.code(409).send({ error: "user connected" });
+                for (const [socket, id] of userSockets) {
+                    if (id === user.id) {
+                        socket.disconnect(true);
+                        userSockets.delete(socket);
+                    }
+                }
                 const data = await getAllDataForUser(user.id);
                 const token = jwt.sign(
                     {

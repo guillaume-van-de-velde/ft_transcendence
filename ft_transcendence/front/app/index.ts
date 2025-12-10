@@ -75,6 +75,13 @@ function socketManagement() {
 		}
 	});
 
+	socket.on("disconnect", (reason:any) => {
+		if (reason === "io server disconnect") {
+			removeToken();
+			window.location.reload();
+		}
+	});
+
 	socket.on("match", (match: any) => {
 		const mode = match.mode.toLowerCase();
 

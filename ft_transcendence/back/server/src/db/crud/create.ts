@@ -89,7 +89,7 @@ export async function createGlobalMessage(idTransmitter:number, message:string) 
 
 export async function createNotify(idTransmitter:number, idReceiver:number, type:Notify): Promise<number> {
     const result = await db.run(`
-            INSERT INTO notify (
+            INSERT OR IGNORE INTO notify (
                 idTransmitter,
                 idReceiver,
                 type,
@@ -99,7 +99,9 @@ export async function createNotify(idTransmitter:number, idReceiver:number, type
         `,
         [idTransmitter, idReceiver, type, false]
     );
-    return result.lastID!;
+    console.log("changes: ", result.changes);
+    console.log("lastID: ", result.lastID!);
+    return result.changes === 1 ? result.lastID! : 0;
 }
 
 export async function createTournament(name:string, mode: string, id:number) {

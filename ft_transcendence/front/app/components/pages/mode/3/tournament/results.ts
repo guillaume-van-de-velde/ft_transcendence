@@ -44,7 +44,7 @@ function setStatusTournament() {
 
     switch (state.tournament!.status) {
         case "WAIT": {
-            statusTournament!.textContent = "WAIT FOR PLAYERS";
+            statusTournament!.textContent = `${i18next.t("wait")}`;
             break ;
         }
         case "START": {
@@ -71,7 +71,7 @@ function setStatusTournament() {
             break ;
         }
         case "FINISHED": {
-            statusTournament!.textContent = "TOURNAMENT FINISHED";
+            statusTournament!.textContent = `${i18next.t("finished")}`;
             break ;
         }
         default: 

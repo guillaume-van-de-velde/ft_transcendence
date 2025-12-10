@@ -57,7 +57,7 @@ export function historyAPI(element: HTMLElement | null) {
     if (!state.profile.history![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl";
-        p.textContent = "NO HISTORY";
+        p.textContent = `${i18next.t("noHistory")}`;
         element?.appendChild(p);
         return ;
     }
@@ -93,7 +93,6 @@ export function historyAPI(element: HTMLElement | null) {
         `;
         element?.appendChild(div);
     }
-
 }
 
 export function friendsAPI(element: HTMLElement | null) {
@@ -101,7 +100,7 @@ export function friendsAPI(element: HTMLElement | null) {
     if (!state.profile.friends![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
-        p.textContent = `${i18next.t("no")} ${i18next.t("friends")}`;
+        p.textContent = `${i18next.t("noFriends")}`;
         element?.appendChild(p);
         return ;
     }
@@ -134,7 +133,7 @@ export function privateMessagesAPI(element: HTMLElement | null) {
     if (!state.messages.private![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
-        p.textContent = `${i18next.t("no")} ${i18next.t("friends")}`;
+        p.textContent = `${i18next.t("noFriends")}`;
         element?.appendChild(p);
         return ;
     }
@@ -143,7 +142,7 @@ export function privateMessagesAPI(element: HTMLElement | null) {
         const btn = document.createElement("button");
         const focus = index == state.friend ? "bg-form-bg" : "bg-player-display-bg";
         const seen = friend.seen ? "" : "<span class=\"h-[20px] w-[20px] bg-red-600 absolute translate-x-1/2 right-5 rounded-full\"></span>"
-        const classOptions = `friend${index} friendMessage ${focus} relative flex justify-left items-center h-[75px] w-[300px] rounded-2xl border-3 border-black cursor-pointer`;
+        const classOptions = `friend${index} friendMessage ${focus} relative flex justify-left items-center h-[75px] w-[300px] rounded-2xl border-3 border-black cursor-pointer box-border mb-0`;
 
         btn.className = classOptions;
         btn.innerHTML = `
@@ -164,15 +163,19 @@ export function privateMessagesAPI(element: HTMLElement | null) {
 }
 
 export function messagerieAPI(element: HTMLElement | null) {
+    const writeBar = document.getElementById("writeBar");
 
     if (!state.messages.private || !state.messages.private![0]) {
+        writeBar?.classList.add("pointer-events-none");
         return ;
     }
 
     if (!state.messages.private![state.friend]) {
         state.friend = 0;
+        writeBar?.classList.add("pointer-events-none");
         return ;
     }
+    writeBar?.classList.remove("pointer-events-none");
 
     const chat = state.messages.private![state.friend]!.chat;
     for (let i = chat.length - 1; i >= 0; i--) {
@@ -227,7 +230,7 @@ export function notifyAPI(element: HTMLElement | null) {
     if (!state.messages.notify || !state.messages.notify![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
-        p.textContent = `${i18next.t("no")} ${i18next.t("notify")}`;
+        p.textContent = `${i18next.t("noNotify")}`;
         element?.appendChild(p);
         return ;
     }
@@ -242,7 +245,7 @@ export function notifyAPI(element: HTMLElement | null) {
     if (!notifyList || !notifyList![0]) {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
-        p.textContent = `${i18next.t("no")} ${i18next.t("notify")}`;
+        p.textContent = `${i18next.t("noNotify")}`;
         element?.appendChild(p);
         return ;
     }
@@ -313,7 +316,7 @@ export async function emailFormCallApi(e: Event) {
                 email: data.newemail
             })
         });
-        if (response.flag)
+        if (response && response.flag)
             return renderVerifyEmail();
     }
     renderEmail();
@@ -387,7 +390,7 @@ export async function searchFormCallApi(e: Event) {
     else {
         const p = document.createElement("p");
         p.className = "text-4xl mx-auto";
-        p.textContent = `NO PLAYER`;
+        p.textContent = `${i18next.t("noPlayer")}`;
         element!.innerHTML = '';
         element?.appendChild(p);
     }
@@ -623,7 +626,7 @@ export async function logInAPI(e: Event) {
 		}
 	});
 
-    if (response.flag == "ok")
+    if (response && response.flag == "ok")
         return renderVerify();
     renderLogIn();
 }
@@ -659,7 +662,7 @@ export async function signInAPI(e: Event) {
         })
 	});
 
-    if (response.flag == "ok")
+    if (response && response.flag == "ok")
         return renderVerify();
     renderSignIn();
 }
@@ -692,9 +695,9 @@ export async function dataPlayerCallAPI(e: Event) {
 
     if (playerData.online) {
         const span = document.createElement("span");
-        span.classList = "h-3 w-3 absolute bg-green-400 rounded-full left-92 top-30";
-        const pictureContainer = document.getElementById("pictureContainer");
-        pictureContainer!.appendChild(span);
+        span.classList = "h-3 w-3 absolute bg-green-400 rounded-full right-2 top-2";
+        picturePlayer?.classList.add("relative");
+        picturePlayer!.appendChild(span);
     }
     const img = document.createElement("img");
     img.className = "w-full h-full rounded-full mx-auto";
@@ -721,9 +724,9 @@ export function printHistory() {
 
     if (state.playerData!.online) {
         const span = document.createElement("span");
-        span.classList = "h-3 w-3 absolute bg-green-400 rounded-full left-92 top-30";
-        const pictureContainer = document.getElementById("pictureContainer");
-        pictureContainer!.appendChild(span);
+        span.classList = "h-3 w-3 absolute bg-green-400 rounded-full right-2 top-2";
+        picturePlayer?.classList.add("relative");
+        picturePlayer!.appendChild(span);
     }
 
     if (!state.playerData!.history![0]) {

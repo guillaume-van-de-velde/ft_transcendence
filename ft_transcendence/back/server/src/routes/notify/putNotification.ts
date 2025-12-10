@@ -9,7 +9,10 @@ export const putNotification = async (req:FastifyRequest, res:FastifyReply) => {
     const reqBody = (req.body as any);
     const id = req.user!.id;
 
+    
     const idNotify = await createNotify(id, reqBody.notify.for, reqBody.notify.type);
+    if (!idNotify)
+        return ;
 
     let socketReceiver = null;
     for (const [socket, idReceiver] of userSockets) {

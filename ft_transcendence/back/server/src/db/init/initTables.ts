@@ -85,6 +85,8 @@ export async function initTableNotify() {
             type TEXT NOT NULL,
             seen BOOLEAN,
 
+            UNIQUE (idTransmitter, idReceiver, type),
+
             FOREIGN KEY (idTransmitter) REFERENCES users(id)
                 ON DELETE CASCADE
                 ON UPDATE CASCADE,

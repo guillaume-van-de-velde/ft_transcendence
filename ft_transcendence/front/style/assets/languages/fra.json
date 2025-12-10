@@ -8,19 +8,19 @@
     "noises": "BRUITS",
     "smusic": "MUSIQUE",
     "email": "EMAIL",
-    "password": "MOT DE PASSE",
+    "password": "MDP",
     "pseudo": "PSEUDO",
     "delete": "SUPPRIMER",
     "sure": "ES-TU SUR ?",
     "yes": "OUI",
     "no": "NON",
     "yourEmail": "TON EMAIL",
-    "newEmail": "NOUVEAU EMAIL",
+    "newEmail": "EMAIL",
     "confirm": "CONFIRME",
-    "yourPassword": "TON MOT DE PASSE",
-    "newPassword": "NOUVEAU MOT DE PASSE",
+    "yourPassword": "TON MDP",
+    "newPassword": "MDP",
     "yourPseudo": "TON PSEUDO",
-    "newPseudo": "NOUVEAU PSEUDO",
+    "newPseudo": "PSEUDO",
     "player": "JOUEUR",
     "up": "HAUT",
     "down": "BAS",
@@ -55,10 +55,11 @@
 
     "private": "PRIVEE",
     "global": "GLOBALE",
-    "notify": "NOTIFICATIONS",
+    "notify": "NOTIFS",
 
     "noFriends": "PAS D'AMIS",
-    "noNotify": "PAS DE NOTIFICATIONS",
+    "noNotify": "PAS DE NOTIF",
+    "noPlayer": "PAS DE JOUEUR",
 
     "logOut": "DECONNEXION",
     "picture": "PHOTO",
@@ -73,7 +74,6 @@
     "noHistory": "PAS D'HISTORIQUE",
 
     "friends": "AMIS",
-    "searchFriend": "recherche un ami",
 
     "search": "RECHERCHE",
     "searchPlayer": "recherche un joueur",
@@ -94,10 +94,10 @@
     "play": "J O U E R",
 
     "connexion": "CONNEXION",
-    "logIn": "SE CONNECTER",
-    "signIn": "S'INSCRIRE",
+    "logIn": "COMPTE",
+    "signIn": "INSCRIRE",
     "code": "CODE",
-    "verify": "VERIFICATION",
+    "verify": "VERIF",
 
     "pictureLink": "LIEN VERS L'IMAGE",
     "apply": "APPLIQUER"

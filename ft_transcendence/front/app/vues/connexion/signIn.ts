@@ -3,7 +3,7 @@ export function signInHTML(): string {
     <div class="app bg-home-bg text-white h-screen justify-center items-center font-dangrek flex flex-col">
         <span class="text-3xl flex justify-center items-center tracking-widest">
         <p>
-            <p id="connexionBtn" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">CONNEXION</p><p class="whitespace-pre opacity-50"> > SIGN IN</p>
+            <p id="connexionBtn" class="opacity-100 cursor-pointer hover:tracking-[5px] duration-300">${i18next.t("connexion")}</p><p class="whitespace-pre opacity-50"> > ${i18next.t("signIn")}</p>
         </p>
         </span>
         <form id="formSignIn" action="" class="h-1/2 grid grid-rows-4 w-[60%] mt-20 relative -translate-x-30">

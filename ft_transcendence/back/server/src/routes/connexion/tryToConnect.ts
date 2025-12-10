@@ -18,9 +18,12 @@ export const tryToConnect = async (req:FastifyRequest, res:FastifyReply) => {
         const user = await readUser(req.user.id.toString(), KeyUser.ID);
         if (!user || user.version != req.user.version)
             return res.code(401).send("token refused");
-        for (const id of userSockets.values())
-            if (id == user.id)
-                return res.code(409).send({ error: "user connected" });
+        for (const [socket, id] of userSockets) {
+            if (id === user.id) {
+                socket.disconnect(true);
+                userSockets.delete(socket);
+            }
+        }
     } catch (err: any) {
         return res.code(200).send({ error: "invalid token" });
     }

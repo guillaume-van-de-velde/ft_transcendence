@@ -12,7 +12,7 @@ export function passwordValid(password: string): boolean {
 }
 
 export function pseudoValid(pseudo: string): boolean {
-    if (pseudo.length >= 1 && pseudo.length <= 10)
+    if (pseudo.length >= 1 && pseudo.length <= 8)
         return true;
     return false;
 }

@@ -58,7 +58,8 @@
     "notify": "NOTIFY",
 
     "noFriends": "NO FRIENDS",
-    "noNotify": "NO NOTIFICATIONS",
+    "noNotify": "NO NOTIFY",
+    "noPlayer": "NO PLAYER",
 
     "logOut": "LOG OUT",
     "picture": "PICTURE",
@@ -72,7 +73,6 @@
     "history": "HISTORY",
     "noHistory": "NO HISTORY",
     "friends": "FRIENDS",
-    "searchFriend": "search a friend",
 
     "search": "SEARCH",
     "searchPlayer": "search a player",
@@ -94,7 +94,7 @@
 
     "connexion": "CONNEXION",
     "logIn": "LOG IN",
-    "signIn": "SIGN IN",
+    "signIn": "SIGN UP",
     "code": "CODE",
     "verify": "VERIFY",
 

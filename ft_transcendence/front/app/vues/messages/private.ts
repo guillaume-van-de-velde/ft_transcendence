@@ -19,12 +19,12 @@ export function privateHTML(): string {
             </button>
         </div>
 
-        <div class="grid grid-cols-[1fr_3fr] flex-grow w-9/10 mx-auto gap-5 min-h-0 pb-10">
-            <div id="friendsList" class="flex flex-col justify-start items-center pt-10">
+        <div class="grid grid-cols-[1fr_3fr] grow w-9/10 mx-auto gap-5 min-h-0 pb-10">
+            <div id="friendsList" class="flex flex-col justify-start items-center pt-10 overflow-y-auto hide-scrollbar h-[680px] gap-1">
             </div>
 
             <div class="min-h-0 bg-black rounded-4xl relative flex flex-col justify-start items-center font-david">
-                <div id="chat" class="hide-scrollbar h-[600px] mb-10 overflow-y-auto w-9/10 mt-5 flex gap-2 flex-col [&_p]:p-4 [&_p]:break-all [&_div]:max-w-1/2 [&_div]:rounded-xl [&_.usermessage]:ml-auto [&_.usermessage]:bg-white [&_.usermessage]:text-black [&_.notusermessage]:mr-auto [&_.notusermessage]:bg-action-page-bg">
+                <div id="chat" class="hide-scrollbar h-[580px] mb-10 overflow-y-auto w-9/10 mt-5 flex gap-2 flex-col [&_p]:p-4 [&_p]:break-all [&_div]:max-w-1/2 [&_div]:rounded-xl [&_.usermessage]:ml-auto [&_.usermessage]:bg-white [&_.usermessage]:text-black [&_.notusermessage]:mr-auto [&_.notusermessage]:bg-action-page-bg">
                 </div>
                 <form id="formWriteBar" action="" class="h-1/10 w-9/10 bg-white rounded-full mb-3 text-black flex">
                     <input type="text" id="writeBar" name="writeBar" placeholder="WRITE" class="h-full w-17/20 ml-auto outline-none">
