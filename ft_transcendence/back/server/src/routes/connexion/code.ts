@@ -77,7 +77,7 @@ export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
                 const token = jwt.sign(
                     {
                         id: user.id,
-                        version: 1
+                        version: user.version
                     },
                     process.env.SECRET_KEY!,
                     { expiresIn: '1d' }
