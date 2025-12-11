@@ -1,19 +1,15 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { createStat, createUser } from "../../db/crud/create";
-import { getAllDataForUser } from "./getAllDataForUser";
-import { app, transporter } from "../../../server";
-import { KeyUser, Verify } from "../../utils/enums";
+import { KeyUser } from "../../utils/enums";
 import { readUser } from "../../db/crud/read";
-import nodemailer from "nodemailer";
 import { createCode } from "./code";
 import bcrypt from "bcrypt";
 import { emailValid, passwordValid, pseudoValid } from "./formValidity";
 
-export const createAccount = async (req:FastifyRequest, res:FastifyReply) => {
+export const createAccount = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const { email, pseudo, language } = reqBody;
     const password = await bcrypt.hash(reqBody.password, 1);
-    let userId:number = 0;
+    let userId: number = 0;
 
     if (!emailValid(email) || !passwordValid(reqBody.password) || !pseudoValid(pseudo))
         return res.code(409).send({ error: "bad format" });

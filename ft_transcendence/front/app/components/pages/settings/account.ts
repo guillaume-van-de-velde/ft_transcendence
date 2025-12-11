@@ -33,11 +33,11 @@ export function account() {
     deleteAccount?.addEventListener("click", renderDeleteAccount);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [settings, {type: "click", callback: renderSettings}],
-        [email, {type: "click", callback: renderEmail}],
-        [password, {type: "click", callback: renderPassword}],
-        [pseudo, {type: "click", callback: renderPseudo}],
-        [deleteAccount, {type: "click", callback: renderDeleteAccount}]
+        [settings, { type: "click", callback: renderSettings }],
+        [email, { type: "click", callback: renderEmail }],
+        [password, { type: "click", callback: renderPassword }],
+        [pseudo, { type: "click", callback: renderPseudo }],
+        [deleteAccount, { type: "click", callback: renderDeleteAccount }]
     ]);
     closeEvent();
 }

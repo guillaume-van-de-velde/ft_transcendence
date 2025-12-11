@@ -3,7 +3,7 @@ import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
-import { globalAPI } from "../../utils/api.js";
+import { globalAPI } from "../../api/messages/globalAPI.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderNotify } from "./notify.js";
 import { renderPrivateMessage } from "./private.js";
@@ -26,9 +26,9 @@ export function global() {
     const formWriteBar = document.getElementById("formWriteBar");
 
     state.actual = "global";
-    
+
     checkSeen();
-    
+
     globalAPI(globalMessagerie);
 
     globalMessagerie!.scrollTop = globalMessagerie!.scrollHeight;
@@ -42,11 +42,11 @@ export function global() {
             state.input.focused ? input.focus() : 0;
         }
         state.input = {
-			value: "",
-			focused: false,
-			start: null,
-			end: null
-		}
+            value: "",
+            focused: false,
+            start: null,
+            end: null
+        }
     }
 
     formWriteBar?.addEventListener("submit", globalMessageSend);
@@ -54,9 +54,9 @@ export function global() {
     notify?.addEventListener("click", renderNotify);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [formWriteBar, {type: "submit", callback: globalMessageSend}],
-        [privateMessage, {type: "click", callback: renderPrivateMessage}],
-        [notify, {type: "click", callback: renderNotify}]
+        [formWriteBar, { type: "submit", callback: globalMessageSend }],
+        [privateMessage, { type: "click", callback: renderPrivateMessage }],
+        [notify, { type: "click", callback: renderNotify }]
     ]);
 
     renderPlayer();

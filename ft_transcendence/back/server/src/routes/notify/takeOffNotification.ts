@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { deleteNotify } from "../../db/crud/z-delete";
+import { deleteNotify } from "../../db/crud/delete";
 import { readNotify } from "../../db/crud/read";
 import { Notify } from "../../utils/enums";
 
-export const takeOffNotification = async (req:FastifyRequest, res:FastifyReply) => {
+export const takeOffNotification = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const id = req.user!.id;
 

@@ -3,7 +3,9 @@ import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
-import { disconnect, profileAPI, searchFormCallApi } from "../../utils/api.js";
+import { disconnect } from "../../api/connexion/disconnect.js";
+import { profileAPI } from "../../api/profile/profileAPI.js";
+import { searchFormCallApi } from "../../api/profile/searchFormCallApi.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderFriends } from "./friends.js";
 import { renderHistoryUser } from "./historyUser.js";
@@ -37,11 +39,11 @@ export function search() {
     friends?.addEventListener("click", renderFriends);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [disconnectBtn, {type: "click", callback: disconnect}],
-        [changePicture, {type: "click", callback: renderPicture}],
-        [stats, {type: "click", callback: renderStatsUser}],
-        [history, {type: "click", callback: renderHistoryUser}],
-        [friends, {type: "click", callback: renderFriends}],
+        [disconnectBtn, { type: "click", callback: disconnect }],
+        [changePicture, { type: "click", callback: renderPicture }],
+        [stats, { type: "click", callback: renderStatsUser }],
+        [history, { type: "click", callback: renderHistoryUser }],
+        [friends, { type: "click", callback: renderFriends }],
     ]);
 
     closeEvent();

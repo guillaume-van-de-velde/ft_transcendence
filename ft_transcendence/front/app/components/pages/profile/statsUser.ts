@@ -3,7 +3,8 @@ import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent } from "../../utils/globalEvents.js";
-import { disconnect, pictureAPI, profileAPI } from "../../utils/api.js";
+import { disconnect } from "../../api/connexion/disconnect.js";
+import { profileAPI } from "../../api/profile/profileAPI.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderFriends } from "./friends.js";
 import { renderHistoryUser } from "./historyUser.js";
@@ -43,11 +44,11 @@ export function statsUser() {
     search?.addEventListener("click", renderSearch);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [disconnectBtn, {type: "click", callback: disconnect}],
-        [changePicture, {type: "click", callback: renderPicture}],
-        [history, {type: "click", callback: renderHistoryUser}],
-        [friends, {type: "click", callback: renderFriends}],
-        [search, {type: "click", callback: renderSearch}]
+        [disconnectBtn, { type: "click", callback: disconnect }],
+        [changePicture, { type: "click", callback: renderPicture }],
+        [history, { type: "click", callback: renderHistoryUser }],
+        [friends, { type: "click", callback: renderFriends }],
+        [search, { type: "click", callback: renderSearch }]
     ]);
 
     closeEvent();

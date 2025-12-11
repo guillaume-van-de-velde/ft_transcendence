@@ -4,9 +4,9 @@ import { KeyTournament, StatusTournament } from "../../utils/enums";
 import { updateTournaments, updateUsers, updateUserTournaments } from "../../db/crud/update";
 import { sendTournamentStateToPlayers, tournamentsManagement } from "./tournament";
 import { gameManagement } from "../game/createGame";
-import { deleteTournament } from "../../db/crud/z-delete";
+import { deleteTournament } from "../../db/crud/delete";
 
-export const quitTournament = async (req:FastifyRequest, res:FastifyReply) => {
+export const quitTournament = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const id = req.user!.id;
     const idTournament = reqBody.tournament;
@@ -15,12 +15,12 @@ export const quitTournament = async (req:FastifyRequest, res:FastifyReply) => {
         const dataTournament = await readTournament(idTournament, KeyTournament.ID);
         if (dataTournament) {
             switch (dataTournament.status) {
-                case StatusTournament.WAIT : {
+                case StatusTournament.WAIT: {
                     let i = 1;
                     while (dataTournament[`id${i}`] != id && i <= 8)
                         i++;
                     if (i > 8)
-                        break ;
+                        break;
                     const index = tournamentsManagement.findIndex(t => t.id == dataTournament.id);
                     const userIndex = tournamentsManagement[index]!.users.findIndex(u => u.user.id == id);
                     tournamentsManagement[index]!.users.splice(userIndex, 1);
@@ -30,14 +30,14 @@ export const quitTournament = async (req:FastifyRequest, res:FastifyReply) => {
                         tournamentsManagement.splice(index, 1);
                         deleteTournament(dataTournament.id);
                     }
-                    break ;
+                    break;
                 }
-                case StatusTournament.START : {
+                case StatusTournament.START: {
                     let i = 1;
                     while (dataTournament[`id${i}`] != id && i <= 8)
                         i++;
                     if (i > 8)
-                        break ;
+                        break;
                     const index = tournamentsManagement.findIndex(t => t.id == dataTournament.id);
                     const user = tournamentsManagement[index]!.users.find(u => u.user.id == id);
                     user!.quit = true;
@@ -64,10 +64,10 @@ export const quitTournament = async (req:FastifyRequest, res:FastifyReply) => {
                     user!.queue = true;
                     user!.finish = true;
                     sendTournamentStateToPlayers(index);
-                    break ;
+                    break;
                 }
-                default :
-                    break ;
+                default:
+                    break;
             }
             await updateUsers(id, "tournament", 0);
         }

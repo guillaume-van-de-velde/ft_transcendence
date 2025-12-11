@@ -1,7 +1,7 @@
 import { state } from "../../../../index.js";
 import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
-import { pictureCallAPI } from "../../../utils/api.js";
+import { pictureCallAPI } from "../../../api/profile/pictureCallAPI.js";
 import { close2Event } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 
@@ -19,7 +19,7 @@ export function picture() {
 
     form?.addEventListener("submit", pictureCallAPI);
 
-    state.events.set(form, {type: "submit", callback: pictureCallAPI});
+    state.events.set(form, { type: "submit", callback: pictureCallAPI });
 
     close2Event();
 }

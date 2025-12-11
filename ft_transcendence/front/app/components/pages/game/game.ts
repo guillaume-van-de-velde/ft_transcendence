@@ -4,7 +4,6 @@ import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderHome } from "../home.js";
-import { music } from "../mode/1/music.js";
 
 export function renderGame() {
     const gamePage: PageInstance = {
@@ -84,7 +83,7 @@ function fillOnlinePlayers() {
 
     playerImg.src = state.profile.picture;
     playerImg.className = "w-full h-full rounded-full mx-auto";
-    
+
     ennemyImg.src = state.ennemy!.picture;
     ennemyImg.className = "w-full h-full rounded-full mx-auto";
 
@@ -101,7 +100,7 @@ function renderAiGame() {
     let scoreEnnemy = document.getElementById("scoreEnnemy");
     const boardHeight = 630;
     const boardWidth = 1340;
-    let board:HTMLCanvasElement;
+    let board: HTMLCanvasElement;
     let context;
 
     let playerWidth = 15;
@@ -145,9 +144,9 @@ function renderAiGame() {
     const keys: Record<string, boolean> = {};
 
     let audioContext = null;
-    let analyser:any = null;
-    let dataArray:any = null;
-    let music:any = null;
+    let analyser: any = null;
+    let dataArray: any = null;
+    let music: any = null;
 
     let last = Date.now();
     let now = last;
@@ -174,26 +173,26 @@ function renderAiGame() {
             music = null;
             clearInterval(intervalAI);
             endOfMatch(parseInt(scorePlayer!.textContent), parseInt(scoreEnnemy!.textContent));
-            return ;
+            return;
         }
         now = Date.now();
         const delta = (now - last) / 15;
         last = now;
         context!.clearRect(0, 0, board.width, board.height);
         context!.fillStyle = "white";
-        
+
         let nextPlayer1Y = player1.y + player1.velocityY;
         if (!outOfBounds(nextPlayer1Y))
             player1.y = nextPlayer1Y;
         context!.fillRect(player1.x, player1.y, player1.width, player1.height);
-        
+
         let nextPlayer2Y = player2.y + player2.velocityY;
         if (!outOfBounds(nextPlayer2Y))
             player2.y = nextPlayer2Y;
         context!.fillRect(player2.x, player2.y, player2.width, player2.height);
-        
+
         context!.fillRect(boardWidth / 2 - 1, 0, 2, boardHeight);
-        
+
         if (state.mode[0] == 'm') {
             ball.x += parseFloat((ball.velocityX * getLevel() * delta).toFixed(2));
             ball.y += parseFloat((ball.velocityY * getLevel() * delta).toFixed(2));
@@ -202,7 +201,7 @@ function renderAiGame() {
             ball.y += ball.velocityY * delta;
         }
         context!.fillRect(ball.x, ball.y, ball.width, ball.height);
-        
+
         if (ball.y <= 0) {
             ball.velocityY *= -1;
             ball.y = 1;
@@ -211,8 +210,8 @@ function renderAiGame() {
             ball.velocityY *= -1;
             ball.y = boardHeight - ball.height - 1;
         }
-        
-        
+
+
         if (detectCollision(ball, player1)) {
             if (ball.x <= player1.x + player1.width) {
                 ball.x = player1.x + player1.width + 1;
@@ -231,7 +230,7 @@ function renderAiGame() {
                 ball.velocityX = - (oldVelocity - Math.abs(ball.velocityY));
             }
         }
-        
+
         if (ball.x < 0) {
             player2Score++;
             resetGame(2, player2Score);
@@ -242,14 +241,14 @@ function renderAiGame() {
         }
         requestAnimationFrame(update);
     }
-    
-    function outOfBounds(yPosition:number) {
+
+    function outOfBounds(yPosition: number) {
         return (yPosition < 0 || yPosition + playerHeight > boardHeight)
     }
 
     function movePlayer(e: KeyboardEvent) {
         e.preventDefault();
-        
+
         if (e.key == player1.keyUp)
             player1.velocityY = -velocity;
         else if (e.key == player1.keyDown)
@@ -261,7 +260,7 @@ function renderAiGame() {
     function stopPlayer(e: KeyboardEvent) {
         e.preventDefault();
 
-        if (e.key == player1.keyUp && !keys[player1.keyDown]) 
+        if (e.key == player1.keyUp && !keys[player1.keyDown])
             player1.velocityY = 0;
         else if (e.key == player1.keyDown && !keys[player1.keyUp])
             player1.velocityY = 0;
@@ -269,14 +268,14 @@ function renderAiGame() {
         keys[e.key] = false;
     }
 
-    function detectCollision(a:any, b:any) {
+    function detectCollision(a: any, b: any) {
         return (a.x < b.x + b.width
             && a.x + a.width > b.x
             && a.y < b.y + b.height
             && a.y + a.height > b.y)
     }
 
-    function resetGame(player:number, score:number) {
+    function resetGame(player: number, score: number) {
         const scorePlayerSpan = document.getElementById(`score${player == 1 ? "Player" : "Ennemy"}`);
         scorePlayerSpan!.textContent = score.toString();
         ball = {
@@ -298,7 +297,7 @@ function renderAiGame() {
     const intervalAI = setInterval(AIUpdate, timeAI);
     setPaddle();
 
-    function calculNext(cBall:any):number {
+    function calculNext(cBall: any): number {
         while (cBall.y > 0 && cBall.y + cBall.height < boardHeight && cBall.x + cBall.width <= boardWidth && cBall.x >= 0) {
             cBall.x += nVelocityX;
             cBall.y += nVelocityY;
@@ -330,7 +329,7 @@ function renderAiGame() {
             player2.velocityY = 0;
         setTimeout(setPaddle, 50);
     }
-    
+
     function AIUpdate() {
         cBall = structuredClone(ball);
         maxVelocity = cBall.velocityX > cBall.velocityY ? cBall.velocityX : cBall.velocityY;
@@ -351,10 +350,9 @@ function renderAiGame() {
         analyser = audioContext.createAnalyser();
         analyser.fftSize = 2048;
         analyser.smoothingTimeConstant = 0.8;
-        
+
         const gain = audioContext.createGain();
         gain.gain.value = state.volume.general / 100 * state.volume.music / 100;
-        console.log(state.volume.general, state.volume.music, gain.gain.value);
         let source = audioContext.createMediaElementSource(music);
         source.connect(analyser);
         analyser.connect(gain);
@@ -372,7 +370,7 @@ function renderAiGame() {
             sum += dataArray[i] / 255;
         }
         var level = sum / dataArray.length;
-        
+
         return level * 3;
     }
 }
@@ -382,7 +380,7 @@ function renderLocalGame() {
     let scoreEnnemy = document.getElementById("scoreEnnemy");
     const boardHeight = 630;
     const boardWidth = 1340;
-    let board:HTMLCanvasElement;
+    let board: HTMLCanvasElement;
     let context;
 
     let playerWidth = 15;
@@ -428,9 +426,9 @@ function renderLocalGame() {
     const keys: Record<string, boolean> = {};
 
     let audioContext = null;
-    let analyser:any = null;
-    let dataArray:any = null;
-    let music:any = null;
+    let analyser: any = null;
+    let dataArray: any = null;
+    let music: any = null;
 
     let last = Date.now();
     let now = last;
@@ -456,26 +454,26 @@ function renderLocalGame() {
                 music.muted = true;
             music = null;
             endOfMatch(parseInt(scorePlayer!.textContent), parseInt(scoreEnnemy!.textContent));
-            return ;
+            return;
         }
         now = Date.now();
         const delta = (now - last) / 15;
         last = now;
         context!.clearRect(0, 0, board.width, board.height);
         context!.fillStyle = "white";
-        
+
         let nextPlayer1Y = player1.y + player1.velocityY;
         if (!outOfBounds(nextPlayer1Y))
             player1.y = nextPlayer1Y;
         context!.fillRect(player1.x, player1.y, player1.width, player1.height);
-        
+
         let nextPlayer2Y = player2.y + player2.velocityY;
         if (!outOfBounds(nextPlayer2Y))
             player2.y = nextPlayer2Y;
         context!.fillRect(player2.x, player2.y, player2.width, player2.height);
-        
+
         context!.fillRect(boardWidth / 2 - 1, 0, 2, boardHeight);
-        
+
         if (state.mode[0] == 'm') {
             ball.x += parseFloat((ball.velocityX * getLevel()).toFixed(2));
             ball.y += parseFloat((ball.velocityY * getLevel()).toFixed(2));
@@ -484,7 +482,7 @@ function renderLocalGame() {
             ball.y += ball.velocityY;
         }
         context!.fillRect(ball.x, ball.y, ball.width, ball.height);
-        
+
         if (ball.y <= 0) {
             ball.velocityY *= -1;
             ball.y = 1;
@@ -493,8 +491,8 @@ function renderLocalGame() {
             ball.velocityY *= -1;
             ball.y = boardHeight - ball.height - 1;
         }
-        
-        
+
+
         if (detectCollision(ball, player1)) {
             if (ball.x <= player1.x + player1.width) {
                 ball.x = player1.x + player1.width + 1;
@@ -513,7 +511,7 @@ function renderLocalGame() {
                 ball.velocityX = - (oldVelocity - Math.abs(ball.velocityY));
             }
         }
-        
+
         if (ball.x < 0) {
             player2Score++;
             resetGame(2, player2Score);
@@ -525,20 +523,20 @@ function renderLocalGame() {
 
         requestAnimationFrame(update);
     }
-    
-    function outOfBounds(yPosition:number) {
+
+    function outOfBounds(yPosition: number) {
         return (yPosition < 0 || yPosition + playerHeight > boardHeight)
     }
 
     function movePlayer(e: KeyboardEvent) {
         e.preventDefault();
-        
+
         if (e.key == player1.keyUp)
             player1.velocityY = -velocity;
         else if (e.key == player1.keyDown)
             player1.velocityY = velocity;
 
-        if (e.key == player2.keyUp) 
+        if (e.key == player2.keyUp)
             player2.velocityY = -velocity;
         else if (e.key == player2.keyDown)
             player2.velocityY = velocity;
@@ -549,12 +547,12 @@ function renderLocalGame() {
     function stopPlayer(e: KeyboardEvent) {
         e.preventDefault();
 
-        if (e.key == player1.keyUp && !keys[player1.keyDown]) 
+        if (e.key == player1.keyUp && !keys[player1.keyDown])
             player1.velocityY = 0;
         else if (e.key == player1.keyDown && !keys[player1.keyUp])
             player1.velocityY = 0;
 
-        if (e.key == player2.keyUp && !keys[player2.keyDown]) 
+        if (e.key == player2.keyUp && !keys[player2.keyDown])
             player2.velocityY = 0;
         else if (e.key == player2.keyDown && !keys[player2.keyUp])
             player2.velocityY = 0;
@@ -562,14 +560,14 @@ function renderLocalGame() {
         keys[e.key] = false;
     }
 
-    function detectCollision(a:any, b:any) {
+    function detectCollision(a: any, b: any) {
         return (a.x < b.x + b.width
             && a.x + a.width > b.x
             && a.y < b.y + b.height
             && a.y + a.height > b.y)
     }
 
-    function resetGame(player:number, score:number) {
+    function resetGame(player: number, score: number) {
         const scorePlayerSpan = document.getElementById(`score${player == 1 ? "Player" : "Ennemy"}`);
         scorePlayerSpan!.textContent = score.toString();
         ball = {
@@ -584,17 +582,16 @@ function renderLocalGame() {
 
     if (state.mode[0] == "m")
         loadMusic();
-        function loadMusic() {
+    function loadMusic() {
         music = new Audio("./style/assets/mp3/music.mp3");
         music.loop = true;
         audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
         analyser = audioContext.createAnalyser();
         analyser.fftSize = 2048;
         analyser.smoothingTimeConstant = 0.8;
-        
+
         const gain = audioContext.createGain();
         gain.gain.value = state.volume.general / 100 * state.volume.music / 100;
-        console.log(state.volume.general, state.volume.music, gain.gain.value);
         let source = audioContext.createMediaElementSource(music);
         source.connect(analyser);
         analyser.connect(gain);
@@ -621,7 +618,7 @@ function renderOnlineGame() {
     let scoreEnnemy = document.getElementById("scoreEnnemy");
     const boardHeight = 630;
     const boardWidth = 1340;
-    let board:HTMLCanvasElement;
+    let board: HTMLCanvasElement;
     let context;
 
     let playerWidth = 15;
@@ -652,9 +649,9 @@ function renderOnlineGame() {
     }
 
     let musicStart = 0;
-    let music:any = null;
+    let music: any = null;
 
-    socket.on("render", (data:any) => {
+    socket.on("render", (data: any) => {
         player.y = data.playerY;
         ennemy.y = data.ennemyY;
         ball.x = data.ball.x;
@@ -665,7 +662,7 @@ function renderOnlineGame() {
         }
     });
 
-    socket.on("round", (scores:any) => {
+    socket.on("round", (scores: any) => {
         if (scorePlayer)
             scorePlayer.textContent = String(scores.player);
         if (scoreEnnemy)
@@ -695,12 +692,12 @@ function renderOnlineGame() {
             socket.removeAllListeners("render");
             socket.removeAllListeners("round");
             endOfMatch(parseInt(scorePlayer!.textContent), parseInt(scoreEnnemy!.textContent));
-            return ;
+            return;
         }
 
         context!.clearRect(0, 0, board.width, board.height);
         context!.fillStyle = "white";
-        
+
         context!.fillRect(player.x, player.y, player.width, player.height);
         context!.fillRect(ennemy.x, ennemy.y, ennemy.width, ennemy.height);
         context!.fillRect(boardWidth / 2 - 1, 0, 2, boardHeight);
@@ -730,12 +727,11 @@ function renderOnlineGame() {
         music = new Audio("./style/assets/mp3/music.mp3");
         music.loop = true;
         music.volume = state.volume.general / 100 * state.volume.music / 100;
-        console.log(state.volume.general, state.volume.music, music.volume);
         music.play();
     }
 }
 
-function endOfMatch(playerScore:number, ennemyScore:number) {
+function endOfMatch(playerScore: number, ennemyScore: number) {
     state.ennemy = undefined;
     const app = document.querySelector(".app");
     const result = playerScore > ennemyScore ? "V I C T O R Y" : (playerScore < ennemyScore ? "D E F E A T" : "D R A W");
@@ -750,6 +746,6 @@ function endOfMatch(playerScore:number, ennemyScore:number) {
     continueBtn?.addEventListener("click", renderHome);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [continueBtn, {type: "click", callback: renderHome}]
+        [continueBtn, { type: "click", callback: renderHome }]
     ]);
 }

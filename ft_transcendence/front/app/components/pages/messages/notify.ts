@@ -3,7 +3,8 @@ import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer } from "../../utils/globalEvents.js";
-import { notifyAPI, notifyCallAPI } from "../../utils/api.js";
+import { notifyAPI } from "../../api/notify/notifyAPI.js";
+import { notifyCallAPI } from "../../api/notify/notifyCallAPI.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderGlobal } from "./global.js";
 import { renderPrivateMessage } from "./private.js";
@@ -35,8 +36,8 @@ export function notify() {
     global?.addEventListener("click", renderGlobal);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [privateMessage, {type: "click", callback: renderPrivateMessage}],
-        [global, {type: "click", callback: renderGlobal}],
+        [privateMessage, { type: "click", callback: renderPrivateMessage }],
+        [global, { type: "click", callback: renderGlobal }],
     ]);
 
     renderPlayer();
@@ -45,7 +46,7 @@ export function notify() {
 
 function setNotifySeen() {
     if (!state.messages.notify || !state.messages.notify![0])
-        return ;
+        return;
     for (const notify of state.messages.notify!) {
         notify.seen = true;
     }

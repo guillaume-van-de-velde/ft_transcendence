@@ -1,6 +1,6 @@
 import { state } from "../../index.js";
 import { render } from "../core/render.js";
-import { privateMessage, renderPrivateMessage } from "../pages/messages/private.js";
+import { renderPrivateMessage } from "../pages/messages/private.js";
 import { renderClassic } from "../pages/mode/1/classic.js";
 import { renderMusic } from "../pages/mode/1/music.js";
 import { renderAi } from "../pages/mode/2/ai.js";
@@ -24,63 +24,63 @@ export function closeClicked() {
 export function close2Event() {
     const close = document.getElementById("close2");
     close?.addEventListener("click", closeClicked);
-    state.events.set(close, {type: "click", callback: closeClicked});
+    state.events.set(close, { type: "click", callback: closeClicked });
 }
 
 export function closeEvent() {
     const close = document.getElementById("close");
     close?.addEventListener("click", closeClicked);
-    state.events.set(close, {type: "click", callback: closeClicked});
+    state.events.set(close, { type: "click", callback: closeClicked });
 }
 
 export function destroyEvents() {
-    state.events.forEach(({type, callback}, element) => {
+    state.events.forEach(({ type, callback }, element) => {
         element?.removeEventListener(type, callback);
     })
 }
 
-export function chooseModeFunctionRender(element1:Element, element2:Element, element3:Element) {
-    
+export function chooseModeFunctionRender(element1: Element, element2: Element, element3: Element) {
+
     element1.querySelector("p")!.textContent = state.mode[0].toUpperCase();
     element2.querySelector("p")!.textContent = state.mode[1].toUpperCase();
     element3.querySelector("p")!.textContent = state.mode[2].toUpperCase();
 
     const functionTournament = state.tournament?.id ? renderResultsTournament : renderTournament;
 
-    switch(state.mode[0]) {
-        case "c" :
+    switch (state.mode[0]) {
+        case "c":
             element1.addEventListener("click", renderClassic);
-            state.events.set(element1, {type: "click", callback:renderClassic});
+            state.events.set(element1, { type: "click", callback: renderClassic });
             break;
-        case "m" :
+        case "m":
             element1.addEventListener("click", renderMusic);
-            state.events.set(element1, {type: "click", callback:renderMusic});
+            state.events.set(element1, { type: "click", callback: renderMusic });
             break;
     }
 
-    switch(state.mode[1]) {
-        case "o" :
+    switch (state.mode[1]) {
+        case "o":
             element2.addEventListener("click", renderOnline);
-            state.events.set(element2, {type: "click", callback:renderOnline});
+            state.events.set(element2, { type: "click", callback: renderOnline });
             break;
-        case "l" :
+        case "l":
             element2.addEventListener("click", renderLocal);
-            state.events.set(element2, {type: "click", callback:renderLocal});
+            state.events.set(element2, { type: "click", callback: renderLocal });
             break;
-        case "a" :
+        case "a":
             element2.addEventListener("click", renderAi);
-            state.events.set(element2, {type: "click", callback:renderAi});
+            state.events.set(element2, { type: "click", callback: renderAi });
             break;
     }
 
-    switch(state.mode[2]) {
-        case "m" :
+    switch (state.mode[2]) {
+        case "m":
             element3.addEventListener("click", renderMatch);
-            state.events.set(element3, {type: "click", callback:renderMatch});
+            state.events.set(element3, { type: "click", callback: renderMatch });
             break;
-        case "t" :
+        case "t":
             element3.addEventListener("click", functionTournament);
-            state.events.set(element3, {type: "click", callback:functionTournament});
+            state.events.set(element3, { type: "click", callback: functionTournament });
             break;
     }
 }
@@ -91,7 +91,7 @@ export function renderPlayer() {
 
     playersArray.forEach(player => {
         player?.addEventListener("click", renderStats);
-        state.events.set(player, {type: "click", callback: renderStats});
+        state.events.set(player, { type: "click", callback: renderStats });
     })
 }
 
@@ -116,7 +116,7 @@ export function renderPlayerMessages() {
     playersArray.forEach((player, index) => {
         if (index != state.friend) {
             player?.addEventListener("click", privateMessageFocus);
-            state.events.set(player, {type: "click", callback: privateMessageFocus});
+            state.events.set(player, { type: "click", callback: privateMessageFocus });
         }
     })
 }
@@ -127,6 +127,6 @@ export function renderPlayer2() {
 
     playersArray.forEach(player => {
         player?.addEventListener("click", renderStats);
-        state.events.set(player, {type: "click", callback: renderStats});
+        state.events.set(player, { type: "click", callback: renderStats });
     })
 }

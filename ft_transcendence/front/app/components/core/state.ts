@@ -3,10 +3,10 @@ export interface TypeEvent {
     callback: EventListener
 }
 
-export enum IDPLAYER {NONE, PLAYER1, PLAYER2}
+export enum IDPLAYER { NONE, PLAYER1, PLAYER2 }
 export enum Notify { ASK = "ASK", MATCH = "MATCH" }
 export enum StatusTournament { START = "START", WAIT = "WAIT", FINISHED = "FINISHED" }
-export enum Link { NONE = "NONE", FRIEND = "FRIEND", SENT = "SENT", BLOCKED = "BLOCKED"}
+export enum Link { NONE = "NONE", FRIEND = "FRIEND", SENT = "SENT", BLOCKED = "BLOCKED" }
 
 export interface UserShortData {
     id: number,
@@ -52,12 +52,12 @@ export interface UserInTournament {
 }
 
 export interface AppState {
-    link:string,
+    link: string,
     events: Map<Element | null, TypeEvent>,
     index: number,
     id: number,
     mode: [string, string, string],
-    friend:number,
+    friend: number,
     actual: string,
     checkMessage: boolean,
     ennemy: UserShortData | undefined,

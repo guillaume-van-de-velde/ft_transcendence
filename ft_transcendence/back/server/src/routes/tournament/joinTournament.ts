@@ -1,13 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { readTournament, readUser } from "../../db/crud/read";
-import { KeyTournament, KeyUser, StatusTournament, Tournament } from "../../utils/enums";
+import { KeyTournament, KeyUser, StatusTournament } from "../../utils/enums";
 import { updateStatusTournaments, updateUsers, updateUserTournaments } from "../../db/crud/update";
-import { parseUsersTournament } from "../connexion/parse/usersTournament";
-import { userSockets } from "../../sockets/sockets";
-import { Socket } from "socket.io";
 import { sendTournamentStateToPlayers, startTournament, tournamentsManagement } from "./tournament";
 
-export const joinTournament = async (req:FastifyRequest, res:FastifyReply) => {
+export const joinTournament = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const id = req.user!.id;
     const nameTournament = reqBody.name;
@@ -56,7 +53,7 @@ export const joinTournament = async (req:FastifyRequest, res:FastifyReply) => {
                 sendTournamentStateToPlayers(index);
             })
 
-            return ;
+            return;
         }
     }
 }

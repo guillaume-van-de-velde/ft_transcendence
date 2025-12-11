@@ -17,10 +17,3 @@ declare module "fastify" {
     user: JwtPayload | null;
   }
 }
-
-// declare module "jsonwebtoken" {
-//   interface FastifyJWT {
-//     payload: JwtPayload;
-//     user: JwtPayload;
-//   }
-// }

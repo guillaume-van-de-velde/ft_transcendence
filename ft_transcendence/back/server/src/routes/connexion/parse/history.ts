@@ -1,13 +1,13 @@
 import { readMatches, readUser } from "../../../db/crud/read";
 import { KeyUser, MatchHistory } from "../../../utils/enums";
 
-export async function parseHistory(id:number): Promise<MatchHistory[]> {
+export async function parseHistory(id: number): Promise<MatchHistory[]> {
     const userHistory = await readMatches(id);
     const parsedHistory = Promise.all(
         userHistory.map(async match => {
-            let idEnnemy:string;
-            let ennemyPointsDB:number;
-            let userPointsDB:number;
+            let idEnnemy: string;
+            let ennemyPointsDB: number;
+            let userPointsDB: number;
             if (match.idPlayer1 === id) {
                 idEnnemy = match.idPlayer2;
                 ennemyPointsDB = match.pointsPlayer2;

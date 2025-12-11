@@ -1,10 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { readMatches, readNotify, readStats, readUser } from "../../db/crud/read";
+import { readNotify, readStats, readUser } from "../../db/crud/read";
 import { parseHistory } from "../connexion/parse/history";
 import { KeyUser, Link, Notify } from "../../utils/enums";
 import { userSockets } from "../../sockets/sockets";
 
-export async function parseLink(id:number, idAsked:number): Promise<Link> {
+export async function parseLink(id: number, idAsked: number): Promise<Link> {
     const user = await readUser(id.toString(), KeyUser.ID, false);
 
     if (user.friends && user.friends[0]) {
@@ -30,7 +30,7 @@ export async function parseLink(id:number, idAsked:number): Promise<Link> {
     return Link.NONE;
 }
 
-export const getDataPlayer = async (req:FastifyRequest, res:FastifyReply) => {
+export const getDataPlayer = async (req: FastifyRequest, res: FastifyReply) => {
     const id = req.user!.id;
     const idAsked = parseInt((req.headers.idasked as string));
 
@@ -46,7 +46,7 @@ export const getDataPlayer = async (req:FastifyRequest, res:FastifyReply) => {
         user: await readUser(idAsked.toString(), KeyUser.ID, true),
         stats: {
             played: playerStats.played,
-            ratio: playerStats.played ? (playerStats.loses ? playerStats.wins / playerStats.loses : 1) : 0,
+            ratio: playerStats.wins ? Number(Math.round(100 * playerStats.wins / playerStats.played) / 100) : 0,
             tournaments: playerStats.tournaments,
             winsTournaments: playerStats.winsTournaments
         },

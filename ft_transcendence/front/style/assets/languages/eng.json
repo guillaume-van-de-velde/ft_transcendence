@@ -24,80 +24,60 @@
     "player": "PLAYER",
     "up": "UP",
     "down": "DOWN",
-
     "classic": "YOU ARE IN CLASSIC MODE. <br>THIS MODE IS THE PONG WITHOUT <br>FEATURES IN THE GAMEPLAY.",
     "mmusic": "YOU ARE IN MUSIC MODE. <br>LET'S PLAY WITH FUN !",
-
     "online": "YOU ARE IN ONLINE MODE. <br>YOU WILL PLAY GAMES AGAINST ONLINE PLAYERS.",
     "local": "YOU ARE IN LOCAL MODE. <br>THIS MODE NEED 2 PLAYERS ON THE SAME COMPUTER.",
     "ai": "YOU ARE IN AI MODE. <br>YOU WILL PLAY AGAINST AN <br>ARTIFICIAL INTELLIGENCE.",
-
     "match": "YOU ARE IN MATCH MODE. <br>YOU WILL PLAY NORMAL MATCHS.",
     "mtournament": "YOU ARE IN TOURNAMENT MODE. <br>YOU WILL PLAY MATCHS IN A TOURNAMENT.",
-
-
     "goMusic": "GO IN MUSIC MODE",
     "goClassic": "GO IN CLASSIC MODE",
-
     "goOnline": "GO IN ONLINE MODE",
     "goLocal": "GO IN LOCAL MODE",
     "goAi": "GO IN AI MODE",
-
     "goMatch": "GO IN MATCH MODE",
     "goTournament": "GO IN TOURNAMENT MODE",
-
     "out": "YOU WILL BE OUT OF THIS<br>TOURNAMENT.",
     "quit": "QUIT",
     "stay": "STAY",
     "create": "CREATE",
     "join": "JOIN",
     "nameTournament": "TOURNAMENT'S NAME",
-
     "private": "PRIVATE",
     "global": "GLOBAL",
     "notify": "NOTIFY",
-
     "noFriends": "NO FRIENDS",
     "noNotify": "NO NOTIFY",
     "noPlayer": "NO PLAYER",
-
     "logOut": "LOG OUT",
     "picture": "PICTURE",
-
     "stats": "STATS",
     "played": "PLAYED",
     "winsLoses": "WINS / LOSES",
     "stournaments": "TOURNAMENTS",
     "winsTournaments": "WINS TOURNAMENTS",
-
     "history": "HISTORY",
     "noHistory": "NO HISTORY",
     "friends": "FRIENDS",
-
     "search": "SEARCH",
     "searchPlayer": "search a player",
-
     "add": "ADD +",
     "takeOff": "TAKE OFF",
     "remove": "REMOVE",
-
     "victory": "VICTORY",
     "defeat": "DEFEAT",
-
     "quitTournament": "QUIT THE TOURNAMENT",
     "finished": "TOURNAMENT FINISHED",
     "wait": "WAIT FOR PLAYERS",
-
     "inSearch": "SEARCH",
     "squit": "Q U I T",
     "play": "P L A Y",
-
     "connexion": "CONNEXION",
     "logIn": "LOG IN",
     "signIn": "SIGN UP",
     "code": "CODE",
     "verify": "VERIFY",
-
     "pictureLink": "PICTURE'S LINK",
     "apply": "APPLY"
 }

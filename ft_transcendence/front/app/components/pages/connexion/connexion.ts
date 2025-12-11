@@ -18,12 +18,12 @@ export function renderConnexion() {
 export function connexion() {
     const logInBtn = document.getElementById("logInBtn");
     const signInBtn = document.getElementById("signInBtn");
-    
+
     logInBtn?.addEventListener("click", renderLogIn);
     signInBtn?.addEventListener("click", renderSignIn);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [logInBtn, {type: "click", callback: renderLogIn}],
-        [signInBtn, {type: "click", callback: renderSignIn}]
+        [logInBtn, { type: "click", callback: renderLogIn }],
+        [signInBtn, { type: "click", callback: renderSignIn }]
     ]);
 }

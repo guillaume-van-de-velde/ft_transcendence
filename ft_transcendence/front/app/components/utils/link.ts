@@ -3,10 +3,6 @@ import { Link, Notify } from "../core/state.js";
 import { renderPrivateMessage } from "../pages/messages/private.js";
 import { requestAPI } from "./requestApi.js";
 
-
-
-
-
 function blockPlayer() {
     const addPlayerBtn = document.getElementById("addPlayerBtn");
     const blockPlayerBtn = document.getElementById("blockPlayerBtn");
@@ -82,8 +78,8 @@ export function linkNone() {
     addPlayerBtn.addEventListener("click", sendPlayer);
     blockPlayerBtn.addEventListener("click", blockPlayer);
 
-    state.events.set(addPlayerBtn, {type: "click", callback: sendPlayer});
-    state.events.set(blockPlayerBtn, {type: "click", callback: blockPlayer});
+    state.events.set(addPlayerBtn, { type: "click", callback: sendPlayer });
+    state.events.set(blockPlayerBtn, { type: "click", callback: blockPlayer });
 }
 
 
@@ -136,7 +132,7 @@ export function linkBlocked() {
 
     unblockPlayerBtn.addEventListener("click", unblockPlayer);
 
-    state.events.set(unblockPlayerBtn, {type: "click", callback: unblockPlayer});
+    state.events.set(unblockPlayerBtn, { type: "click", callback: unblockPlayer });
 }
 
 
@@ -186,7 +182,7 @@ export function linkSent() {
 
     sentPlayerBtn.addEventListener("click", removeFriendRequest);
 
-    state.events.set(sentPlayerBtn, {type: "click", callback: removeFriendRequest});
+    state.events.set(sentPlayerBtn, { type: "click", callback: removeFriendRequest });
 }
 
 
@@ -227,11 +223,15 @@ function chatFriend() {
     removeFriendBtn?.removeEventListener("click", removeFriend);
     chatFriendBtn?.removeEventListener("click", chatFriend);
 
-    state.messages.private?.unshift({
-        user: state.playerData!.user!,
-        chat: [],
-        seen: true
-    });
+    if (!state.messages.private?.some(u => u.user.id == state.playerData!.user.id)) {
+        state.messages.private?.unshift({
+            user: state.playerData!.user!,
+            chat: [],
+            seen: true
+        });
+        state.friend = 0;
+    } else
+        state.friend = state.messages.private.findIndex(u => u.user.id == state.playerData!.user.id);
 
     renderPrivateMessage();
 }
@@ -263,8 +263,8 @@ export function linkFriend() {
     removeFriendBtn.addEventListener("click", removeFriend);
     chatFriendBtn.addEventListener("click", chatFriend);
 
-    state.events.set(removeFriendBtn, {type: "click", callback: removeFriend});
-    state.events.set(chatFriendBtn, {type: "click", callback: chatFriend});
+    state.events.set(removeFriendBtn, { type: "click", callback: removeFriend });
+    state.events.set(chatFriendBtn, { type: "click", callback: chatFriend });
 }
 
 
@@ -273,19 +273,19 @@ export function linkFriend() {
 
 export function playerLink() {
     switch (state.playerData!.link) {
-        case Link.NONE :
+        case Link.NONE:
             linkNone();
-            break ;
-        case Link.FRIEND :
+            break;
+        case Link.FRIEND:
             linkFriend();
-            break ;
-        case Link.SENT :
+            break;
+        case Link.SENT:
             linkSent();
-            break ;
-        case Link.BLOCKED :
+            break;
+        case Link.BLOCKED:
             linkBlocked();
-            break ;
-        default :
-            break ;
+            break;
+        default:
+            break;
     }
 }

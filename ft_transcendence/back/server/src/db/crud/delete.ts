@@ -1,6 +1,6 @@
 import { db } from "../../../server";
 
-export async function deleteNotify(id:number) {
+export async function deleteNotify(id: number) {
     await db.run(
         `
             DELETE FROM notify
@@ -10,7 +10,7 @@ export async function deleteNotify(id:number) {
     );
 }
 
-export async function deleteTournament(id:number) {
+export async function deleteTournament(id: number) {
     await db.run(
         `
             DELETE FROM tournaments
@@ -20,7 +20,7 @@ export async function deleteTournament(id:number) {
     );
 }
 
-export async function deletePrivateMessage(user1:number, user2:number) {
+export async function deletePrivateMessage(user1: number, user2: number) {
     await db.run(`
             DELETE FROM privateMessages
             WHERE idTransmitter = ? AND idReceiver = ?

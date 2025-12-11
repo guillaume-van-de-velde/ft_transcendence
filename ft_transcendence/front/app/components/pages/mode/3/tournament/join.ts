@@ -1,7 +1,7 @@
 import { state } from "../../../../../index.js";
 import { vues } from "../../../../../vues/vues.js";
 import { render } from "../../../../core/render.js";
-import { joinTournamentCallApi } from "../../../../utils/api.js";
+import { joinTournamentCallApi } from "../../../../api/game/joinTournamentCallApi.js";
 import { close2Event } from "../../../../utils/globalEvents.js";
 import { PageInstance } from "../../../../utils/interfaces.js";
 
@@ -20,7 +20,7 @@ export function joinTournament() {
 
     form?.addEventListener("submit", joinTournamentCallApi);
 
-    state.events.set(form, {type: "submit", callback: joinTournamentCallApi});
+    state.events.set(form, { type: "submit", callback: joinTournamentCallApi });
 
     close2Event();
 }

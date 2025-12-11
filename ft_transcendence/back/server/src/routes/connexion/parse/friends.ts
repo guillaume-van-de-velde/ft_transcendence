@@ -1,7 +1,7 @@
 import { readUser } from "../../../db/crud/read";
 import { KeyUser, UserShortData } from "../../../utils/enums";
 
-export async function parseFriends(ids:string): Promise<UserShortData[]> {
+export async function parseFriends(ids: string): Promise<UserShortData[]> {
     const listFriendsIDs = ids.split(',');
 
     const parsedFriends = Promise.all(

@@ -30,15 +30,15 @@ export function volume() {
     volumeBar3?.addEventListener("mousedown", updateVolume3);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [settings, {type: "click", callback: renderSettings}],
-        [volumeBar1, {type: "click", callback: updateVolume1}],
-        [volumeBar2, {type: "click", callback: updateVolume2}],
-        [volumeBar3, {type: "click", callback: updateVolume3}]
+        [settings, { type: "click", callback: renderSettings }],
+        [volumeBar1, { type: "click", callback: updateVolume1 }],
+        [volumeBar2, { type: "click", callback: updateVolume2 }],
+        [volumeBar3, { type: "click", callback: updateVolume3 }]
     ]);
     closeEvent();
 }
 
-function requestVolume(type:string, value:number) {
+function requestVolume(type: string, value: number) {
     requestAPI(`${state.link}/api/settings/volume/${type}`, {
         method: "PUT",
         headers: {
@@ -50,7 +50,7 @@ function requestVolume(type:string, value:number) {
     });
 }
 
-function calculVolume(volumeValue:HTMLElement, dot: HTMLElement, pageX:number):number {
+function calculVolume(volumeValue: HTMLElement, dot: HTMLElement, pageX: number): number {
     let newValue = Math.round(((pageX - 700) / 576) * 100);
     if (newValue >= 100)
         newValue = 100;

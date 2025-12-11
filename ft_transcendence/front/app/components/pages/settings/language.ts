@@ -3,7 +3,9 @@ import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent } from "../../utils/globalEvents.js";
-import { languageAddBorder, languageBorder, languageCallAPI } from "../../utils/api.js";
+import { languageAddBorder } from "../../api/language/languageAddBorder.js";
+import { languageBorder } from "../../api/language/languageBorder.js";
+import { languageCallAPI } from "../../api/language/languageCallAPI.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderSettings } from "./settings.js";
 
@@ -34,12 +36,12 @@ export function language() {
     settings?.addEventListener("click", renderSettings);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [eng, {type: "click", callback: languageBorder}],
-        [fra, {type: "click", callback: languageBorder}],
-        [esp, {type: "click", callback: languageBorder}],
-        [rus, {type: "click", callback: languageBorder}],
-        [valid, {type: "click", callback: languageCallAPI}],
-        [settings, {type: "click", callback: renderSettings}]
+        [eng, { type: "click", callback: languageBorder }],
+        [fra, { type: "click", callback: languageBorder }],
+        [esp, { type: "click", callback: languageBorder }],
+        [rus, { type: "click", callback: languageBorder }],
+        [valid, { type: "click", callback: languageCallAPI }],
+        [settings, { type: "click", callback: renderSettings }]
     ]);
     closeEvent();
 }

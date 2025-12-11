@@ -23,10 +23,10 @@ WORKDIR /app/back
 
 RUN mkdir -p ./cert
 
-RUN openssl req -x509 -nodes -days 365 \
-    -newkey rsa:2048 \
+RUN openssl req -nodes -new -x509 \
     -keyout ./cert/server.key \
     -out ./cert/server.cert \
+    -days 365 \
     -subj "/C=FR/ST=Ile-de-France/L=Paris/O=./OU=./CN=localhost"
 
 RUN npm run build

@@ -2,7 +2,7 @@ import { state } from "../../../index.js";
 import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
-import { logInAPI, verifyAPI } from "../../utils/api.js";
+import { verifyAPI } from "../../api/connexion/verifyAPI.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderConnexion } from "./connexion.js";
 
@@ -23,7 +23,7 @@ export function verify() {
     form?.addEventListener("submit", verifyAPI);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [connexionBtn, {type: "click", callback: renderConnexion}],
-        [form, {type: "submit", callback: verifyAPI}]
+        [connexionBtn, { type: "click", callback: renderConnexion }],
+        [form, { type: "submit", callback: verifyAPI }]
     ]);
 }

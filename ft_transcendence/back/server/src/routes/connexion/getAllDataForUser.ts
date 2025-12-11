@@ -1,4 +1,3 @@
-import { FastifyReply, FastifyRequest } from "fastify";
 import { readStats, readTournament, readUser } from "../../db/crud/read";
 import { KeyTournament, KeyUser, UserResponse } from "../../utils/enums";
 import { parseHistory } from "./parse/history";
@@ -14,11 +13,11 @@ export async function getAllDataForUser(idAsk: number) {
     const id = userData.id;
     const userStats = await readStats(id);
     let userTournament;
-    
+
     if (userData.tournament)
         userTournament = await readTournament(userData.tournament, KeyTournament.ID);
 
-    const result:UserResponse = {
+    const result: UserResponse = {
         id: id,
         settings: {
             volume: {
@@ -61,7 +60,7 @@ export async function getAllDataForUser(idAsk: number) {
         },
         mode: {
             set: userData.mode,
-            ...(userTournament?.id && { 
+            ...(userTournament?.id && {
                 tournament: {
                     id: userTournament.id,
                     status: userTournament.status,

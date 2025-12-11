@@ -4,7 +4,7 @@ export enum Notify { ASK = "ASK", MATCH = "MATCH" }
 export enum StatusTournament { START = "START", WAIT = "WAIT", FINISHED = "FINISHED" }
 export enum KeyUser { EMAIL = "email", PSEUDO = "pseudo", ID = "id" }
 export enum KeyTournament { NAME = "name", ID = "id" }
-export enum Link { NONE = "NONE", FRIEND = "FRIEND", SENT = "SENT", BLOCKED = "BLOCKED"}
+export enum Link { NONE = "NONE", FRIEND = "FRIEND", SENT = "SENT", BLOCKED = "BLOCKED" }
 
 export interface UserShortData {
     id: number,
@@ -105,7 +105,7 @@ export interface Match {
     sockets: [Socket | undefined, Socket | undefined],
     booking?: [number, number] | null | undefined,
     invite?: [number, number] | null | undefined,
-    renderGameAPI?:{
+    renderGameAPI?: {
         move: Function,
         stop: Function
     };

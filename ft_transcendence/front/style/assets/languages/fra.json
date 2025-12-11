@@ -24,81 +24,60 @@
     "player": "JOUEUR",
     "up": "HAUT",
     "down": "BAS",
-
     "classic": "TU ES EN CLASSIQUE MODE. <br>CE MODE EST LE PONG <br>ORIGINAL SANS AJOUTS.",
     "mmusic": "TU ES EN MODE MUSIQUE. <br>C'EST PARTI POUR JOUER AVEC FUN !",
-
     "online": "TU ES EN MODE EN LIGNE. <br>TU VA JOUER DES PARTIES CONTRE D'AUTRES JOUEURS EN LIGNE.",
     "local": "TU ES EN MODEE LOCAL. <br>CE MODE NECESSITE 2 JOUEURS SUR LE MEME ORDINATEUR.",
     "ai": "TU ES EN MODE IA. <br>TU VA JOUER CONTRE UN <br>INTELLIGENCE ARTIFICIELLE.",
-
     "match": "TU ES EN MODE MATCH. <br>TU VA JOUER DES MATCHS SOUS <br>UN FORMAT NORMAL.",
     "mtournament": "TU ES EN MODE TOURNOI. <br>TU VA JOUER DES MATCHS DANS UN TOURNOI",
-
-
     "goMusic": "ALLER EN MODE MUSIQUE",
     "goClassic": "ALLER EN MODE CLASSIQUE",
-
     "goOnline": "ALLER EN MODE EN LIGNE",
     "goLocal": "ALLER EN MODE LOCAL",
     "goAi": "ALLER EN MODE IA",
-
     "goMatch": "ALLER EN MODE MATCH",
     "goTournament": "ALLER EN MODE TOURNOI",
-
     "out": "VOUS SEREZ ÉLIMINÉ DE CE<br>TOURNOI.",
     "quit": "QUITTER",
     "stay": "RESTER",
     "create": "CREE",
     "join": "REJOINDRE",
     "nameTournament": "NOM DU TOURNOI",
-
     "private": "PRIVEE",
     "global": "GLOBALE",
     "notify": "NOTIFS",
-
     "noFriends": "PAS D'AMIS",
     "noNotify": "PAS DE NOTIF",
     "noPlayer": "PAS DE JOUEUR",
-
     "logOut": "DECONNEXION",
     "picture": "PHOTO",
-
     "stats": "STATS",
     "played": "JOUEES",
     "winsLoses": "VIC / DEF",
     "stournaments": "TOURNOIS",
     "winsTournaments": "TOURNOIS GAGNES",
-
     "history": "HISTORIQUE",
     "noHistory": "PAS D'HISTORIQUE",
-
     "friends": "AMIS",
-
     "search": "RECHERCHE",
     "searchPlayer": "recherche un joueur",
-
     "add": "AJOUTER +",
     "takeOff": "RETIRER",
     "remove": "SUPPRIMER",
-
     "victory": "VICTOIRE",
     "defeat": "DEFAITE",
-
     "quitTournament": "QUITTER LE TOURNOI",
     "finished": "TOURNOI FINI",
     "wait": "ATTENDRE LES JOUEURS",
-
     "inSearch": "RECHERCHE",
     "squit": "Q U I T T E R",
     "play": "J O U E R",
-
     "connexion": "CONNEXION",
     "logIn": "COMPTE",
     "signIn": "INSCRIRE",
     "code": "CODE",
     "verify": "VERIF",
-
     "pictureLink": "LIEN VERS L'IMAGE",
     "apply": "APPLIQUER"
 }

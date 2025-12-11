@@ -6,7 +6,7 @@ export function checkSeen() {
         if (friends.seen == false) {
             flag = true;
             state.socket.message = true;
-            break ;
+            break;
         }
     }
     if (flag == false)
@@ -16,7 +16,7 @@ export function checkSeen() {
         if (notify.seen == false) {
             flag = true;
             state.socket.notify = true;
-            break ;
+            break;
         }
     }
     if (flag == false)

@@ -3,5 +3,3 @@ export interface PageInstance {
     level: number;
     create: Function | null;
 }
-
-declare const i18next: any;

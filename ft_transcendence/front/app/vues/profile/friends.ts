@@ -39,7 +39,6 @@ export function friendsHTML(): string {
         </div>
         <div class="h-1/12 w-full"></div>
         <div id="friendsList" class="flex flex-wrap w-6/10 mx-auto overflow-y-auto hide-scrollbar">
-            <!-- <span class="absolute h-[40px] w-[10px] bg-form-bg right-0 -translate-x-60 translate-y-1 rounded-full cursor-pointer"></span> -->
         </div>
     `
 }

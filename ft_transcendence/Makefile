@@ -16,5 +16,13 @@ clean:
 	@echo "=== Suppression des donnees sauvgardees ==="
 	-docker system prune -af --volumes
 
+logs:
+	@echo "=== Logs du conteneur ==="
+	-docker logs $(CONTAINER_NAME)
+
+access:
+	@echo "=== Acces au conteneur ==="
+	-docker exec -it $(CONTAINER_NAME) sh
+
 status:
 	docker ps -a | grep $(CONTAINER_NAME)

@@ -3,7 +3,8 @@ import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
 import { TypeEvent } from "../../../core/state.js";
 import { closeEvent } from "../../../utils/globalEvents.js";
-import { emailFormCallApi, placeholderAPI } from "../../../utils/api.js";
+import { emailFormCallApi } from "../../../api/connexion/emailFormCallApi.js";
+import { placeholderAPI } from "../../../api/profile/placeholderAPI.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderAccount } from "../account.js";
 import { renderSettings } from "../settings.js";
@@ -29,9 +30,9 @@ export function email() {
     account?.addEventListener("click", renderAccount);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [form, {type: "submit", callback: emailFormCallApi}],
-        [settings, {type: "click", callback: renderSettings}],
-        [account, {type: "click", callback: renderAccount}]
+        [form, { type: "submit", callback: emailFormCallApi }],
+        [settings, { type: "click", callback: renderSettings }],
+        [account, { type: "click", callback: renderAccount }]
     ]);
     closeEvent();
 }

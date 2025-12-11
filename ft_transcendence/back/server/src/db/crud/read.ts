@@ -1,7 +1,7 @@
 import { KeyTournament, KeyUser, StatusTournament } from "../../utils/enums.js";
 import { db } from "../../../server.js";
 
-export async function readUser(dataGiven:string, key:KeyUser, otherUser = false) {
+export async function readUser(dataGiven: string, key: KeyUser, otherUser = false) {
     const dataAsked = otherUser ? "id, pseudo, picture" : "*";
     const user = await db.get(
         `
@@ -14,7 +14,7 @@ export async function readUser(dataGiven:string, key:KeyUser, otherUser = false)
     return user;
 }
 
-export async function readUserWithEmail(email:string) {
+export async function readUserWithEmail(email: string) {
     const userId = await db.get(
         `
             SELECT id, password, version
@@ -26,7 +26,7 @@ export async function readUserWithEmail(email:string) {
     return userId;
 }
 
-export async function readPrivateMessages(id:number) {
+export async function readPrivateMessages(id: number) {
     const messages = await db.all(
         `
             SELECT * 
@@ -51,7 +51,7 @@ export async function readGlobalMessages() {
     return messages;
 }
 
-export async function readNotify(id:number) {
+export async function readNotify(id: number) {
     const messages = await db.all(
         `
             SELECT * 
@@ -65,7 +65,7 @@ export async function readNotify(id:number) {
     return messages;
 }
 
-export async function readNotifyById(id:number) {
+export async function readNotifyById(id: number) {
     const messages = await db.get(
         `
             SELECT * 
@@ -77,7 +77,7 @@ export async function readNotifyById(id:number) {
     return messages;
 }
 
-export async function readStats(id:number) {
+export async function readStats(id: number) {
     const stats = await db.get(
         `
             SELECT * 
@@ -89,7 +89,7 @@ export async function readStats(id:number) {
     return stats;
 }
 
-export async function readTournament(dataGiven:number, key:KeyTournament) {
+export async function readTournament(dataGiven: number, key: KeyTournament) {
     const tournament = await db.get(
         `
             SELECT * 
@@ -101,7 +101,7 @@ export async function readTournament(dataGiven:number, key:KeyTournament) {
     return tournament;
 }
 
-export async function readMatches(id:number) {
+export async function readMatches(id: number) {
     const matches = await db.all(
         `
             SELECT * 

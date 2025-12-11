@@ -38,7 +38,7 @@ import { languageHTML } from "./settings/language.js";
 import { settingsHTML } from "./settings/settings.js";
 import { volumeHTML } from "./settings/volume.js";
 
-export let vues:any;
+export let vues: any;
 
 export function setVues() {
     vues = {
@@ -69,7 +69,7 @@ export function setVues() {
                 online: onlineHTML()
             },
             {
-                tournament : {
+                tournament: {
                     tournament: tournamentHTML(),
                     action: {
                         create: createHTML(),
@@ -94,7 +94,7 @@ export function setVues() {
             search: searchHTML(),
             stats: statsUserHTML()
         },
-        settings : {
+        settings: {
             settings: settingsHTML(),
             language: languageHTML(),
             volume: volumeHTML(),

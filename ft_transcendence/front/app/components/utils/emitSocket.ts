@@ -10,10 +10,8 @@ export function sendMessageToUser(e: Event) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    console.log(data.writeBar);
-
     if (!data.writeBar || !state.messages.private![state.friend])
-        return ;
+        return;
 
     const chat = state.messages.private![state.friend]!.chat;
 
@@ -24,7 +22,7 @@ export function sendMessageToUser(e: Event) {
 
     chat.unshift(newChat);
 
-    const conversation:MessagePrivate = {
+    const conversation: MessagePrivate = {
         user: state.messages.private![state.friend]!.user,
         seen: true,
         chat: [newChat]
@@ -36,15 +34,13 @@ export function sendMessageToUser(e: Event) {
 
 export function globalMessageSend(e: Event) {
     e.preventDefault();
-    
+
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    console.log(data.writeBar);
-    
     if (!data.writeBar)
-        return ;
+        return;
 
     const chat = state.messages.global!;
 

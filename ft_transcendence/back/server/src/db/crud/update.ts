@@ -1,7 +1,7 @@
 import { StatusTournament } from "../../utils/enums.js";
 import { db } from "../../../server.js";
 
-export async function updateUsers(id:number, key:string, value:string | number) {
+export async function updateUsers(id: number, key: string, value: string | number) {
     await db.run(
         `
             UPDATE users
@@ -13,7 +13,7 @@ export async function updateUsers(id:number, key:string, value:string | number) 
     )
 }
 
-export async function updateStats(id:number, update:string) {
+export async function updateStats(id: number, update: string) {
     await db.run(
         `
             UPDATE stats
@@ -25,7 +25,7 @@ export async function updateStats(id:number, update:string) {
     )
 }
 
-export async function updateTournaments(id:number, player:number, level:number) {
+export async function updateTournaments(id: number, player: number, level: number) {
     await db.run(
         `
             UPDATE tournaments
@@ -37,7 +37,7 @@ export async function updateTournaments(id:number, player:number, level:number) 
     )
 }
 
-export async function updateUserTournaments(name:string, id:number, player:number) {
+export async function updateUserTournaments(name: string, id: number, player: number) {
     await db.run(
         `
             UPDATE tournaments
@@ -50,7 +50,7 @@ export async function updateUserTournaments(name:string, id:number, player:numbe
     )
 }
 
-export async function updateStatusTournaments(id:number, status:StatusTournament) {
+export async function updateStatusTournaments(id: number, status: StatusTournament) {
     await db.run(
         `
             UPDATE tournaments
@@ -62,7 +62,7 @@ export async function updateStatusTournaments(id:number, status:StatusTournament
     )
 }
 
-export async function updatePrivateMessageSeen(idTransmitter:string, idReceiver:string) {
+export async function updatePrivateMessageSeen(idTransmitter: string, idReceiver: string) {
     await db.run(
         `
             UPDATE privateMessages

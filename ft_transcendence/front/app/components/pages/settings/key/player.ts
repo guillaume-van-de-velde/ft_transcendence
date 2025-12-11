@@ -34,15 +34,15 @@ export function player() {
     keyName2?.addEventListener("mouseover", overKey2);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [settings, {type: "click", callback: renderSettings}],
-        [key, {type: "click", callback: renderKey}],
-        [keyName1, {type: "mouseover", callback: (changeKey1 as EventListener)}],
-        [keyName2, {type: "mouseover", callback: (changeKey2 as EventListener)}]
+        [settings, { type: "click", callback: renderSettings }],
+        [key, { type: "click", callback: renderKey }],
+        [keyName1, { type: "mouseover", callback: (changeKey1 as EventListener) }],
+        [keyName2, { type: "mouseover", callback: (changeKey2 as EventListener) }]
     ]);
     closeEvent();
 }
 
-function requestKey(key:string, value:string, path:string) {
+function requestKey(key: string, value: string, path: string) {
     requestAPI(`${state.link}/api/settings/key/${path}`, {
         method: "PUT",
         headers: {
@@ -115,7 +115,7 @@ function changeKey2(e: KeyboardEvent) {
     }
 }
 
-function checkKeys(key:string):boolean {
+function checkKeys(key: string): boolean {
     switch (key) {
         case state.key.player1.up:
         case state.key.player1.down:

@@ -1,9 +1,9 @@
 import { readPrivateMessages, readUser } from "../../../db/crud/read";
 import { KeyUser, MessagePrivate } from "../../../utils/enums";
 
-export async function parsePrivateMessages(id:number): Promise<MessagePrivate[]> {
+export async function parsePrivateMessages(id: number): Promise<MessagePrivate[]> {
     const usersMessages = await readPrivateMessages(id);
-    const parsedMessages:MessagePrivate[] = [];
+    const parsedMessages: MessagePrivate[] = [];
 
     for (const userMessages of usersMessages) {
         let exist = false;

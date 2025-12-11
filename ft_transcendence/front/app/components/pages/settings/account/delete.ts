@@ -3,7 +3,7 @@ import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
 import { TypeEvent } from "../../../core/state.js";
 import { closeEvent } from "../../../utils/globalEvents.js";
-import { deleteAccountCallAPI, placeholderAPI } from "../../../utils/api.js";
+import { deleteAccountCallAPI } from "../../../api/connexion/deleteAccountCallAPI.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderAccount } from "../account.js";
 import { renderSettings } from "../settings.js";
@@ -29,10 +29,10 @@ export function deleteAccount() {
     account?.addEventListener("click", renderAccount);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [yesDelete, {type: "click", callback: deleteAccountCallAPI}],
-        [noDelete, {type: "click", callback: renderAccount}],
-        [settings, {type: "click", callback: renderSettings}],
-        [account, {type: "click", callback: renderAccount}]
+        [yesDelete, { type: "click", callback: deleteAccountCallAPI }],
+        [noDelete, { type: "click", callback: renderAccount }],
+        [settings, { type: "click", callback: renderSettings }],
+        [account, { type: "click", callback: renderAccount }]
     ]);
     closeEvent();
 }

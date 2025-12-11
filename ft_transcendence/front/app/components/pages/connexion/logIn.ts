@@ -2,7 +2,8 @@ import { state } from "../../../index.js";
 import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
-import { forgotCallAPI, logInAPI } from "../../utils/api.js";
+import { logInAPI } from "../../api/connexion/logInAPI.js";
+import { forgotCallAPI } from "../../api/connexion/forgotCallAPI.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderConnexion } from "./connexion.js";
 
@@ -25,7 +26,7 @@ export function logIn() {
     forgot?.addEventListener("click", forgotCallAPI);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [connexionBtn, {type: "click", callback: renderConnexion}],
-        [form, {type: "submit", callback: logInAPI}]
+        [connexionBtn, { type: "click", callback: renderConnexion }],
+        [form, { type: "submit", callback: logInAPI }]
     ]);
 }

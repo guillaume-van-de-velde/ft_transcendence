@@ -4,7 +4,7 @@ import { updateUsers } from "../../db/crud/update";
 import { readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 
-export const deleteAccountVerify = async (req:FastifyRequest, res:FastifyReply) => {
+export const deleteAccountVerify = async (req: FastifyRequest, res: FastifyReply) => {
     const codeReq = parseInt(req.headers.code as string);
 
     for (const verifyCode of verifyCodes) {
@@ -20,7 +20,7 @@ export const deleteAccountVerify = async (req:FastifyRequest, res:FastifyReply) 
             updateUsers(user.id, "pseudo", `delete${user.id}`);
             updateUsers(user.id, "picture", `https://www.nicepng.com/png/detail/115-1150821_default-avatar-comments-sign-in-icon-png.png`);
             updateUsers(user.id, "version", 0);
-            return {delete: "ok"};
+            return { delete: "ok" };
         }
     }
     return res.code(401).send({ error: "code incorrect" });

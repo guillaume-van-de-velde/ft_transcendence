@@ -1,12 +1,9 @@
 import { state } from "../../../../index.js";
 import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
-import { TypeEvent } from "../../../core/state.js";
-import { changeModeCallApi } from "../../../utils/api.js";
+import { changeModeCallApi } from "../../../api/profile/changeModeCallApi.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
-import { renderClassic } from "../1/classic.js";
-import { renderMatch } from "../3/match.js";
 import { renderAi } from "./ai.js";
 import { renderLocal } from "./local.js";
 
@@ -37,8 +34,8 @@ export function online() {
     ai?.addEventListener("click", renderAi);
     local?.addEventListener("click", renderLocal);
 
-    state.events.set(ai, {type: "click", callback: renderAi});
-    state.events.set(local, {type: "click", callback: renderLocal});
+    state.events.set(ai, { type: "click", callback: renderAi });
+    state.events.set(local, { type: "click", callback: renderLocal });
 
     closeEvent();
 }

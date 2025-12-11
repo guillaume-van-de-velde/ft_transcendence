@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { app, transporter } from "../../../server";
+import { transporter } from "../../../server";
 import { Verify } from "../../utils/enums";
 import { createStat, createUser } from "../../db/crud/create";
 import { getAllDataForUser } from "./getAllDataForUser";
@@ -7,13 +7,13 @@ import { readUserWithEmail } from "../../db/crud/read";
 import jwt from "jsonwebtoken";
 import { userSockets } from "../../sockets/sockets";
 
-export let verifyCodes:Verify[] = [];
+export let verifyCodes: Verify[] = [];
 
 export function generate2FACode(): number {
-  return Math.floor(100000 + Math.random() * 900000);
+    return Math.floor(100000 + Math.random() * 900000);
 }
 
-export async function createCode(email: string, password: string, language:string | null = "ENG", pseudo: string | null = null, newEmail: string | null = null) {
+export async function createCode(email: string, password: string, language: string | null = "ENG", pseudo: string | null = null, newEmail: string | null = null) {
     const code = generate2FACode();
     const info = await transporter.sendMail({
         from: `"Pong" <${process.env.EMAIL_VERIFY}>`,
@@ -21,9 +21,9 @@ export async function createCode(email: string, password: string, language:strin
         subject: "Verification code",
         text: `Your code is : ${code}\nThis code expire in 5 minutes.`
     });
-    const verify:Verify = {
+    const verify: Verify = {
         code,
-        expire : Date.now() + 5 * 60 * 1000,
+        expire: Date.now() + 5 * 60 * 1000,
         email,
         language,
         password,
@@ -33,11 +33,11 @@ export async function createCode(email: string, password: string, language:strin
     verifyCodes.push(verify);
 }
 
-export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
+export const verifyCode = async (req: FastifyRequest, res: FastifyReply) => {
     const codeReq = parseInt(req.headers.code as string);
-    let userId:number = 0;
-    let user:any;
-    
+    let userId: number = 0;
+    let user: any;
+
     for (const verifyCode of verifyCodes) {
         if (verifyCode.code === codeReq) {
             const { expire, email, password, pseudo, language } = verifyCode;
@@ -60,7 +60,7 @@ export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
                     "SecretKeyTest",
                     { expiresIn: '1d' }
                 );
-                return {token, data};
+                return { token, data };
             } else {
                 try {
                     user = await readUserWithEmail(email);
@@ -82,7 +82,7 @@ export const verifyCode = async (req:FastifyRequest, res:FastifyReply) => {
                     process.env.SECRET_KEY!,
                     { expiresIn: '1d' }
                 );
-                return {token, data};
+                return { token, data };
             }
         }
     }

@@ -1,31 +1,30 @@
 {
-  "compilerOptions": {
-
-    "module": "nodenext",
-    "target": "es2022",
-    "types": [],
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-
-    "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": false,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
-
-    "sourceMap": false,
-    "declaration": false,
-    "declarationMap": false,
-    "removeComments": true,
-
-    "rootDir": "../server",
-    "outDir": "../build"
-  },
-
-  "include": ["../server/**/*"],
-  "exclude": ["../build"]
+	"compilerOptions": {
+		"module": "nodenext",
+		"target": "es2022",
+		"types": [],
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+		"strict": true,
+		"jsx": "react-jsx",
+		"verbatimModuleSyntax": false,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"noUncheckedSideEffectImports": true,
+		"moduleDetection": "force",
+		"skipLibCheck": true,
+		"sourceMap": false,
+		"declaration": false,
+		"declarationMap": false,
+		"removeComments": true,
+		"rootDir": "../server",
+		"outDir": "../build"
+	},
+	"include": [
+		"../server/**/*"
+	],
+	"exclude": [
+		"../build"
+	]
 }

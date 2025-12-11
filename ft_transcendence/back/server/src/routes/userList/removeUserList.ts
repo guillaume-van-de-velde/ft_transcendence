@@ -2,17 +2,17 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 import { updateUsers } from "../../db/crud/update";
-import { deletePrivateMessage } from "../../db/crud/z-delete";
+import { deletePrivateMessage } from "../../db/crud/delete";
 import { userSockets } from "../../sockets/sockets";
 
 export async function removeUserList(id: any, key: string, value: any) {
-    let ArrayUser:string[] = await readUser(id, KeyUser.ID).then(user => user[key].split(','));
+    let ArrayUser: string[] = await readUser(id, KeyUser.ID).then(user => user[key].split(','));
     ArrayUser = ArrayUser.filter(friendId => friendId != value);
     const listUser = ArrayUser.join(',');
     await updateUsers(id, key, listUser);
 }
 
-export const removeUserInFriendsList = async (req:FastifyRequest, res:FastifyReply) => {
+export const removeUserInFriendsList = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const id = req.user!.id;
     const idPlayer = reqBody.friend;
@@ -24,14 +24,14 @@ export const removeUserInFriendsList = async (req:FastifyRequest, res:FastifyRep
     for (const [socket, id] of userSockets) {
         if (id == idPlayer) {
             socketDeleteUser = socket;
-            break ;
+            break;
         }
     }
     if (socketDeleteUser)
         socketDeleteUser.emit("delete", await readUser(id.toString(), KeyUser.ID, true));
 }
 
-export const removeUserInBlockedList = async (req:FastifyRequest, res:FastifyReply) => {
+export const removeUserInBlockedList = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const id = req.user!.id;
     const idPlayer = reqBody.blocked;

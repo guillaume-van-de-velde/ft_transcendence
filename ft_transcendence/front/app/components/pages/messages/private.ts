@@ -3,7 +3,8 @@ import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
 import { closeEvent, renderPlayer, renderPlayerMessages } from "../../utils/globalEvents.js";
-import { messagerieAPI, privateMessagesAPI } from "../../utils/api.js";
+import { messagerieAPI } from "../../api/messages/messagerieAPI.js";
+import { privateMessagesAPI } from "../../api/messages/privateMessagesAPI.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderGlobal } from "./global.js";
 import { renderNotify } from "./notify.js";
@@ -47,11 +48,11 @@ export function privateMessage() {
             state.input.focused ? input.focus() : 0;
         }
         state.input = {
-			value: "",
-			focused: false,
-			start: null,
-			end: null
-		}
+            value: "",
+            focused: false,
+            start: null,
+            end: null
+        }
     }
 
     chat!.scrollTop = chat!.scrollHeight;
@@ -62,9 +63,9 @@ export function privateMessage() {
     writeBar?.addEventListener("submit", sendMessageToUser);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [global, {type: "click", callback: renderGlobal}],
-        [notify, {type: "click", callback: renderNotify}],
-        [writeBar, {type: "submit", callback: sendMessageToUser}]
+        [global, { type: "click", callback: renderGlobal }],
+        [notify, { type: "click", callback: renderNotify }],
+        [writeBar, { type: "submit", callback: sendMessageToUser }]
     ]);
 
     renderPlayer();

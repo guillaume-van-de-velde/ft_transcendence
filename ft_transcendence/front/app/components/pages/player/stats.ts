@@ -2,12 +2,12 @@ import { state } from "../../../index.js";
 import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
-import { dataPlayerCallAPI } from "../../utils/api.js";
+import { dataPlayerCallAPI } from "../../api/profile/dataPlayerCallAPI.js";
 import { close2Event } from "../../utils/globalEvents.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderHistory } from "./history.js";
 
-export function renderStats(e:Event) {
+export function renderStats(e: Event) {
     if (state.actual == "showPlayerHistory" && clickOnNewPlayer(e))
         delete state.playerData;
     const statsPage: PageInstance = {
@@ -21,15 +21,15 @@ export function renderStats(e:Event) {
 
 export function stats() {
     const history = document.getElementById("historyPlayer");
-    
+
     history?.addEventListener("click", renderHistory);
     state.events = new Map<Element | null, TypeEvent>([
-        [history, {type: "click", callback: renderHistory}],
+        [history, { type: "click", callback: renderHistory }],
     ]);
     close2Event();
 }
 
-function clickOnNewPlayer(e:Event):boolean {
+function clickOnNewPlayer(e: Event): boolean {
     let target = (e.target as HTMLElement);
 
     if (!target.id) {

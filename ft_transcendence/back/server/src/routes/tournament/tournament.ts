@@ -4,7 +4,6 @@ import { updateStats, updateStatusTournaments, updateTournaments } from "../../d
 import { KeyTournament, StatusTournament, Tournament } from "../../utils/enums";
 import { userSockets } from "../../sockets/sockets";
 import { gameManagement } from "../game/createGame";
-import util from "util";
 
 export const tournamentsManagement: Tournament[] = [];
 
@@ -16,14 +15,14 @@ export async function updateStatsTournamentPlayer(tournament: Tournament) {
     }
 }
 
-export function sendTournamentStateToPlayers(index:number) {
+export function sendTournamentStateToPlayers(index: number) {
     const tournament = tournamentsManagement![index];
-    
+
     if (tournament) {
         for (const user of tournament.users) {
             const idUser = user.user.id;
             let socket: Socket | null = null;
-    
+
             for (const [socketConnected, idConnected] of userSockets) {
                 if (idConnected == idUser)
                     socket = socketConnected;
@@ -39,13 +38,13 @@ function deleteBookings(tournament: Tournament) {
         for (const [index, match] of gameManagement!.entries()) {
             if (match.booking && (user.user.id == match.booking[0] || user.user.id == match.booking[1])) {
                 gameManagement!.splice(index, 1);
-                break ;
+                break;
             }
         }
     }
 }
 
-function allPlayerStartedMatch(tournament: Tournament):boolean {
+function allPlayerStartedMatch(tournament: Tournament): boolean {
     for (const user of tournament.users) {
         if (user.level == tournament.round && !user.quit && !user.queue)
             return false;
@@ -53,7 +52,7 @@ function allPlayerStartedMatch(tournament: Tournament):boolean {
     return true;
 }
 
-export function allPlayersFinishedMatch(tournament: Tournament):boolean {
+export function allPlayersFinishedMatch(tournament: Tournament): boolean {
 
     for (const user of tournament.users) {
         if (user.level == tournament.round && !user.quit && !user.finish)
@@ -108,7 +107,7 @@ function createLobbys(tournament: Tournament) {
     }
 }
 
-export function updateTimerTournament(tournament: Tournament, index:number) {
+export function updateTimerTournament(tournament: Tournament, index: number) {
     createLobbys(tournament);
     sendTournamentStateToPlayers(index);
     const interval = setInterval(timer, 1000);
@@ -116,7 +115,7 @@ export function updateTimerTournament(tournament: Tournament, index:number) {
         if (tournament.time == 0 || allPlayersFinishedMatch(tournament)) {
             if (tournament.time == 0) {
                 if (allPlayerStartedMatch(tournament) && !allPlayersFinishedMatch(tournament))
-                    return ;
+                    return;
             }
             nextRound(tournament);
             deleteBookings(tournament);
@@ -131,7 +130,7 @@ export function updateTimerTournament(tournament: Tournament, index:number) {
                 sendTournamentStateToPlayers(index);
                 updateStatsTournamentPlayer(tournament);
                 tournamentsManagement.splice(index, 1);
-                return ;
+                return;
             }
             sendTournamentStateToPlayers(index);
         }
@@ -140,7 +139,7 @@ export function updateTimerTournament(tournament: Tournament, index:number) {
     }
 }
 
-export async function startTournament(id:number) {
+export async function startTournament(id: number) {
     const tournamentDb = await readTournament(id, KeyTournament.ID);
     updateTimerTournament(tournamentsManagement.find(t => t.id == tournamentDb.id)!, tournamentsManagement.findIndex(t => t.id == tournamentDb.id)!);
 }

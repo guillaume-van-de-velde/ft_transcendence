@@ -24,81 +24,60 @@
     "player": "JUGADOR",
     "up": "ALTO",
     "down": "ABAJO",
-
     "classic": "ESTÁS EN MODO CLÁSICO. <br>ESTE MODO ES EL PONG <br>ORIGINAL SIN ADICIONES.",
     "mmusic": "ESTÁS EN MODO MÚSICA. <br>¡VAMOS A JUGAR CON DIVERSIÓN!",
-
     "online": "ESTÁS EN MODO ONLINE. <br>JUGARÁS CONTRA OTROS JUGADORES ONLINE.",
     "local": "ESTÁS EN MODO LOCAL. <br>ESTE MODO REQUIERE 2 JUGADORES EN <br>LA MISMA COMPUTADORA.",
     "ai": "ESTÁS EN MODO IA. <br>JUGARÁS CONTRA UNA <br>INTELIGENCIA ARTIFICIAL.",
-
     "match": "ESTÁS EN MODO PARTIDO. <br>JUGARÁS PARTIDOS EN FORMATO NORMAL.",
     "mtournament": "ESTÁS EN MODO TORNEO. <br>VAS A JUGAR PARTIDOS EN UN TORNEO",
-
-
     "goMusic": "ENTRA EN MODO MÚSICA",
     "goClassic": "CAMBIAR AL MODO CLÁSICO",
-
     "goOnline": "MODO ONLINE",
     "goLocal": "IR AL MODO LOCAL",
     "goAi": "ENTRA EN MODO IA",
-
     "goMatch": "ENTRAR EN MODO PARTIDO",
     "goTournament": "ENTRA EN MODO TORNEO",
-
     "out": "QUEDARÁS FUERA DE ESTE<br>TORNEO.",
     "quit": "DEJAR",
     "stay": "PERMANECER",
     "create": "CREE",
     "join": "UNIRSE",
     "nameTournament": "NOMBRE DEL TORNEO",
-
     "private": "PRIVADO",
     "global": "GLOBAL",
     "notify": "NOTIFS",
-
     "noFriends": "SIN AMIGOS",
     "noNotify": "SIN NOTIFS",
     "noPlayer": "SIN JUGADOR",
-
     "logOut": "DESCONEXION",
     "picture": "FOTO",
-
     "stats": "ESTADÍSTICAS",
     "played": "JUEGOS",
     "winsLoses": "VIC / DER",
     "stournaments": "TORNEOS",
     "winsTournaments": "TORNEOS GANADOS",
-
     "history": "HISTÓRICO",
     "noHistory": "SIN HISTORIA",
-
     "friends": "AMIGOS",
-
     "search": "SEARCHER",
     "searchPlayer": "buscando un jugador",
-
     "add": "AGREGAR +",
     "takeOff": "RETIRAR",
     "remove": "BORRAR",
-
     "victory": "VICTORIA",
     "defeat": "DERROTA",
-
     "quitTournament": "SALIR EL TORNEO",
     "finished": "TORNEO TERMINADO",
     "wait": "ESPERA A LOS JUGADORES",
-
     "inSearch": "BUSCAR",
     "squit": "D E J A R",
     "play": "J U G A R",
-    
     "connexion": "SESIÓN",
     "logIn": "SESIÓN",
     "signIn": "FICHAR",
     "code": "CÓDIGO",
     "verify": "VERIFICAR",
-
     "pictureLink": "ENLACE DE LA IMAGEN",
     "apply": "APLICAR"
 }

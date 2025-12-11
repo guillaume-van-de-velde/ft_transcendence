@@ -3,10 +3,9 @@ import { updateUsers } from "../../db/crud/update";
 import { readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 import bcrypt from "bcrypt";
-import { app } from "../../../server";
 import jwt from "jsonwebtoken";
 
-export const changePassword = async (req:FastifyRequest, res:FastifyReply) => {
+export const changePassword = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const oldpassword = reqBody.oldpassword;
     const id = req.user!.id;
@@ -27,5 +26,5 @@ export const changePassword = async (req:FastifyRequest, res:FastifyReply) => {
         process.env.SECRET_KEY!,
         { expiresIn: '1d' }
     );
-    return {token};
+    return { token };
 }

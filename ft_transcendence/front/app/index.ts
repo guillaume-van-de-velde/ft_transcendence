@@ -1,44 +1,39 @@
-import { render } from "./components/core/render.js";
+import { returnToHome } from "./components/core/render.js";
 import { AppState, IDPLAYER, MessageGlobal, MessageNotify, MessagePrivate, TypeEvent, UserShortData } from "./components/core/state.js";
-import { home, renderHome } from "./components/pages/home.js";
+import { renderHome } from "./components/pages/home.js";
 import { requestAPI } from "./components/utils/requestApi.js";
-import { closeClicked } from "./components/utils/globalEvents.js";
-import { PageInstance } from "./components/utils/interfaces.js";
-import { pageRegistery } from "./components/utils/pageRegistery.js";
-import { setVues, vues } from "./vues/vues.js";
+import { setVues } from "./vues/vues.js";
 import { renderPrivateMessage } from "./components/pages/messages/private.js";
 import { renderGlobal } from "./components/pages/messages/global.js";
 import { renderNotify } from "./components/pages/messages/notify.js";
 import { renderConnexion } from "./components/pages/connexion/connexion.js";
 import { renderGame } from "./components/pages/game/game.js";
 import { renderResultsTournament } from "./components/pages/mode/3/tournament/results.js";
-import { changeModeCallApi } from "./components/utils/api.js";
+import { changeModeCallApi } from "./components/api/profile/changeModeCallApi.js";
 
 export const link = "https://localhost:3000";
 export let state: AppState;
-declare const io:any;
-export let socket:any;
-export let token:string | null = null;
+declare const io: any;
+export let socket: any;
+export let token: string | null = null;
 
 export function getToken() {
-  return token;
+	return token;
 }
 
 export function setToken(newToken: string) {
-  token = newToken;
-  localStorage.setItem("TokenTranscendence", newToken);
+	token = newToken;
+	localStorage.setItem("TokenTranscendence", newToken);
 }
 
 export function removeToken() {
-  token = null;
-  localStorage.removeItem("TokenTranscendence");
+	token = null;
+	localStorage.removeItem("TokenTranscendence");
 }
 
 function keepInput() {
 	const input = document.getElementById("writeBar") as HTMLInputElement;
 	if (input) {
-		console.log("coucou");
-		
 		state.input.value = input!.value;
 		state.input.focused = document.activeElement === input;
 		state.input.start = input!.selectionStart ?? 0;
@@ -50,20 +45,20 @@ function reRenderForNotify() {
 	switch (state.actual) {
 		case "home":
 			renderHome();
-			break ;
+			break;
 		case "private":
 			keepInput();
 			renderPrivateMessage();
-			break ;
+			break;
 		case "global":
 			keepInput();
 			renderGlobal();
-			break ;
+			break;
 		case "notify":
 			renderNotify();
-			break ;
+			break;
 		default:
-			break ;
+			break;
 	}
 }
 
@@ -75,7 +70,7 @@ function socketManagement() {
 		}
 	});
 
-	socket.on("disconnect", (reason:any) => {
+	socket.on("disconnect", (reason: any) => {
 		if (reason === "io server disconnect") {
 			removeToken();
 			window.location.reload();
@@ -83,6 +78,9 @@ function socketManagement() {
 	});
 
 	socket.on("match", (match: any) => {
+
+		returnToHome();
+
 		const mode = match.mode.toLowerCase();
 
 		state.mode = [mode[0], mode[1], mode[2]];
@@ -91,12 +89,12 @@ function socketManagement() {
 		renderGame();
 	});
 
-	socket.on("notify", (notify:MessageNotify) => {
+	socket.on("notify", (notify: MessageNotify) => {
 		const blocked = state.profile.blocked;
 		if (blocked && blocked[0]) {
 			for (const user of blocked!) {
 				if (notify.user.id == user.id)
-					return ;
+					return;
 			}
 		}
 		state.messages.notify?.push(notify);
@@ -120,20 +118,20 @@ function socketManagement() {
 		}
 	});
 
-	socket.on("global", (global:MessageGlobal) => {
+	socket.on("global", (global: MessageGlobal) => {
 		state.messages.global?.unshift(global);
 		if (listPageNotify.includes(state.actual))
 			reRenderForNotify();
 	});
 
-	socket.on("private", (message:any) => {
+	socket.on("private", (message: any) => {
 		let firstMessage = true;
 		for (const conversation of state.messages.private!) {
 			if (conversation.user.id === message.id)
 				firstMessage = false;
 		}
 		if (firstMessage) {
-			const newConversation:MessagePrivate = {
+			const newConversation: MessagePrivate = {
 				user: state.profile.friends?.find(friend => friend.id === message.id)!,
 				chat: [{
 					isUser: false,
@@ -166,18 +164,18 @@ function socketManagement() {
 			reRenderForNotify();
 	});
 
-	socket.on("tournament", (tournament:any) => {
+	socket.on("tournament", (tournament: any) => {
 		if (state.tournament && state.tournament.id == tournament.id) {
 			state.tournament = tournament;
-		if (state.actual == "tournament")
-			renderResultsTournament();
+			if (state.actual == "tournament")
+				renderResultsTournament();
 		}
 	});
 }
 
 async function loadLanguage(langFile: string) {
-    const response = await fetch(langFile);
-    return await response.json();
+	const response = await fetch(langFile);
+	return await response.json();
 }
 
 async function setupLanguage() {
@@ -194,14 +192,13 @@ async function setupLanguage() {
 	setVues();
 }
 
-export async function initState(APIandToken:any) {
+export async function initState(APIandToken: any) {
 	if (APIandToken.token) {
 		localStorage.setItem("TokenTranscendence", APIandToken.token);
 		token = APIandToken.token;
 	}
 	const API = APIandToken.data;
-	console.log("init", API);
-	
+
 	state = {
 		link: link,
 		events: new Map<Element | null, TypeEvent>(),
@@ -236,10 +233,9 @@ export async function initState(APIandToken:any) {
 		})
 	}
 	await setupLanguage();
-	console.log(state);
 }
 
-export async function userConnexionAccepted(API:any) {
+export async function userConnexionAccepted(API: any) {
 	await initState(API);
 	socketManagement();
 	setInterval(timer, 1000);
@@ -249,7 +245,6 @@ export async function userConnexionAccepted(API:any) {
 function timer() {
 	if (state.tournament && state.tournament.time > 0) {
 		state.tournament.time--;
-		console.log(state.tournament.time);
 	}
 }
 
@@ -348,7 +343,7 @@ export async function setStateUserNotConnected() {
 		},
 		account: {
 			email: "",
-        	pseudo: ""
+			pseudo: ""
 		},
 		language: foundLanguage(),
 		profile: {
@@ -372,11 +367,11 @@ async function tryConnexionWithToken() {
 	token = localStorage.getItem("TokenTranscendence");
 	if (!token)
 		return null;
-	
+
 	const API = await requestAPI(`${link}/connect`, {
 		method: "GET"
 	});
-	
+
 	if (!API || API == "token connexion refused")
 		return null;
 	return API;

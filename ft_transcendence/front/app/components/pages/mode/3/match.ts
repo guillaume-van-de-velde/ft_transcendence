@@ -1,12 +1,9 @@
 import { state } from "../../../../index.js";
 import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
-import { TypeEvent } from "../../../core/state.js";
-import { changeModeCallApi } from "../../../utils/api.js";
+import { changeModeCallApi } from "../../../api/profile/changeModeCallApi.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
-import { renderClassic } from "../1/classic.js";
-import { renderOnline } from "../2/online.js";
 import { renderTournament } from "./tournament.js";
 
 export function renderMatch() {
@@ -34,7 +31,7 @@ export function match() {
 
     tournament?.addEventListener("click", renderTournament);
 
-    state.events.set(tournament, {type: "click", callback: renderTournament});
+    state.events.set(tournament, { type: "click", callback: renderTournament });
 
     closeEvent();
 }

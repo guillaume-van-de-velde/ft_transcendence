@@ -26,9 +26,9 @@ export function key() {
     player2?.addEventListener("click", renderPlayer);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [settings, {type: "click", callback: renderSettings}],
-        [player1, {type: "click", callback: renderPlayer}],
-        [player2, {type: "click", callback: renderPlayer}]
+        [settings, { type: "click", callback: renderSettings }],
+        [player1, { type: "click", callback: renderPlayer }],
+        [player2, { type: "click", callback: renderPlayer }]
     ]);
     closeEvent();
 }

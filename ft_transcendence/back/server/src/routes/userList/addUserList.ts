@@ -1,13 +1,12 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { readNotify, readNotifyById, readUser } from "../../db/crud/read";
+import { readNotifyById, readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 import { updateUsers } from "../../db/crud/update";
-import { deleteNotify } from "../../db/crud/z-delete";
+import { deleteNotify } from "../../db/crud/delete";
 import { userSockets } from "../../sockets/sockets";
-import { io } from "../../../server";
 
 export async function addUserList(id: any, key: string, value: any) {
-    const ArrayUser:string[] = await readUser(id, KeyUser.ID).then(user => user[key!].split(','));
+    const ArrayUser: string[] = await readUser(id, KeyUser.ID).then(user => user[key!].split(','));
     if (ArrayUser[0] === "")
         ArrayUser[0] = value;
     else
@@ -16,10 +15,10 @@ export async function addUserList(id: any, key: string, value: any) {
     await updateUsers(id, key!, listUser);
 }
 
-export const addPlayerToFriendList = async (req:FastifyRequest, res:FastifyReply) => {
+export const addPlayerToFriendList = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const idNotify = reqBody.idNotify;
-    let notify:any;
+    let notify: any;
 
     try {
         notify = await readNotifyById(idNotify);
@@ -39,7 +38,7 @@ export const addPlayerToFriendList = async (req:FastifyRequest, res:FastifyReply
     for (const [socket, id] of userSockets) {
         if (id == notify.idTransmitter) {
             socketTransmitter = socket;
-            break ;
+            break;
         }
     }
     if (socketTransmitter)
@@ -48,7 +47,7 @@ export const addPlayerToFriendList = async (req:FastifyRequest, res:FastifyReply
     return await readUser(notify.idTransmitter, KeyUser.ID, true);
 }
 
-export const addPlayerToBlockedList = async (req:FastifyRequest, res:FastifyReply) => {
+export const addPlayerToBlockedList = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const id = req.user!.id;
     const keys = Object.keys(reqBody);

@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { updateUsers } from "../../db/crud/update";
 
-export const changeUser = async (req:FastifyRequest, res:FastifyReply) => {
+export const changeUser = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const id = req.user!.id;
 

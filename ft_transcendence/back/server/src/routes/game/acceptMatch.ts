@@ -1,12 +1,12 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { deleteNotify } from "../../db/crud/z-delete";
+import { deleteNotify } from "../../db/crud/delete";
 import { readNotifyById, readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 import { gameManagement } from "./createGame";
 import { userSockets } from "../../sockets/sockets";
 import { createPrivateMessage } from "../../db/crud/create";
 
-export const acceptMatch = async (req:FastifyRequest, res:FastifyReply) => {
+export const acceptMatch = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const idNotify = reqBody.idNotify;
 
@@ -27,7 +27,6 @@ export const acceptMatch = async (req:FastifyRequest, res:FastifyReply) => {
         invite: [player1.id, player2.id]
     });
     let socketTransmitter = null;
-    let socketReceiver = null;
     for (const [socket, id] of userSockets)
         if (id == notify.idTransmitter)
             socketTransmitter = socket;

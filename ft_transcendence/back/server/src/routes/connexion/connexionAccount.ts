@@ -1,18 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { getAllDataForUser } from "./getAllDataForUser";
-import { readUser, readUserWithEmail } from "../../db/crud/read";
-import { KeyUser, Provisionnal } from "../../utils/enums";
-import { app } from "../../../server";
+import { readUserWithEmail } from "../../db/crud/read";
+import { Provisionnal } from "../../utils/enums";
 import { createCode } from "./code";
 import bcrypt from "bcrypt";
 import { provisional } from "./sendPassword";
 import { updateUsers } from "../../db/crud/update";
 import { emailValid, passwordValid } from "./formValidity";
 
-export const connexionAccount = async (req:FastifyRequest, res:FastifyReply) => {
+export const connexionAccount = async (req: FastifyRequest, res: FastifyReply) => {
     const email = (req.headers.email as string);
     const password = (req.headers.password as string);
-    let user:any;
+    let user: any;
 
     if (!emailValid(email) || !passwordValid(password))
         return res.code(409).send({ error: "bad format" });
@@ -26,9 +24,9 @@ export const connexionAccount = async (req:FastifyRequest, res:FastifyReply) => 
         return res.code(409).send({ error: "email doesn't exist" });
 
     let pass: Provisionnal | null = null;
-    for (const passCode of provisional)  {
+    for (const passCode of provisional) {
         if (passCode.email == email
-         && (await bcrypt.compare(password, passCode.password)) && passCode.expire > Date.now()) {
+            && (await bcrypt.compare(password, passCode.password)) && passCode.expire > Date.now()) {
             pass = passCode;
             await updateUsers(user.id, "password", passCode.password);
             updateUsers(user.id, "version", user.version + 1);

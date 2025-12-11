@@ -2,9 +2,8 @@ import { state } from "../../../index.js";
 import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
-import { quitQueue } from "../../utils/api.js";
+import { quitQueue } from "../../api/game/quitQueue.js";
 import { PageInstance } from "../../utils/interfaces.js";
-import { renderHome } from "../home.js";
 
 export function renderInSearch() {
     const inSearchPage: PageInstance = {
@@ -21,6 +20,6 @@ export function inSearch() {
     quit?.addEventListener("click", quitQueue);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [quit, {type: "click", callback: quitQueue}]
+        [quit, { type: "click", callback: quitQueue }]
     ]);
 }

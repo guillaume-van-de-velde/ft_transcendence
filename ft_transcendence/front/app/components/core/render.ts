@@ -1,31 +1,29 @@
-import { closeClicked, destroyEvents } from "../utils/globalEvents.js";
-import { stringToHTMLElement } from "../utils/htmlTools.js";
+import { destroyEvents } from "../utils/globalEvents.js";
 import { PageInstance } from "../utils/interfaces.js";
 import { pageRegistery } from "../utils/pageRegistery.js";
 import { soundLaunch } from "../utils/sound.js";
 import { state } from "../../index.js";
-import { home } from "../pages/home.js";
+import { home, renderHome } from "../pages/home.js";
 import { history as historyFunction } from "../pages/player/history.js";
 import { stats } from "../pages/player/stats.js";
+import { inSearch } from "../pages/game/inSearch.js";
+import { quitQueue } from "../api/game/quitQueue.js";
+import { vues } from "../../vues/vues.js";
+import { connexion, renderConnexion } from "../pages/connexion/connexion.js";
 
 const root = document.querySelector(".root");
 
 const displayManager: PageInstance[] = [];
 
-export function render(newPage:PageInstance, fromPopState = false) {
+export function render(newPage: PageInstance, fromPopState = false) {
 
     if (newPage.level < 0) {
         newPage = getBack();
     }
 
-    if (newPage.level === 0) {
-        displayManager.length = 0;
-        state.index = 0;
-        displayManager.push(newPage);
+    if (newPage.create == home || newPage.create == connexion) {
         pushStateAction(newPage, state.index, true);
-    }
-
-    if (!fromPopState && newPage.level) {
+    } else if (!fromPopState) {
         displayManager.push(newPage);
         state.index = displayManager.length - 1;
         pushStateAction(newPage, state.index);
@@ -41,7 +39,7 @@ export function render(newPage:PageInstance, fromPopState = false) {
     root!.classList.remove("pointer-events-none");
     const pointerAllowed = document.querySelectorAll(".pointer-events-auto");
     pointerAllowed.forEach(el => el.classList.remove("pointer-events-auto"));
-    
+
     if (currentIndex > 0 && displayManager[currentIndex]!.level == displayManager[currentIndex - 1]!.level) {
         let oldElement = document.querySelector(`.level${displayManager[currentIndex - 1]!.level}`);
         if (oldElement)
@@ -69,24 +67,58 @@ export function render(newPage:PageInstance, fromPopState = false) {
     state.actual = "none";
     activePage!.create!();
     soundLaunch();
-    // printDisplayManager();
-    // printStateEvent();
 }
 
-function pushStateAction(page: PageInstance, index: number, level0 = false) {
-    if (level0) {
-        history.replaceState(
-            {
-                index: 0,
-                content: page.content,
-                level: page.level,
-                createName: page.create?.name,
-            },
-            "",
-            ""
-        );
+export function returnToHome() {
+    displayManager.length = 0;
+    state.index = 0;
+    displayManager.push({
+        content: vues.home,
+        level: 0,
+        create: home
+    });
+    history.pushState(null, "", "");
+    history.replaceState(
+        {
+            index: 0,
+            content: vues.home,
+            level: 0,
+            createName: home!.name
+        },
+        "",
+        ""
+    );
+}
+
+export function returnToConnexion() {
+    displayManager.length = 0;
+    state.index = 0;
+    displayManager.push({
+        content: vues.connexion.connexion,
+        level: 0,
+        create: connexion
+    });
+    history.pushState(null, "", "");
+    history.replaceState(
+        {
+            index: 0,
+            content: vues.connexion.connexion,
+            level: 0,
+            createName: connexion!.name
+        },
+        "",
+        ""
+    );
+}
+
+function pushStateAction(page: PageInstance, index: number, basePage = false) {
+    if (basePage) {
+        if (page.create == home)
+            returnToHome();
+        else if (page.create == connexion)
+            returnToConnexion();
     } else if (page.create == historyFunction || page.create == stats) {
-        return ;
+        return;
     }
     else {
         history.pushState({
@@ -103,7 +135,16 @@ window.addEventListener("popstate", e => {
 
     if (!pageState) return;
 
+    if (displayManager[state.index]!.create == inSearch)
+        quitQueue();
+
     const { index, content, level, createName } = pageState;
+
+    if (createName == home.name || displayManager[state.index]!.create == home)
+        return renderHome();
+    if (createName == connexion.name || displayManager[state.index]!.create == connexion)
+        return renderConnexion();
+
     state.index = index;
 
     let restoredPage = displayManager[index];
@@ -112,7 +153,7 @@ window.addEventListener("popstate", e => {
         restoredPage = {
             content,
             level,
-            create: pageRegistery[createName]!,
+            create: pageRegistery[createName]!
         };
         displayManager[index] = restoredPage;
     }
@@ -129,20 +170,5 @@ function getBack(): PageInstance {
         indexDisplay--;
     }
 
-    return { ...displayManager[indexDisplay]!};
-}
-
-function printDisplayManager() {
-    console.log("\n");
-    for (let i = 0; displayManager[i]; i++) {
-        console.log(`[${i}]\n\n` + displayManager![i]!.create?.name);
-    }
-    console.log("\n");
-}
-
-function printStateEvent() {
-    console.log("\n");
-    for (const [element, eventType] of state.events) {
-        console.log(element?.id, "->", eventType.type);
-    }
+    return { ...displayManager[indexDisplay]! };
 }

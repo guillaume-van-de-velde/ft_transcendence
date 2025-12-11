@@ -32,11 +32,11 @@ export function settings() {
     language?.addEventListener("click", renderLanguage);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [settings, {type: "click", callback: renderSettings}],
-        [volume, {type: "click", callback: renderVolume}],
-        [key, {type: "click", callback: renderKey}],
-        [account, {type: "click", callback: renderAccount}],
-        [language, {type: "click", callback: renderLanguage}],
+        [settings, { type: "click", callback: renderSettings }],
+        [volume, { type: "click", callback: renderVolume }],
+        [key, { type: "click", callback: renderKey }],
+        [account, { type: "click", callback: renderAccount }],
+        [language, { type: "click", callback: renderLanguage }],
     ]);
 
     closeEvent();

@@ -6,7 +6,7 @@ import { parseUsersTournament } from "../connexion/parse/usersTournament";
 import { tournamentsManagement } from "./tournament";
 import { readTournament } from "../../db/crud/read";
 
-export const openTournament = async (req:FastifyRequest, res:FastifyReply) => {
+export const openTournament = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const id = req.user!.id;
     const nameTournament = reqBody.name;

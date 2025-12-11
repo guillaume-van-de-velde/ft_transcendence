@@ -1,7 +1,7 @@
 import { state } from "../../../../index.js";
 import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
-import { changeModeCallApi } from "../../../utils/api.js";
+import { changeModeCallApi } from "../../../api/profile/changeModeCallApi.js";
 import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderClassic } from "./classic.js";
@@ -31,7 +31,7 @@ export function music() {
 
     classic?.addEventListener("click", renderClassic);
 
-    state.events.set(classic, {type: "click", callback: renderClassic});
+    state.events.set(classic, { type: "click", callback: renderClassic });
 
     closeEvent();
 }

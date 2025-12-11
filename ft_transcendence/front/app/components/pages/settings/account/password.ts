@@ -2,7 +2,7 @@ import { state } from "../../../../index.js";
 import { vues } from "../../../../vues/vues.js";
 import { render } from "../../../core/render.js";
 import { TypeEvent } from "../../../core/state.js";
-import { passwordFormCallAPI } from "../../../utils/api.js";
+import { passwordFormCallAPI } from "../../../api/connexion/passwordFormCallAPI.js";
 import { closeEvent } from "../../../utils/globalEvents.js";
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderAccount } from "../account.js";
@@ -27,9 +27,9 @@ export function password() {
     account?.addEventListener("click", renderAccount);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [form, {type: "click", callback: passwordFormCallAPI}],
-        [settings, {type: "click", callback: renderSettings}],
-        [account, {type: "click", callback: renderAccount}]
+        [form, { type: "click", callback: passwordFormCallAPI }],
+        [settings, { type: "click", callback: renderSettings }],
+        [account, { type: "click", callback: renderAccount }]
     ]);
     closeEvent();
 }

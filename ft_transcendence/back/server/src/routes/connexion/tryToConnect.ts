@@ -5,11 +5,11 @@ import { KeyUser } from "../../utils/enums";
 import jwt from "jsonwebtoken"
 import { userSockets } from "../../sockets/sockets";
 
-export const tryToConnect = async (req:FastifyRequest, res:FastifyReply) => {
+export const tryToConnect = async (req: FastifyRequest, res: FastifyReply) => {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader) return res.code(401).send({ error: "missing token" });
-        
+
         const token = authHeader.split(' ')[1];
         const payload = jwt.verify(token!, process.env.SECRET_KEY!);
         req.user = payload as any;
@@ -17,7 +17,7 @@ export const tryToConnect = async (req:FastifyRequest, res:FastifyReply) => {
             throw "noUser";
         const user = await readUser(req.user.id.toString(), KeyUser.ID);
         if (!user || user.version != req.user.version)
-            return res.code(401).send("token refused");
+            return res.code(401).send({ error: "token refused" });
         for (const [socket, id] of userSockets) {
             if (id === user.id) {
                 socket.disconnect(true);

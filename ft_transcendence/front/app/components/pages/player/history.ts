@@ -2,7 +2,7 @@ import { state } from "../../../index.js";
 import { vues } from "../../../vues/vues.js";
 import { render } from "../../core/render.js";
 import { TypeEvent } from "../../core/state.js";
-import { printHistory } from "../../utils/api.js";
+import { printHistory } from "../../api/profile/printHistory.js";
 import { close2Event, renderPlayer2 } from "../../utils/globalEvents.js";
 import { PageInstance } from "../../utils/interfaces.js";
 import { renderStats } from "./stats.js";
@@ -25,7 +25,7 @@ export function history() {
 
     stats?.addEventListener("click", renderStats);
     state.events = new Map<Element | null, TypeEvent>([
-        [stats, {type: "click", callback: renderStats}],
+        [stats, { type: "click", callback: renderStats }],
     ]);
 
     renderPlayer2();

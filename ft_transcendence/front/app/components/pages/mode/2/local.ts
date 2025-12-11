@@ -5,7 +5,7 @@ import { chooseModeFunctionRender, closeEvent } from "../../../utils/globalEvent
 import { PageInstance } from "../../../utils/interfaces.js";
 import { renderAi } from "./ai.js";
 import { renderOnline } from "./online.js";
-import { changeModeCallApi } from "../../../utils/api.js";
+import { changeModeCallApi } from "../../../api/profile/changeModeCallApi.js";
 
 export function renderLocal() {
     const localPage: PageInstance = {
@@ -34,8 +34,8 @@ export function local() {
     online?.addEventListener("click", renderOnline);
     ai?.addEventListener("click", renderAi);
 
-    state.events.set(online, {type: "click", callback: renderOnline});
-    state.events.set(ai, {type: "click", callback: renderAi});
+    state.events.set(online, { type: "click", callback: renderOnline });
+    state.events.set(ai, { type: "click", callback: renderAi });
 
     closeEvent();
 }

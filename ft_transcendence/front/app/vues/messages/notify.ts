@@ -20,7 +20,6 @@ export function notifyHTML(): string {
         </div>
         <div class="h-1/10"></div>
         <div id="notificationsList" class="flex flex-col justify-top items-center gap-10 overflow-y-auto hide-scrollbar">
-            <!-- <span class="absolute h-[80px] w-[10px] bg-form-bg right-0 -translate-x-40 translate-y-5 top-1/4 rounded-full cursor-pointer"></span> -->
         </div>
     `
 }

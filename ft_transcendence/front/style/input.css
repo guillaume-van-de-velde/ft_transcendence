@@ -1,67 +1,77 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: "dangrek";
-    src: url("./assets/fonts/Dangrek/Dangrek-Regular.ttf")  format("truetype");
+	font-family: "dangrek";
+	src: url("./assets/fonts/Dangrek/Dangrek-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "david";
-    src: url("./assets/fonts/DavidLibre/DavidLibre-Medium.ttf") format("truetype");
+	font-family: "david";
+	src: url("./assets/fonts/DavidLibre/DavidLibre-Medium.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "julee";
-    src: url("./assets/fonts/Julee/Julee-Regular.ttf") format("truetype");
+	font-family: "julee";
+	src: url("./assets/fonts/Julee/Julee-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "science";
-    src: url("./assets/fonts/ScienceGothic/ScienceGothic-Medium.ttf") format("truetype");
+	font-family: "science";
+	src: url("./assets/fonts/ScienceGothic/ScienceGothic-Medium.ttf") format("truetype");
 }
 
 @theme {
-    --font-dangrek: 'dangrek', 'arial';
-    --font-david: 'david', 'arial';
-    --font-julee: 'julee', 'arial';
-    --font-science: 'science', 'arial';
-    --color-home-bg: #111111;
-    --color-button-white-bg: #D9D9D9;
-    --color-player-display-bg: #696969;
-    --color-action-page-bg: #3D3D3D;
-    --color-leveltwo-page-bg: #242424;
-    --color-form-bg: #2B2B2B;
-    --color-action-disabled: #1D1D1D;
+	--font-dangrek: 'dangrek', 'arial';
+	--font-david: 'david', 'arial';
+	--font-julee: 'julee', 'arial';
+	--font-science: 'science', 'arial';
+	--color-home-bg: #111111;
+	--color-button-white-bg: #D9D9D9;
+	--color-player-display-bg: #696969;
+	--color-action-page-bg: #3D3D3D;
+	--color-leveltwo-page-bg: #242424;
+	--color-form-bg: #2B2B2B;
+	--color-action-disabled: #1D1D1D;
 }
 
 @layer components {
-    .level1 {
-        @apply absolute h-[900px] w-[1500px] bg-action-page-bg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl font-dangrek tracking-widest;
-    }
-    .level2 {
-        @apply absolute w-[calc(1500px*4/5)] h-[calc(900px*4/5)] bg-leveltwo-page-bg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl font-dangrek tracking-widest;
-    }
-    .close {
-        @apply h-18 w-18 bg-home-bg absolute right-0 flex items-center justify-center cursor-pointer rounded-full -translate-x-6 translate-y-6 text-3xl font-dangrek hover:h-20 hover:w-20 duration-300;
-    }
+	.level1 {
+		@apply absolute h-[900px] w-[1500px] bg-action-page-bg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl font-dangrek tracking-widest;
+	}
+
+	.level2 {
+		@apply absolute w-[calc(1500px*4/5)] h-[calc(900px*4/5)] bg-leveltwo-page-bg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl font-dangrek tracking-widest;
+	}
+
+	.close {
+		@apply h-18 w-18 bg-home-bg absolute right-0 flex items-center justify-center cursor-pointer rounded-full -translate-x-6 translate-y-6 text-3xl font-dangrek hover:h-20 hover:w-20 duration-300;
+	}
 }
 
 @layer utilities {
-  @keyframes simple-wave {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
+	@keyframes simple-wave {
+		0% {
+			transform: translateX(0);
+		}
 
-  .animate-simple-wave {
-    animation: simple-wave 5s linear infinite;
-  }
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+
+	.animate-simple-wave {
+		animation: simple-wave 5s linear infinite;
+	}
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+	display: none;
+	/* Chrome, Safari, Edge */
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE et Edge */
-  scrollbar-width: none;     /* Firefox */
+	-ms-overflow-style: none;
+	/* IE et Edge */
+	scrollbar-width: none;
+	/* Firefox */
 }

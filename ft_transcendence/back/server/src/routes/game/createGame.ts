@@ -8,8 +8,9 @@ import { updateTournaments } from "../../db/crud/update";
 import { updateStats } from "../../db/crud/update";
 
 export const gameManagement: Match[] | null = [];
+export let playersInGame: number[] = [];
 
-function getDate(now:Date) {
+function getDate(now: Date) {
     const day = String(now.getDate()).padStart(2, "0");
     const month = String(now.getMonth() + 1).padStart(2, "0");
     const year = now.getFullYear();
@@ -17,14 +18,14 @@ function getDate(now:Date) {
     return `${day}/${month}/${year}`;
 }
 
-function getHour(now:Date) {
+function getHour(now: Date) {
     const hours = String(now.getHours()).padStart(2, "0");
     const minutes = String(now.getMinutes()).padStart(2, "0");
 
     return `${hours}h${minutes}`;
 }
 
-function getTournamentOfMatch(userMatch:UserShortData):Tournament | null {
+function getTournamentOfMatch(userMatch: UserShortData): Tournament | null {
     for (const tournament of tournamentsManagement) {
         for (const user of tournament.users) {
             if (user.user.id == userMatch.id)
@@ -34,7 +35,7 @@ function getTournamentOfMatch(userMatch:UserShortData):Tournament | null {
     return null;
 }
 
-async function closingMatch(player1Score:number, player2Score:number, match:Match) {
+async function closingMatch(player1Score: number, player2Score: number, match: Match) {
     const now = new Date();
 
     await createMatch(match.users[0]!.id, match.users[1]!.id, player1Score, player2Score, match.mode, getDate(now), getHour(now));
@@ -67,7 +68,7 @@ async function closingMatch(player1Score:number, player2Score:number, match:Matc
         gameManagement!.splice(index, 1);
 }
 
-function renderGame(match:Match) {
+function renderGame(match: Match) {
     const boardHeight = 630;
     const boardWidth = 1340;
 
@@ -123,11 +124,14 @@ function renderGame(match:Match) {
     });
 
     match.renderGameAPI = {
-        move: (player:number, direction:string) => movePlayer(player, direction),
-        stop: (player:number, direction:string) => stopPlayer(player, direction)
+        move: (player: number, direction: string) => movePlayer(player, direction),
+        stop: (player: number, direction: string) => stopPlayer(player, direction)
     };
 
-    let intervalId:any;
+    playersInGame.push(match.users[0]!.id);
+    playersInGame.push(match.users[1]!.id);
+
+    let intervalId: any;
 
     intervalId = setInterval(update, 1000 / 60);
 
@@ -181,7 +185,7 @@ function renderGame(match:Match) {
         match.sockets[0]!.emit("render", {
             playerY: player1.y,
             ennemyY: player2.y,
-            ball : {
+            ball: {
                 x: ball.x,
                 y: ball.y
             }
@@ -189,18 +193,18 @@ function renderGame(match:Match) {
         match.sockets[1]!.emit("render", {
             playerY: player2.y,
             ennemyY: player1.y,
-            ball : {
+            ball: {
                 x: boardWidth - ball.x - ball.width,
                 y: ball.y
             }
         });
     }
 
-    function outOfBounds(yPosition:number) {
+    function outOfBounds(yPosition: number) {
         return (yPosition < 0 || yPosition + playerHeight > boardHeight)
     }
 
-    function movePlayer(player:number, direction: string) {
+    function movePlayer(player: number, direction: string) {
         if (player == 1) {
             if (direction == "up")
                 player1.velocityY = -velocity;
@@ -209,7 +213,7 @@ function renderGame(match:Match) {
         }
 
         else if (player == 2) {
-            if (direction == "up") 
+            if (direction == "up")
                 player2.velocityY = -velocity;
             else if (direction == "down")
                 player2.velocityY = velocity;
@@ -218,16 +222,16 @@ function renderGame(match:Match) {
         keys[`${player}${direction}`] = true;
     }
 
-    function stopPlayer(player:number, direction: string) {
+    function stopPlayer(player: number, direction: string) {
         if (player == 1) {
-            if (direction == "up" && !keys["1down"]) 
+            if (direction == "up" && !keys["1down"])
                 player1.velocityY = 0;
             else if (direction == "down" && !keys["1up"])
                 player1.velocityY = 0;
         }
 
         else if (player == 2) {
-            if (direction == "up" && !keys["2down"]) 
+            if (direction == "up" && !keys["2down"])
                 player2.velocityY = 0;
             else if (direction == "down" && !keys["2up"])
                 player2.velocityY = 0;
@@ -236,14 +240,14 @@ function renderGame(match:Match) {
         keys[`${player}${direction}`] = false;
     }
 
-    function detectCollision(a:any, b:any) {
+    function detectCollision(a: any, b: any) {
         return (a.x < b.x + b.width
             && a.x + a.width > b.x
             && a.y < b.y + b.height
             && a.y + a.height > b.y)
     }
 
-    function resetGame(player:number, score:number) {
+    function resetGame(player: number, score: number) {
         match.sockets[0]!.emit("round", {
             player: player1Score,
             ennemy: player2Score
@@ -258,8 +262,9 @@ function renderGame(match:Match) {
                 s?.removeAllListeners("move");
                 s?.removeAllListeners("stop");
             });
+            playersInGame = playersInGame.filter(u => u != match.users[0]!.id && u != match.users[1]!.id);
             closingMatch(player1Score, player2Score, match);
-            return ;
+            return;
         }
         ball = {
             x: boardWidth / 2 - ballWidth / 2,
@@ -286,7 +291,7 @@ function renderGame(match:Match) {
     }
 }
 
-function startMatch(match:Match) {
+function startMatch(match: Match) {
     for (const [socket, id] of userSockets) {
         if (match.users[0]!.id == id)
             match.sockets[0] = socket;
@@ -301,7 +306,7 @@ function startMatch(match:Match) {
             users: [activeUser!, null],
             sockets: [undefined, undefined]
         }
-        return ;
+        return;
     }
 
     match.sockets[0].emit("match", { ennemy: match.users[1], mode: match.mode });
@@ -311,7 +316,7 @@ function startMatch(match:Match) {
     renderGame(match);
 }
 
-function manageInviteQueue(user:UserShortData) {
+function manageInviteQueue(user: UserShortData) {
     if (gameManagement) {
         for (const game of gameManagement) {
             if (game.invite && (game.invite[0] == user.id || game.invite[1] == user.id)) {
@@ -328,18 +333,18 @@ function manageInviteQueue(user:UserShortData) {
     return false;
 }
 
-function manageUserInQueue(user:UserShortData, mode: string) {
+function manageUserInQueue(user: UserShortData, mode: string) {
     let match: Match | null = null;
 
     if (manageInviteQueue(user))
-        return ;
+        return;
     if (gameManagement) {
         for (const game of gameManagement) {
             if (game.mode == mode && !game.booking) {
                 if (!game.users[1]) {
                     game.users[1] = user;
                     match = game;
-                    break ;
+                    break;
                 }
             }
         }
@@ -355,12 +360,12 @@ function manageUserInQueue(user:UserShortData, mode: string) {
     }
 }
 
-async function manageTournamentQueue(tournament: Tournament, user:UserShortData) {
+async function manageTournamentQueue(tournament: Tournament, user: UserShortData) {
     for (const match of gameManagement!) {
         if (match.booking && (user.id == match.booking[0] || user.id == match.booking[1])) {
             const userTournament = tournament.users.find(u => u.user.id == user.id);
             if (userTournament!.quit)
-                return ;
+                return;
             if (!match.users[0])
                 match.users[0] = user;
             else
@@ -369,12 +374,12 @@ async function manageTournamentQueue(tournament: Tournament, user:UserShortData)
             if (match.users[0] && match.users[1]) {
                 startMatch(match);
             }
-            break ;
+            break;
         }
     }
 }
 
-export const createGame = async (req:FastifyRequest, res:FastifyReply) => {
+export const createGame = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const user = reqBody.user;
     const mode = reqBody.mode;
@@ -383,10 +388,12 @@ export const createGame = async (req:FastifyRequest, res:FastifyReply) => {
 
     if (user.id != req.user!.id)
         return res.code(403).send({ error: "not authorised" });
+    if (playersInGame.includes(user.id))
+        return;
     if (tournamentId && tournament?.status == "START")
         manageTournamentQueue(tournament, user);
     else if (tournamentId || mode[3] == "T")
-        return ;
+        return;
     else
         manageUserInQueue(user, mode);
 }

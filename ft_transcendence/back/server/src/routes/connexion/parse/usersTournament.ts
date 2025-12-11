@@ -1,8 +1,8 @@
 import { readUser } from "../../../db/crud/read";
 import { KeyUser, UserInTournament, UserShortData } from "../../../utils/enums";
 
-export async function parseUsersTournament(Tournament:any): Promise<UserInTournament[]> {
-    
+export async function parseUsersTournament(Tournament: any): Promise<UserInTournament[]> {
+
     const UsersTournament: UserInTournament[] = [];
 
     for (let i = 1; i <= 8; i++) {
@@ -11,8 +11,8 @@ export async function parseUsersTournament(Tournament:any): Promise<UserInTourna
         const id = Tournament[idKey];
         const lv = Tournament[lvKey];
         if (!id)
-            continue ;
-        const userData:UserShortData = await readUser(id, KeyUser.ID, true);
+            continue;
+        const userData: UserShortData = await readUser(id, KeyUser.ID, true);
         if (userData) {
             UsersTournament.push(
                 {

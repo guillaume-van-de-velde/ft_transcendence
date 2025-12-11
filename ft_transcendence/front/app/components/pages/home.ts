@@ -2,7 +2,8 @@ import { state } from "../../index.js";
 import { vues } from "../../vues/vues.js";
 import { render } from "../core/render.js";
 import { TypeEvent } from "../core/state.js";
-import { pictureAPI, searchGame } from "../utils/api.js";
+import { pictureAPI } from "../api/profile/pictureAPI.js";
+import { searchGame } from "../api/game/searchGame.js";
 import { PageInstance } from "../utils/interfaces.js";
 import { checkSeen } from "../utils/notifySocket.js";
 import { renderPrivateMessage } from "./messages/private.js";
@@ -42,11 +43,11 @@ export function home() {
     mode?.addEventListener("click", functionMode);
 
     state.events = new Map<Element | null, TypeEvent>([
-        [settings, {type: "click", callback: renderSettings}],
-        [profile, {type: "click", callback: renderStatsUser}],
-        [play, {type: "click", callback: searchGame}],
-        [messages, {type: "click", callback: renderPrivateMessage}],
-        [mode, {type: "click", callback: functionMode}]
+        [settings, { type: "click", callback: renderSettings }],
+        [profile, { type: "click", callback: renderStatsUser }],
+        [play, { type: "click", callback: searchGame }],
+        [messages, { type: "click", callback: renderPrivateMessage }],
+        [mode, { type: "click", callback: functionMode }]
     ]);
 
     mode!.textContent = state.mode.join('').toUpperCase();

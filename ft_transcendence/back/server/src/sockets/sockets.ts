@@ -1,13 +1,15 @@
-import { Socket, Server as SocketIOServer } from "socket.io";
+import { Socket } from "socket.io";
 import { io } from "../../server";
 import { createGlobalMessage, createNotify, createPrivateMessage } from "../db/crud/create";
 import { KeyUser, MessageGlobal, Notify } from "../utils/enums";
 import { updatePrivateMessageSeen } from "../db/crud/update";
 import { readNotifyById, readUser } from "../db/crud/read";
+import { gameManagement } from "../routes/game/createGame";
+import { tournamentsManagement } from "../routes/tournament/tournament";
 
 export const userSockets = new Map<Socket, number>();
 
-async function inviteMatch(idTransmitter:number, idReceiver:number, socketReceiver:Socket | null) {
+async function inviteMatch(idTransmitter: number, idReceiver: number, socketReceiver: Socket | null) {
     const idNotify = await createNotify(idTransmitter, idReceiver, Notify.MATCH);
 
     if (socketReceiver) {
@@ -21,10 +23,27 @@ async function inviteMatch(idTransmitter:number, idReceiver:number, socketReceiv
     }
 }
 
+function checkForQuitQueue(id: number | undefined) {
+    if (!id)
+        return;
+    for (const tournament of tournamentsManagement) {
+        for (const user of tournament.users) {
+            if (user.user.id == id) {
+                if (tournament.round == user.level)
+                    user.queue = false;
+            }
+        }
+    }
+    const index = gameManagement!.findIndex(m => m.users[0]?.id == id);
+    if (index !== -1)
+        gameManagement!.splice(index, 1);
+}
+
 export function activeSocket() {
     io.on("connection", (socket) => {
         userSockets.set(socket, socket.handshake.auth.id);
         socket.on("disconnect", () => {
+            checkForQuitQueue(userSockets.get(socket));
             userSockets.delete(socket);
         });
         socket.on("private", (message) => {
@@ -39,7 +58,7 @@ export function activeSocket() {
             for (const [key, value] of userSockets) {
                 if (value == idReceiver) {
                     socketReceiver = key;
-                    break ;
+                    break;
                 }
             }
 
@@ -52,11 +71,11 @@ export function activeSocket() {
             if (messageToSocketReceiver.message == "/match")
                 inviteMatch(idTransmitter!, idReceiver, socketReceiver);
         });
-        socket.on("global", (message:MessageGlobal) => {
+        socket.on("global", (message: MessageGlobal) => {
             socket.broadcast.emit("global", message);
             createGlobalMessage(message.user.id, message.message);
         });
-        socket.on("seen", (idTransmitter:number) => {
+        socket.on("seen", (idTransmitter: number) => {
             const idReceiver = userSockets.get(socket);
             if (idReceiver)
                 updatePrivateMessageSeen(idTransmitter.toString(), idReceiver.toString());
