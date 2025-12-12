@@ -6,10 +6,17 @@ import { deletePrivateMessage } from "../../db/crud/delete";
 import { userSockets } from "../../sockets/sockets";
 
 export async function removeUserList(id: any, key: string, value: any) {
-    let ArrayUser: string[] = await readUser(id, KeyUser.ID).then(user => user[key].split(','));
+    let ArrayUser: string[];
+    try {
+        ArrayUser = await readUser(id, KeyUser.ID).then(user => user[key].split(','));
+    } catch (err) {
+        ArrayUser = [];
+    }
     ArrayUser = ArrayUser.filter(friendId => friendId != value);
     const listUser = ArrayUser.join(',');
-    await updateUsers(id, key, listUser);
+    try {
+        await updateUsers(id, key, listUser);
+    } catch (err) {}
 }
 
 export const removeUserInFriendsList = async (req: FastifyRequest, res: FastifyReply) => {
@@ -19,7 +26,9 @@ export const removeUserInFriendsList = async (req: FastifyRequest, res: FastifyR
 
     await removeUserList(id, "friends", idPlayer);
     await removeUserList(idPlayer, "friends", id);
-    await deletePrivateMessage(id, idPlayer);
+    try {
+        await deletePrivateMessage(id, idPlayer);
+    } catch (err) {}
     let socketDeleteUser = null;
     for (const [socket, id] of userSockets) {
         if (id == idPlayer) {
@@ -27,8 +36,15 @@ export const removeUserInFriendsList = async (req: FastifyRequest, res: FastifyR
             break;
         }
     }
-    if (socketDeleteUser)
-        socketDeleteUser.emit("delete", await readUser(id.toString(), KeyUser.ID, true));
+    if (socketDeleteUser) {
+        let userDb;
+        try {
+            userDb = await readUser(id.toString(), KeyUser.ID, true);
+        } catch (err) {
+            userDb = null;
+        }
+        socketDeleteUser.emit("delete", userDb);
+    }
 }
 
 export const removeUserInBlockedList = async (req: FastifyRequest, res: FastifyReply) => {

@@ -10,15 +10,30 @@ export const acceptMatch = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const idNotify = reqBody.idNotify;
 
-    const notify = await readNotifyById(idNotify);
+    let notify;
+    try {
+        notify = await readNotifyById(idNotify);
+    } catch (err) {
+        return res.code(404).send({ error: "cannot find notify" });
+    }
 
     if (notify.idReceiver != req.user!.id)
         return res.code(403).send({ error: "not authorised" });
 
-    deleteNotify(idNotify);
+    try {
+        await deleteNotify(idNotify);
+    } catch (err) {
+        return res.code(404).send({ error: "cannot find notify" });
+    }
 
-    const player1 = await readUser(notify.idTransmitter, KeyUser.ID);
-    const player2 = await readUser(notify.idReceiver, KeyUser.ID, true);
+    let player1;
+    let player2;
+    try {
+        player1 = await readUser(notify.idTransmitter, KeyUser.ID);
+        player2 = await readUser(notify.idReceiver, KeyUser.ID, true);
+    } catch (err) {
+        return res.code(404).send({ error: "cannot find player" });
+    }
 
     gameManagement?.push({
         mode: player1.mode,
@@ -36,5 +51,7 @@ export const acceptMatch = async (req: FastifyRequest, res: FastifyReply) => {
             message: "accepted"
         });
     }
-    createPrivateMessage(notify.idReceiver, notify.idTransmitter, "accepted", false);
+    try {
+        createPrivateMessage(notify.idReceiver, notify.idTransmitter, "accepted", false);
+    } catch (err) {}
 }

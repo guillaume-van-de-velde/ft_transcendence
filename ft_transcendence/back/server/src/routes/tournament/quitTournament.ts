@@ -12,7 +12,12 @@ export const quitTournament = async (req: FastifyRequest, res: FastifyReply) => 
     const idTournament = reqBody.tournament;
 
     if (idTournament) {
-        const dataTournament = await readTournament(idTournament, KeyTournament.ID);
+        let dataTournament;
+        try {
+            dataTournament = await readTournament(idTournament, KeyTournament.ID);
+        } catch (err) {
+            dataTournament = null;
+        }
         if (dataTournament) {
             switch (dataTournament.status) {
                 case StatusTournament.WAIT: {
@@ -25,10 +30,14 @@ export const quitTournament = async (req: FastifyRequest, res: FastifyReply) => 
                     const userIndex = tournamentsManagement[index]!.users.findIndex(u => u.user.id == id);
                     tournamentsManagement[index]!.users.splice(userIndex, 1);
                     sendTournamentStateToPlayers(index);
-                    updateUserTournaments(dataTournament.name, 0, i);
+                    try {
+                        updateUserTournaments(dataTournament.name, 0, i);
+                    } catch (err) {}
                     if (!tournamentsManagement[index]!.users[0]) {
                         tournamentsManagement.splice(index, 1);
-                        deleteTournament(dataTournament.id);
+                        try {
+                            deleteTournament(dataTournament.id);
+                        } catch (err) {}
                     }
                     break;
                 }
@@ -48,7 +57,9 @@ export const quitTournament = async (req: FastifyRequest, res: FastifyReply) => 
                                 ennemy!.queue = true;
                                 ennemy!.finish = true;
                                 ennemy!.level++;
-                                updateTournaments(tournamentsManagement[index]!.id, tournamentsManagement[index]!.users.findIndex(t => t.user.id == ennemy!.user.id) + 1, ennemy!.level);
+                                try {
+                                    updateTournaments(tournamentsManagement[index]!.id, tournamentsManagement[index]!.users.findIndex(t => t.user.id == ennemy!.user.id) + 1, ennemy!.level);
+                                } catch (err) {}
                             }
                         }
                         else if (match.booking && match.booking[1] == user?.user.id) {
@@ -57,7 +68,9 @@ export const quitTournament = async (req: FastifyRequest, res: FastifyReply) => 
                                 ennemy!.queue = true;
                                 ennemy!.finish = true;
                                 ennemy!.level++;
-                                updateTournaments(tournamentsManagement[index]!.id, tournamentsManagement[index]!.users.findIndex(t => t.user.id == ennemy!.user.id) + 1, ennemy!.level);
+                                try {
+                                    updateTournaments(tournamentsManagement[index]!.id, tournamentsManagement[index]!.users.findIndex(t => t.user.id == ennemy!.user.id) + 1, ennemy!.level);
+                                } catch (err) {}
                             }
                         }
                     }
@@ -69,7 +82,9 @@ export const quitTournament = async (req: FastifyRequest, res: FastifyReply) => 
                 default:
                     break;
             }
-            await updateUsers(id, "tournament", 0);
+            try {
+                await updateUsers(id, "tournament", 0);
+            } catch (err) {}
         }
     }
 }

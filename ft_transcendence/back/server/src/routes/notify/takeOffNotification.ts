@@ -7,13 +7,20 @@ export const takeOffNotification = async (req: FastifyRequest, res: FastifyReply
     const reqBody = (req.body as any);
     const id = req.user!.id;
 
-    const notifyList = await readNotify(reqBody.for);
+    let notifyList;
+    try {
+        notifyList = await readNotify(reqBody.for);
+    } catch (err) {
+        notifyList = [];
+    }
 
     for (const notify of notifyList) {
         if (notify.idTransmitter == id && notify.type == Notify.ASK) {
             if (notify.idTransmitter != req.user!.id)
                 return res.code(403).send({ error: "not authorised" });
-            deleteNotify(notify.id);
+            try {
+                deleteNotify(notify.id);
+            } catch (err) {}
         }
     }
 }

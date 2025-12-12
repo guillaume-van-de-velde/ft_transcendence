@@ -9,17 +9,33 @@ export const joinTournament = async (req: FastifyRequest, res: FastifyReply) => 
     const id = req.user!.id;
     const nameTournament = reqBody.name;
 
-    const searchTournament = await readTournament(nameTournament, KeyTournament.NAME);
+    let searchTournament;
+    try {
+        searchTournament = await readTournament(nameTournament, KeyTournament.NAME);
+    } catch (err) {
+        searchTournament = null;
+    }
     if (searchTournament) {
         let i = 1;
         while (searchTournament[`id${i}`])
             i++;
         if (i <= 8) {
-            await updateUserTournaments(nameTournament, id, i);
-            await updateUsers(id, "tournament", searchTournament.id);
+            try {
+                await updateUserTournaments(nameTournament, id, i);
+                await updateUsers(id, "tournament", searchTournament.id);
+            } catch (err) {
+                return res.status(409).send({ error: "error database" });
+            }
 
             const index = tournamentsManagement.findIndex(t => t.id == searchTournament.id);
-            const user = await readUser(id.toString(), KeyUser.ID, true);
+            let user;
+            try {
+                user = await readUser(id.toString(), KeyUser.ID, true);
+            } catch (err) {
+                user = null;
+            }
+            if (!user)
+                return res.status(409).send({ error: "error database" });
             tournamentsManagement[index]!.users.push({
                 user: {
                     id: user.id,
@@ -34,7 +50,9 @@ export const joinTournament = async (req: FastifyRequest, res: FastifyReply) => 
 
             sendTournamentStateToPlayers(index);
             if (i == 8) {
-                await updateStatusTournaments(searchTournament.id, StatusTournament.START);
+                try {
+                    await updateStatusTournaments(searchTournament.id, StatusTournament.START);
+                } catch (err) {}
                 tournamentsManagement[index]!.status = StatusTournament.START;
                 sendTournamentStateToPlayers(index);
                 setImmediate(() => {

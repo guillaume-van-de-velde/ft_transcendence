@@ -7,6 +7,12 @@ export async function parseNotify(id: number, blocked: string): Promise<MessageN
 
     let parsedNotify = await Promise.all(
         userNotify.map(async notify => {
+            let userDb;
+            try {
+                userDb = await readUser(notify.idTransmitter, KeyUser.ID, true);
+            } catch (err) {
+                userDb = null;
+            }
             return {
                 id: notify.id,
                 user: await readUser(notify.idTransmitter, KeyUser.ID, true),

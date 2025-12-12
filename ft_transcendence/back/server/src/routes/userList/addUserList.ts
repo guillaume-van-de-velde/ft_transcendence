@@ -6,13 +6,20 @@ import { deleteNotify } from "../../db/crud/delete";
 import { userSockets } from "../../sockets/sockets";
 
 export async function addUserList(id: any, key: string, value: any) {
-    const ArrayUser: string[] = await readUser(id, KeyUser.ID).then(user => user[key!].split(','));
+    let ArrayUser: string[];
+    try {
+        ArrayUser = await readUser(id, KeyUser.ID).then(user => user[key!].split(','));
+    } catch (err) {
+        ArrayUser = []
+    }
     if (ArrayUser[0] === "")
         ArrayUser[0] = value;
     else
         ArrayUser.push(value);
     const listUser = ArrayUser.join(',');
-    await updateUsers(id, key!, listUser);
+    try {
+        await updateUsers(id, key!, listUser);
+    } catch (err) {}
 }
 
 export const addPlayerToFriendList = async (req: FastifyRequest, res: FastifyReply) => {
@@ -32,7 +39,9 @@ export const addPlayerToFriendList = async (req: FastifyRequest, res: FastifyRep
     addUserList(notify.idTransmitter, "friends", notify.idReceiver);
     addUserList(notify.idReceiver, "friends", notify.idTransmitter);
 
-    deleteNotify(idNotify);
+    try {
+        deleteNotify(idNotify);
+    } catch (err) {}
 
     let socketTransmitter = null;
     for (const [socket, id] of userSockets) {
@@ -41,10 +50,19 @@ export const addPlayerToFriendList = async (req: FastifyRequest, res: FastifyRep
             break;
         }
     }
-    if (socketTransmitter)
-        socketTransmitter.emit("friend", await readUser(notify.idReceiver, KeyUser.ID, true));
+    if (socketTransmitter) {
+        try {
+            socketTransmitter.emit("friend", await readUser(notify.idReceiver, KeyUser.ID, true));
+        } catch (err) {}
+    }
 
-    return await readUser(notify.idTransmitter, KeyUser.ID, true);
+    let returnRes;
+    try {
+        returnRes = await readUser(notify.idTransmitter, KeyUser.ID, true);
+    } catch (err) {
+        returnRes = null;
+    }
+    return returnRes;
 }
 
 export const addPlayerToBlockedList = async (req: FastifyRequest, res: FastifyReply) => {

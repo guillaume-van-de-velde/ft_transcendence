@@ -11,13 +11,19 @@ export const changePassword = async (req: FastifyRequest, res: FastifyReply) => 
     const id = req.user!.id;
     const password = await bcrypt.hash(reqBody.newpassword, 1);
 
-    const user = await readUser(id.toString(), KeyUser.ID);
+    let user;
+    try {
+        user = await readUser(id.toString(), KeyUser.ID);
+    
+        if (!(await bcrypt.compare(oldpassword, user.password)))
+            return res.code(401).send({ error: "password invalid" });
+    
+        updateUsers(id, "password", password);
+        updateUsers(id, "version", user.version + 1);
+    } catch (err) {
+        return res.code(409).send({ error: "user doesn't exist" });
+    }
 
-    if (!(await bcrypt.compare(oldpassword, user.password)))
-        return res.code(401).send({ error: "password invalid" });
-
-    updateUsers(id, "password", password);
-    updateUsers(id, "version", user.version + 1);
     const token = jwt.sign(
         {
             id: user.id,

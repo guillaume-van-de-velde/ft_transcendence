@@ -2,7 +2,12 @@ import { readPrivateMessages, readUser } from "../../../db/crud/read";
 import { KeyUser, MessagePrivate } from "../../../utils/enums";
 
 export async function parsePrivateMessages(id: number): Promise<MessagePrivate[]> {
-    const usersMessages = await readPrivateMessages(id);
+    let usersMessages;
+    try {
+        usersMessages = await readPrivateMessages(id);
+    } catch (err) {
+        return [];
+    }
     const parsedMessages: MessagePrivate[] = [];
 
     for (const userMessages of usersMessages) {
@@ -20,8 +25,14 @@ export async function parsePrivateMessages(id: number): Promise<MessagePrivate[]
             })
         }
         else {
+            let userDb;
+            try {
+                userDb = await readUser(idOtherPlayer, KeyUser.ID, true);
+            } catch (err) {
+                userDb = null;
+            }
             const firstUserMessage: MessagePrivate = {
-                user: await readUser(idOtherPlayer, KeyUser.ID, true),
+                user: userDb,
                 chat: [{
                     isUser: userMessages.idTransmitter === id ? true : false,
                     message: userMessages.message

@@ -38,14 +38,15 @@ function getTournamentOfMatch(userMatch: UserShortData): Tournament | null {
 async function closingMatch(player1Score: number, player2Score: number, match: Match) {
     const now = new Date();
 
-    await createMatch(match.users[0]!.id, match.users[1]!.id, player1Score, player2Score, match.mode, getDate(now), getHour(now));
-
-    const win = player1Score > player2Score ? match.users[0]!.id : match.users[1]!.id;
-    const lose = player1Score <= player2Score ? match.users[0]!.id : match.users[1]!.id;;
-    await updateStats(win, "wins");
-    await updateStats(lose, "loses");
-    await updateStats(win, "played");
-    await updateStats(lose, "played");
+    try {
+        await createMatch(match.users[0]!.id, match.users[1]!.id, player1Score, player2Score, match.mode, getDate(now), getHour(now));
+        const win = player1Score > player2Score ? match.users[0]!.id : match.users[1]!.id;
+        const lose = player1Score <= player2Score ? match.users[0]!.id : match.users[1]!.id;;
+        await updateStats(win, "wins");
+        await updateStats(lose, "loses");
+        await updateStats(win, "played");
+        await updateStats(lose, "played");
+    } catch (err) {}
 
     if (match.booking) {
         const tournament = getTournamentOfMatch(match.users[0]!);

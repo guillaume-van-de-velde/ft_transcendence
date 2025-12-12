@@ -9,7 +9,12 @@ export const putNotification = async (req: FastifyRequest, res: FastifyReply) =>
     const id = req.user!.id;
 
 
-    const idNotify = await createNotify(id, reqBody.notify.for, reqBody.notify.type);
+    let idNotify;
+    try {
+        idNotify = await createNotify(id, reqBody.notify.for, reqBody.notify.type);
+    } catch (err) {
+        return;
+    }
     if (!idNotify)
         return;
 
@@ -20,11 +25,22 @@ export const putNotification = async (req: FastifyRequest, res: FastifyReply) =>
             break;
         }
     }
+    let notify;
+    try {
+        notify = await readNotifyById(idNotify);
+    } catch (err) {
+        notify = null;
+    }
     if (socketReceiver) {
-        const notify = await readNotifyById(idNotify);
+        let userDb;
+        try {
+            userDb = await readUser(notify.idTransmitter, KeyUser.ID, true);
+        } catch (err) {
+            userDb = null;
+        }
         socketReceiver.emit("notify", {
             id: idNotify,
-            user: await readUser(notify.idTransmitter, KeyUser.ID, true),
+            user: userDb,
             type: notify.type,
             seen: false
         });

@@ -8,5 +8,9 @@ export const changeUser = async (req: FastifyRequest, res: FastifyReply) => {
     const keys = Object.keys(reqBody);
     const value = reqBody[keys[0]!];
 
-    await updateUsers(id, keys[0]!, value);
+    try {
+        await updateUsers(id, keys[0]!, value);
+    } catch (err) {
+        return res.code(409).send({ error: "user doesn't exist" });
+    }
 }

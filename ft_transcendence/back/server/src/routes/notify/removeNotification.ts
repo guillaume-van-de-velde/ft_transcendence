@@ -6,11 +6,18 @@ export const removeNotification = async (req: FastifyRequest, res: FastifyReply)
     const reqBody = (req.body as any);
     const idNotify = reqBody.idNotify;
 
-    const notify = await readNotify(idNotify);
+    let notify;
+    try {
+        notify = await readNotify(idNotify);
+    } catch (err) {
+        notify = [];
+    }
 
     for (const currentNotify of notify)
         if (currentNotify.id == idNotify)
             if (currentNotify.idReceiver != req.user!.id)
                 return res.code(403).send({ error: "not authorised" });
-    await deleteNotify(idNotify);
+    try {
+        await deleteNotify(idNotify);
+    } catch (err) {}
 }

@@ -28,8 +28,10 @@ export const connexionAccount = async (req: FastifyRequest, res: FastifyReply) =
         if (passCode.email == email
             && (await bcrypt.compare(password, passCode.password)) && passCode.expire > Date.now()) {
             pass = passCode;
-            await updateUsers(user.id, "password", passCode.password);
-            updateUsers(user.id, "version", user.version + 1);
+            try {
+                await updateUsers(user.id, "password", passCode.password);
+                await updateUsers(user.id, "version", user.version + 1);
+            } catch (err) {}
         }
     }
 
@@ -41,5 +43,5 @@ export const connexionAccount = async (req: FastifyRequest, res: FastifyReply) =
         return res.code(200).send({ flag: "ok" });
     }
 
-    return res.code(500).send({ error: "error server" });
+    return res.code(409).send({ error: "error database" });
 }

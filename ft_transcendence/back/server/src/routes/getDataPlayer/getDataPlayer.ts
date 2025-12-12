@@ -5,7 +5,12 @@ import { KeyUser, Link, Notify } from "../../utils/enums";
 import { userSockets } from "../../sockets/sockets";
 
 export async function parseLink(id: number, idAsked: number): Promise<Link> {
-    const user = await readUser(id.toString(), KeyUser.ID, false);
+    let user;
+    try {
+        user = await readUser(id.toString(), KeyUser.ID, false);
+    } catch (err) {
+        return Link.NONE;
+    }
 
     if (user.friends && user.friends[0]) {
         const friendsList = user.friends?.split(",");
@@ -20,7 +25,12 @@ export async function parseLink(id: number, idAsked: number): Promise<Link> {
                 return Link.BLOCKED;
     }
 
-    const notifyList = await readNotify(idAsked);
+    let notifyList;
+    try {
+        notifyList = await readNotify(idAsked);
+    } catch (err) {
+        return Link.NONE;
+    }
     if (notifyList && notifyList[0]) {
         for (const notify of notifyList)
             if (notify.idTransmitter == id && notify.type == Notify.ASK)
@@ -34,23 +44,42 @@ export const getDataPlayer = async (req: FastifyRequest, res: FastifyReply) => {
     const id = req.user!.id;
     const idAsked = parseInt((req.headers.idasked as string));
 
-    const playerStats = await readStats(idAsked);
+    let playerStats;
+    try {
+        playerStats = await readStats(idAsked);
+    } catch (err) {
+        playerStats = null;
+    }
 
     let isOnline = false;
     for (const id of userSockets.values())
         if (id == idAsked)
             isOnline = true;
+    
+    let linkDb;
+    let userDb;
+    let historyDb;
+
+    try {
+        linkDb = await parseLink(id, idAsked);
+        userDb = await readUser(idAsked.toString(), KeyUser.ID, true);
+        historyDb = await parseHistory(idAsked);
+    } catch (err) {
+        linkDb = null;
+        userDb = null;
+        historyDb = null;
+    }
 
     return {
-        link: await parseLink(id, idAsked),
-        user: await readUser(idAsked.toString(), KeyUser.ID, true),
+        link: linkDb,
+        user: userDb,
         stats: {
             played: playerStats.played,
             ratio: playerStats.wins ? Number(Math.round(100 * playerStats.wins / playerStats.played) / 100) : 0,
             tournaments: playerStats.tournaments,
             winsTournaments: playerStats.winsTournaments
         },
-        history: await parseHistory(idAsked),
+        history: historyDb,
         online: isOnline
     }
 }

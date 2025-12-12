@@ -11,9 +11,14 @@ export const authentication = async (req: FastifyRequest, res: FastifyReply) => 
 
         const token = authHeader.split(' ')[1];
 
-        const payload = jwt.verify(token!, process.env.SECRET_KEY!);
-        req.user = payload as any;
-        const user = await readUser(req.user!.id.toString(), KeyUser.ID);
+        let user;
+        try {
+            const payload = jwt.verify(token!, process.env.SECRET_KEY!);
+            req.user = payload as any;
+            user = await readUser(req.user!.id.toString(), KeyUser.ID);
+        } catch (err) {
+            return res.code(401).send({ error: "token refused" });
+        }
 
         if (!user || user.version != req.user!.version)
             return res.code(401).send({ error: "token refused" });

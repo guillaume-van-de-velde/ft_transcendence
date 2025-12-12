@@ -10,13 +10,29 @@ import { tournamentsManagement } from "../routes/tournament/tournament";
 export const userSockets = new Map<Socket, number>();
 
 async function inviteMatch(idTransmitter: number, idReceiver: number, socketReceiver: Socket | null) {
-    const idNotify = await createNotify(idTransmitter, idReceiver, Notify.MATCH);
+    let idNotify;
+    try {
+        idNotify = await createNotify(idTransmitter, idReceiver, Notify.MATCH);
+    } catch (err) {
+        return;
+    }
 
     if (socketReceiver) {
-        const notify = await readNotifyById(idNotify);
+        let notify;
+        try {
+            notify = await readNotifyById(idNotify);
+        } catch (err) {
+            return;
+        }
+        let userDb;
+        try {
+            userDb = await readUser(notify.idTransmitter, KeyUser.ID, true);
+        } catch (err) {
+            userDb = null;
+        }
         socketReceiver.emit("notify", {
             id: idNotify,
-            user: await readUser(notify.idTransmitter, KeyUser.ID, true),
+            user: userDb,
             type: notify.type,
             seen: false
         });
@@ -66,19 +82,26 @@ export function activeSocket() {
                 socketReceiver.emit("private", messageToSocketReceiver);
             }
 
-            createPrivateMessage(idTransmitter!, idReceiver, message.chat[0].message, false);
+            try {
+                createPrivateMessage(idTransmitter!, idReceiver, message.chat[0].message, false);
+            } catch (err) {}
 
             if (messageToSocketReceiver.message == "/match")
                 inviteMatch(idTransmitter!, idReceiver, socketReceiver);
         });
         socket.on("global", (message: MessageGlobal) => {
             socket.broadcast.emit("global", message);
-            createGlobalMessage(message.user.id, message.message);
+            try {
+                createGlobalMessage(message.user.id, message.message);
+            } catch (err) {}
         });
         socket.on("seen", (idTransmitter: number) => {
             const idReceiver = userSockets.get(socket);
-            if (idReceiver)
-                updatePrivateMessageSeen(idTransmitter.toString(), idReceiver.toString());
+            if (idReceiver) {
+                try {
+                    updatePrivateMessageSeen(idTransmitter.toString(), idReceiver.toString());
+                } catch (err) {}
+            }
         });
     });
 }

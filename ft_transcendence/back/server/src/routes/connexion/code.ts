@@ -15,12 +15,14 @@ export function generate2FACode(): number {
 
 export async function createCode(email: string, password: string, language: string | null = "ENG", pseudo: string | null = null, newEmail: string | null = null) {
     const code = generate2FACode();
-    const info = await transporter.sendMail({
-        from: `"Pong" <${process.env.EMAIL_VERIFY}>`,
-        to: email,
-        subject: "Verification code",
-        text: `Your code is : ${code}\nThis code expire in 5 minutes.`
-    });
+    try {
+        await transporter.sendMail({
+            from: `"Pong" <${process.env.EMAIL_VERIFY}>`,
+            to: email,
+            subject: "Verification code",
+            text: `Your code is : ${code}\nThis code expire in 5 minutes.`
+        });
+    } catch (err) {}
     const verify: Verify = {
         code,
         expire: Date.now() + 5 * 60 * 1000,

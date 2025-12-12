@@ -15,7 +15,12 @@ export const tryToConnect = async (req: FastifyRequest, res: FastifyReply) => {
         req.user = payload as any;
         if (!req.user)
             throw "noUser";
-        const user = await readUser(req.user.id.toString(), KeyUser.ID);
+        let user;
+        try {
+            user = await readUser(req.user.id.toString(), KeyUser.ID);
+        } catch (err) {
+            return res.code(401).send({ error: "token refused" });
+        }
         if (!user || user.version != req.user.version)
             return res.code(401).send({ error: "token refused" });
         for (const [socket, id] of userSockets) {
@@ -31,5 +36,5 @@ export const tryToConnect = async (req: FastifyRequest, res: FastifyReply) => {
         const data = await getAllDataForUser(req.user.id);
         return { data };
     }
-    return res.code(500).send({ error: "error server" });
+    return res.code(409).send({ error: "error database" });
 }

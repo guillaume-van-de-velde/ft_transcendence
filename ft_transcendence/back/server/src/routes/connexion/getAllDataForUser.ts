@@ -9,13 +9,28 @@ import { parseUsersTournament } from "./parse/usersTournament";
 import { parseBlocked } from "./parse/blocked";
 
 export async function getAllDataForUser(idAsk: number) {
-    const userData = await readUser(idAsk.toString(), KeyUser.ID);
+    let userData;
+    try {
+        userData = await readUser(idAsk.toString(), KeyUser.ID);
+    } catch (err) {
+        return null;
+    }
     const id = userData.id;
-    const userStats = await readStats(id);
+    let userStats;
+    try {
+        userStats = await readStats(id);
+    } catch (err) {
+        userStats = null;
+    }
     let userTournament;
 
-    if (userData.tournament)
-        userTournament = await readTournament(userData.tournament, KeyTournament.ID);
+    if (userData.tournament) {
+        try {
+            userTournament = await readTournament(userData.tournament, KeyTournament.ID);
+        } catch (err) {
+            userTournament = null;
+        }
+    }
 
     const result: UserResponse = {
         id: id,

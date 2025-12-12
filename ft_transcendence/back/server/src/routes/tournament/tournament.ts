@@ -8,11 +8,13 @@ import { gameManagement } from "../game/createGame";
 export const tournamentsManagement: Tournament[] = [];
 
 export async function updateStatsTournamentPlayer(tournament: Tournament) {
-    for (const user of tournament.users) {
-        if (user.level >= 3)
-            await updateStats(user.user.id, "winsTournaments");
-        await updateStats(user.user.id, "tournaments");
-    }
+    try {
+        for (const user of tournament.users) {
+            if (user.level >= 3)
+                await updateStats(user.user.id, "winsTournaments");
+            await updateStats(user.user.id, "tournaments");
+        }
+    } catch (err) {}
 }
 
 export function sendTournamentStateToPlayers(index: number) {
@@ -64,16 +66,18 @@ export function allPlayersFinishedMatch(tournament: Tournament): boolean {
 export function nextRound(tournament: Tournament) {
     tournament.round++;
 
-    for (const [index, user] of tournament.users.entries()) {
-        if (user.queue && !user.finish) {
-            user.level++;
-            updateTournaments(tournament.id, index + 1, user.level);
+    try {
+        for (const [index, user] of tournament.users.entries()) {
+            if (user.queue && !user.finish) {
+                user.level++;
+                updateTournaments(tournament.id, index + 1, user.level);
+            }
+            if (tournament.round == user.level) {
+                user.queue = false;
+                user.finish = false;
+            }
         }
-        if (tournament.round == user.level) {
-            user.queue = false;
-            user.finish = false;
-        }
-    }
+    } catch (err) {}
 }
 
 function createLobbys(tournament: Tournament) {
@@ -125,10 +129,12 @@ export function updateTimerTournament(tournament: Tournament, index: number) {
             }
             else {
                 clearInterval(interval);
-                updateStatusTournaments(tournament.id, StatusTournament.FINISHED);
-                tournament.status = StatusTournament.FINISHED;
-                sendTournamentStateToPlayers(index);
-                updateStatsTournamentPlayer(tournament);
+                try {
+                    updateStatusTournaments(tournament.id, StatusTournament.FINISHED);
+                    tournament.status = StatusTournament.FINISHED;
+                    sendTournamentStateToPlayers(index);
+                    updateStatsTournamentPlayer(tournament);
+                } catch (err) {}
                 tournamentsManagement.splice(index, 1);
                 return;
             }
@@ -140,6 +146,11 @@ export function updateTimerTournament(tournament: Tournament, index: number) {
 }
 
 export async function startTournament(id: number) {
-    const tournamentDb = await readTournament(id, KeyTournament.ID);
+    let tournamentDb;
+    try {
+        tournamentDb = await readTournament(id, KeyTournament.ID);
+    } catch (err) {
+        tournamentDb = null;
+    }
     updateTimerTournament(tournamentsManagement.find(t => t.id == tournamentDb.id)!, tournamentsManagement.findIndex(t => t.id == tournamentDb.id)!);
 }

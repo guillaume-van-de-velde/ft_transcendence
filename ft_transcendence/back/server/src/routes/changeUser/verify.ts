@@ -18,10 +18,10 @@ export const verifyEmail = async (req: FastifyRequest, res: FastifyReply) => {
             }
             try {
                 user = await readUserWithEmail(email);
+                updateUsers(user.id, "email", newEmail);
             } catch (err) {
-                return res.code(409).send({ error: "error database" });
+                return res.code(409).send({ error: "user doesn't exist" })
             }
-            updateUsers(user.id, "email", newEmail);
             return { email: newEmail };
         }
     }

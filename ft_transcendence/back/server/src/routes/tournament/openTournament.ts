@@ -10,18 +10,26 @@ export const openTournament = async (req: FastifyRequest, res: FastifyReply) => 
     const reqBody = (req.body as any);
     const id = req.user!.id;
     const nameTournament = reqBody.name;
-    const mode = reqBody.mode;
+    const mode = reqBody.mode[0]! + "O" + "T";
 
     const tournamentId = await createTournament(nameTournament, mode, id);
-    await updateUsers(id, "tournament", tournamentId);
-    const tournament = await readTournament(tournamentId, KeyTournament.ID);
+    try {
+        await updateUsers(id, "tournament", tournamentId);
+    } catch (err) {}
+    let tournament;
+    try {
+        tournament = await readTournament(tournamentId, KeyTournament.ID);
+    } catch (err) {
+        tournament = null;
+    }
+    const usersDb = await parseUsersTournament(tournament);
     tournamentsManagement.push({
         id: tournamentId,
         status: StatusTournament.WAIT,
         time: 60,
         mode: mode,
         round: 0,
-        users: await parseUsersTournament(tournament)
+        users: usersDb
     });
     return {
         id: tournamentId,

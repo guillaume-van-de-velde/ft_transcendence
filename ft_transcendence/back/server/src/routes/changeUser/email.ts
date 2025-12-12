@@ -18,7 +18,12 @@ export const changeEmail = async (req: FastifyRequest, res: FastifyReply) => {
         return res.code(409).send({ error: "database error" });
     }
 
-    const user = await readUser(id.toString(), KeyUser.ID);
+    let user;
+    try {
+        user = await readUser(id.toString(), KeyUser.ID);
+    } catch (err) {
+        return res.code(409).send({ error: "user doesn't exist" });
+    }
 
     createCode(user.email, user.password, user.language, user.pseudo, newEmail);
     return { flag: "good" };

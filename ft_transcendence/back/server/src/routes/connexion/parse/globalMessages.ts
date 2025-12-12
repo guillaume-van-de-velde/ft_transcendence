@@ -2,8 +2,12 @@ import { readGlobalMessages, readUser } from "../../../db/crud/read";
 import { KeyUser, MessageGlobal } from "../../../utils/enums";
 
 export async function parseGlobalMessages(): Promise<MessageGlobal[]> {
-
-    const usersMessages = await readGlobalMessages();
+    let usersMessages;
+    try {
+        usersMessages = await readGlobalMessages();
+    } catch (err) {
+        return [];
+    }
 
     let parsedMessages = await Promise.all(
         usersMessages.map(async messageGlobal => {

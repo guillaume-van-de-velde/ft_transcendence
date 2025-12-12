@@ -12,7 +12,12 @@ export async function parseUsersTournament(Tournament: any): Promise<UserInTourn
         const lv = Tournament[lvKey];
         if (!id)
             continue;
-        const userData: UserShortData = await readUser(id, KeyUser.ID, true);
+        let userData:UserShortData | null;
+        try {
+            userData = await readUser(id, KeyUser.ID, true);
+        } catch (err) {
+            userData = null;
+        }
         if (userData) {
             UsersTournament.push(
                 {

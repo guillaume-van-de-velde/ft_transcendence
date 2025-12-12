@@ -57,7 +57,7 @@ function setupSocket() {
 }
 
 app.setErrorHandler((error: FastifyError, req: FastifyRequest, res: FastifyReply) => {
-	res.status(500).send({ error: "Une erreur est survenue !" });
+	res.status(500).send({ error: "error" });
 });
 
 process.on("unhandledRejection", (reason) => {
@@ -93,16 +93,21 @@ const start = () => {
 }
 
 async function backendStart() {
-	await fillDb();
-	routes();
-	await setupCors();
-	app.decorate("user", null);
-	app.decorate('auth', authentication);
-	setupFront();
-	setupNodemailer();
-	setupSocket();
-	activeSocket();
-	setupMusic();
+	try {
+		await fillDb();
+		routes();
+		await setupCors();
+		app.decorate("user", null);
+		app.decorate('auth', authentication);
+		setupFront();
+		setupNodemailer();
+		setupSocket();
+		activeSocket();
+		setupMusic();
+	} catch (err) {
+		console.log("error before start");
+		return ;
+	}
 	start();
 }
 
