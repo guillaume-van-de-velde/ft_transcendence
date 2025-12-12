@@ -10,7 +10,7 @@ export async function joinTournamentCallApi(e: Event) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    if (data.inputNameTournament) {
+    if (data.inputNameTournament && data.inputNameTournament != "") {
         const tournament = await requestAPI(`${state.link}/api/mode/tournament/join`, {
             method: "PUT",
             headers: {

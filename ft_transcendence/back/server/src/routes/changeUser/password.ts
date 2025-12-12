@@ -4,12 +4,20 @@ import { readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { passwordValid } from "../connexion/formValidity";
 
 export const changePassword = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
     const oldpassword = reqBody.oldpassword;
     const id = req.user!.id;
-    const password = await bcrypt.hash(reqBody.newpassword, 1);
+
+    let password;
+    if (!passwordValid(reqBody.newpassword))
+        return res.code(409).send({ error: "bad format" });
+    if (reqBody.newpassword != "")
+        password = await bcrypt.hash(reqBody.newpassword, 1);
+    else 
+        return res.code(409).send({ error: "password void" });
 
     let user;
     try {

@@ -1,6 +1,7 @@
 import { state } from "../../../index.js";
 import { renderEmail } from "../../pages/settings/account/email.js";
 import { renderVerifyEmail } from "../../pages/settings/account/verify.js";
+import { emailValid } from "../../utils/formValidity.js";
 import { requestAPI } from "../../utils/requestApi.js";
 
 export async function emailFormCallApi(e: Event) {
@@ -10,7 +11,7 @@ export async function emailFormCallApi(e: Event) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    if (data.newemail === data.confirm) {
+    if (data.newemail != "" && data.newemail === data.confirm && emailValid(data.newemail!.toString())) {
         const response = await requestAPI(`${state.link}/api/settings/account/email`, {
             method: "PUT",
             headers: {

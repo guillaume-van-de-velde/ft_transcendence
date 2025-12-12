@@ -63,6 +63,7 @@ export interface AppState {
     ennemy: UserShortData | undefined,
     roundTournament: number,
     interval?: number,
+    stop: boolean,
     playerData?: {
         link: Link,
         user: UserShortData,

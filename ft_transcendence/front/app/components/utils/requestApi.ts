@@ -26,7 +26,7 @@ export async function requestAPI(url: string, requestConfig: RequestInit): Promi
 
             const span = document.createElement("span");
             span.className = "absolute left-1/2 top-10 -translate-x-1/2 bg-red-600 text-white font-dangrek text-xl rounded-full h-[60px] w-[250px] flex items-center justify-center text-center";
-            span.textContent = error.message;
+            span.textContent = span.textContent = error.message.length > 20 ? error.message.substring(0, 20) + "..." : error.message;
             document.querySelector("body")!.appendChild(span);
             setTimeout(() => span.remove(), 2000);
         }

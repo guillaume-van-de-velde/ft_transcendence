@@ -1,5 +1,6 @@
 import { setToken, state } from "../../../index.js";
 import { renderPassword } from "../../pages/settings/account/password.js";
+import { passwordValid } from "../../utils/formValidity.js";
 import { requestAPI } from "../../utils/requestApi.js";
 
 export async function passwordFormCallAPI(e: Event) {
@@ -9,7 +10,7 @@ export async function passwordFormCallAPI(e: Event) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    if (data.newpassword === data.confirm) {
+    if (data.newpassword != "" && data.newpassword === data.confirm && passwordValid(data.newpassword!.toString())) {
         const newToken = await requestAPI(`${state.link}/api/settings/account/password`, {
             method: "PUT",
             headers: {

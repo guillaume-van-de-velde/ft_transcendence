@@ -10,6 +10,8 @@ import { inSearch } from "../pages/game/inSearch.js";
 import { quitQueue } from "../api/game/quitQueue.js";
 import { vues } from "../../vues/vues.js";
 import { connexion, renderConnexion } from "../pages/connexion/connexion.js";
+import { resultsTournament } from "../pages/mode/3/tournament/results.js";
+import { quitTournamentCallAPI } from "../api/game/quitTournamentCallAPI.js";
 
 const root = document.querySelector(".root");
 
@@ -111,13 +113,17 @@ export function returnToConnexion() {
     );
 }
 
+export function returnFromResults() {
+
+}
+
 function pushStateAction(page: PageInstance, index: number, basePage = false) {
     if (basePage) {
         if (page.create == home)
             returnToHome();
         else if (page.create == connexion)
             returnToConnexion();
-    } else if (page.create == historyFunction || page.create == stats) {
+    } else if (page.create == historyFunction || page.create == stats || page.create == resultsTournament) {
         return;
     }
     else {
@@ -135,15 +141,22 @@ window.addEventListener("popstate", e => {
 
     if (!pageState) return;
 
+    if (displayManager[state.index]!.create == resultsTournament)
+        return quitTournamentCallAPI();
     if (displayManager[state.index]!.create == inSearch)
         quitQueue();
 
     const { index, content, level, createName } = pageState;
 
-    if (createName == home.name || displayManager[state.index]!.create == home)
-        return renderHome();
     if (createName == connexion.name || displayManager[state.index]!.create == connexion)
         return renderConnexion();
+    if (createName == home.name || displayManager[state.index]!.create == home) {
+        if (state.actual == "game")
+            state.stop = true;
+        if (!localStorage.getItem("TokenTranscendence"))
+            renderConnexion();
+        return renderHome();
+    }
 
     state.index = index;
 

@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { readUser } from "../../db/crud/read";
 import { KeyUser } from "../../utils/enums";
 import { createCode } from "../connexion/code";
+import { emailValid } from "../connexion/formValidity";
 
 export const changeEmail = async (req: FastifyRequest, res: FastifyReply) => {
     const reqBody = (req.body as any);
@@ -9,6 +10,9 @@ export const changeEmail = async (req: FastifyRequest, res: FastifyReply) => {
     const newEmail = reqBody.email;
 
     let userId: number = 0;
+
+    if (!emailValid(newEmail))
+        return res.code(409).send({ error: "bad format" });
 
     try {
         userId = await readUser(newEmail, KeyUser.EMAIL);

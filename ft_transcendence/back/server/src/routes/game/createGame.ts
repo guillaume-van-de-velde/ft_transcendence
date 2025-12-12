@@ -78,6 +78,9 @@ function renderGame(match: Match) {
     let playerVelocityY = 0;
     let velocity = 10;
 
+    if (match.mode[0] == 'M')
+        velocity = 8;
+
     let player1 = {
         x: 10,
         y: boardHeight / 2 - playerHeight / 2,

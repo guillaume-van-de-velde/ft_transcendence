@@ -1,5 +1,6 @@
 import { state } from "../../../index.js";
 import { renderPseudo } from "../../pages/settings/account/pseudo.js";
+import { pseudoValid } from "../../utils/formValidity.js";
 import { requestAPI } from "../../utils/requestApi.js";
 
 export async function pseudoFormCallApi(e: Event) {
@@ -9,7 +10,7 @@ export async function pseudoFormCallApi(e: Event) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    if (data.newpseudo === data.confirm) {
+    if (data.newpseudo != "" && data.newpseudo === data.confirm && pseudoValid(data.newpseudo!.toString())) {
         requestAPI(`${state.link}/api/settings/account/pseudo`, {
             method: "PUT",
             headers: {

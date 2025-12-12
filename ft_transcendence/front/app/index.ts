@@ -206,6 +206,7 @@ export async function initState(APIandToken: any) {
 		id: API.id,
 		mode: [API.mode.set[0].toLowerCase(), API.mode.set[1].toLowerCase(), API.mode.set[2].toLowerCase()],
 		friend: 0,
+		stop: false,
 		input: {
 			value: "",
 			focused: false,
@@ -314,6 +315,7 @@ export async function setStateUserNotConnected() {
 		checkMessage: false,
 		ennemy: undefined,
 		roundTournament: 0,
+		stop: false,
 		input: {
 			value: "",
 			focused: false,

@@ -11,7 +11,7 @@ export async function createTournamentCallApi(e: Event) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    if (data.inputNameTournament) {
+    if (data.inputNameTournament && data.inputNameTournament != "") {
         const tournament = await requestAPI(`${state.link}/api/mode/tournament/open`, {
             method: "POST",
             headers: {

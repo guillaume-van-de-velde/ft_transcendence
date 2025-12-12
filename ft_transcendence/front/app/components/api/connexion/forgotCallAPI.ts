@@ -1,4 +1,5 @@
 import { link } from "../../../index.js";
+import { emailValid } from "../../utils/formValidity.js";
 import { requestAPI } from "../../utils/requestApi.js";
 
 export async function forgotCallAPI(e: Event) {
@@ -8,7 +9,7 @@ export async function forgotCallAPI(e: Event) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    if (data.email) {
+    if (data.email && data.email != "" && emailValid(data.email!.toString())) {
         requestAPI(`${link}/api/forgot`, {
             method: "POST",
             headers: {

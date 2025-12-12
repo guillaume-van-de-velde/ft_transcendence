@@ -15,6 +15,8 @@ export function renderGame() {
 }
 
 export function game() {
+    state.actual = "game";
+    state.stop = false;
     if (state.mode[1] == "l") {
         fillPlayersLocal();
         renderLocalGame();
@@ -108,6 +110,9 @@ function renderAiGame() {
     let playerVelocityY = 0;
     let velocity = 10;
 
+    if (state.mode[0] == "m")
+        velocity = 8;
+
     let player1 = {
         x: 10,
         y: boardHeight / 2 - playerHeight / 2,
@@ -167,12 +172,15 @@ function renderAiGame() {
     };
 
     function update() {
-        if (scorePlayer!.textContent == "10" || scoreEnnemy!.textContent == "10") {
+        if (state.stop || scorePlayer!.textContent == "10" || scoreEnnemy!.textContent == "10") {
             if (music)
                 music.muted = true;
             music = null;
+            document.removeEventListener("keyup", stopPlayer);
+            document.removeEventListener("keydown", movePlayer);
             clearInterval(intervalAI);
-            endOfMatch(parseInt(scorePlayer!.textContent), parseInt(scoreEnnemy!.textContent));
+            if (!state.stop)
+                endOfMatch(parseInt(scorePlayer!.textContent), parseInt(scoreEnnemy!.textContent));
             return;
         }
         now = Date.now();
@@ -388,6 +396,9 @@ function renderLocalGame() {
     let playerVelocityY = 0;
     let velocity = 10;
 
+    if (state.mode[0] == "m")
+        velocity = 8;
+
     let player1 = {
         x: 10,
         y: boardHeight / 2 - playerHeight / 2,
@@ -442,18 +453,20 @@ function renderLocalGame() {
         board.height = boardHeight;
         board.width = boardWidth;
         context = board.getContext("2d")!;
-
         document.addEventListener("keydown", movePlayer);
         document.addEventListener("keyup", stopPlayer);
         requestAnimationFrame(update);
     };
 
     function update() {
-        if (scorePlayer!.textContent == "10" || scoreEnnemy!.textContent == "10") {
+        if (state.stop || scorePlayer!.textContent == "10" || scoreEnnemy!.textContent == "10") {
             if (music)
                 music.muted = true;
             music = null;
-            endOfMatch(parseInt(scorePlayer!.textContent), parseInt(scoreEnnemy!.textContent));
+            document.removeEventListener("keyup", stopPlayer);
+            document.removeEventListener("keydown", movePlayer);
+            if (!state.stop)
+                endOfMatch(parseInt(scorePlayer!.textContent), parseInt(scoreEnnemy!.textContent));
             return;
         }
         now = Date.now();
@@ -685,13 +698,16 @@ function renderOnlineGame() {
     };
 
     function update() {
-        if (scorePlayer!.textContent == "10" || scoreEnnemy!.textContent == "10") {
+        if (state.stop || scorePlayer!.textContent == "10" || scoreEnnemy!.textContent == "10") {
             if (music)
                 music.muted = true;
+            document.removeEventListener("keyup", stopPlayer);
+            document.removeEventListener("keydown", movePlayer);
             music = null;
             socket.removeAllListeners("render");
             socket.removeAllListeners("round");
-            endOfMatch(parseInt(scorePlayer!.textContent), parseInt(scoreEnnemy!.textContent));
+            if (!state.stop)
+                endOfMatch(parseInt(scorePlayer!.textContent), parseInt(scoreEnnemy!.textContent));
             return;
         }
 
@@ -733,6 +749,8 @@ function renderOnlineGame() {
 
 function endOfMatch(playerScore: number, ennemyScore: number) {
     state.ennemy = undefined;
+    if (state.actual != "game")
+        return ;
     const app = document.querySelector(".app");
     const result = playerScore > ennemyScore ? "V I C T O R Y" : (playerScore < ennemyScore ? "D E F E A T" : "D R A W");
     const bg = result == "V I C T O R Y" ? "text-green-500" : (result == "D E F E A T" ? "text-red-600" : "text-gray-400");

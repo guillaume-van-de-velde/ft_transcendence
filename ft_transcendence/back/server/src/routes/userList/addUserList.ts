@@ -12,6 +12,8 @@ export async function addUserList(id: any, key: string, value: any) {
     } catch (err) {
         ArrayUser = []
     }
+    if (ArrayUser.includes(value.toString()))
+        return ;
     if (ArrayUser[0] === "")
         ArrayUser[0] = value;
     else
