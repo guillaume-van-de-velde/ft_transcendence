@@ -6,6 +6,7 @@ import { updatePrivateMessageSeen } from "../db/crud/update";
 import { readNotifyById, readUser } from "../db/crud/read";
 import { gameManagement } from "../routes/game/createGame";
 import { tournamentsManagement } from "../routes/tournament/tournament";
+import { containsXSSPayload } from "../authentication/authentication";
 
 export const userSockets = new Map<Socket, number>();
 
@@ -45,8 +46,13 @@ function checkForQuitQueue(id: number | undefined) {
     for (const tournament of tournamentsManagement) {
         for (const user of tournament.users) {
             if (user.user.id == id) {
-                if (tournament.round == user.level)
+                if (tournament.round == user.level) {
+                    const index = gameManagement!.findIndex(m => m.users[0]?.id == id);
+                    if (index != -1)
+                        gameManagement![index]!.users[0] = null;
                     user.queue = false;
+                    return;
+                }
             }
         }
     }
@@ -63,6 +69,8 @@ export function activeSocket() {
             userSockets.delete(socket);
         });
         socket.on("private", (message) => {
+            if (containsXSSPayload(message))
+                return ;
             const idTransmitter = userSockets.get(socket);
             const idReceiver = message.user.id;
             let socketReceiver = null;
@@ -90,12 +98,16 @@ export function activeSocket() {
                 inviteMatch(idTransmitter!, idReceiver, socketReceiver);
         });
         socket.on("global", (message: MessageGlobal) => {
+            if (containsXSSPayload(message))
+                return;
             socket.broadcast.emit("global", message);
             try {
                 createGlobalMessage(message.user.id, message.message);
             } catch (err) {}
         });
         socket.on("seen", (idTransmitter: number) => {
+            if (containsXSSPayload(idTransmitter))
+                return;
             const idReceiver = userSockets.get(socket);
             if (idReceiver) {
                 try {

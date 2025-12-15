@@ -322,8 +322,13 @@ function startMatch(match: Match) {
 
 function manageInviteQueue(user: UserShortData) {
     if (gameManagement) {
-        for (const game of gameManagement) {
+        for (let i = 0; i < gameManagement.length; i++) {
+            const game = gameManagement[i]!;
             if (game.invite && (game.invite[0] == user.id || game.invite[1] == user.id)) {
+                if (game.date! + (1000 * 60 * 2) < Date.now()) {
+                    gameManagement.splice(i, 1);
+                    return false;
+                }
                 if (!game.users[0])
                     game.users[0] = user;
                 else

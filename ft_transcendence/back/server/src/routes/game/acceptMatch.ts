@@ -39,7 +39,8 @@ export const acceptMatch = async (req: FastifyRequest, res: FastifyReply) => {
         mode: player1.mode,
         users: [null, null],
         sockets: [undefined, undefined],
-        invite: [player1.id, player2.id]
+        invite: [player1.id, player2.id],
+        date: Date.now()
     });
     let socketTransmitter = null;
     for (const [socket, id] of userSockets)

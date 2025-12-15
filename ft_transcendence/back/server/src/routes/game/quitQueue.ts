@@ -16,6 +16,10 @@ export const quitQueue = async (req: FastifyRequest, res: FastifyReply) => {
         const userTournament = tournament?.users.find(u => u.user.id == id);
         if (userTournament!.level == tournament.round)
             userTournament!.queue = false;
+        const index = gameManagement!.findIndex(m => m.users[0]?.id == id);
+        if (index != -1)
+            gameManagement![index]!.users[0] = null;
+        return ;
     }
     const index = gameManagement!.findIndex(m => m.users[0]?.id == id);
     if (index !== -1)

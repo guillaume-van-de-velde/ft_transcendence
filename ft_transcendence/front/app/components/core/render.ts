@@ -113,10 +113,6 @@ export function returnToConnexion() {
     );
 }
 
-export function returnFromResults() {
-
-}
-
 function pushStateAction(page: PageInstance, index: number, basePage = false) {
     if (basePage) {
         if (page.create == home)

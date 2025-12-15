@@ -26,7 +26,7 @@ export const openTournament = async (req: FastifyRequest, res: FastifyReply) => 
     tournamentsManagement.push({
         id: tournamentId,
         status: StatusTournament.WAIT,
-        time: 60,
+        time: 600,
         mode: mode,
         round: 0,
         users: usersDb

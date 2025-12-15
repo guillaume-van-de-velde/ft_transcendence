@@ -124,7 +124,7 @@ export function updateTimerTournament(tournament: Tournament, index: number) {
             nextRound(tournament);
             deleteBookings(tournament);
             if (tournament.round < 3) {
-                tournament.time = 60;
+                tournament.time = 600;
                 createLobbys(tournament);
             }
             else {

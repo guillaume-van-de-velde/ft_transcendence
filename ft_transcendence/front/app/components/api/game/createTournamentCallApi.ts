@@ -26,7 +26,7 @@ export async function createTournamentCallApi(e: Event) {
             id: tournament.id,
             status: StatusTournament.WAIT,
             mode: state.mode,
-            time: 60,
+            time: 600,
             round: 0,
             users: [{
                 user: {

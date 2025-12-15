@@ -105,6 +105,7 @@ export interface Match {
     sockets: [Socket | undefined, Socket | undefined],
     booking?: [number, number] | null | undefined,
     invite?: [number, number] | null | undefined,
+    date?: number,
     renderGameAPI?: {
         move: Function,
         stop: Function

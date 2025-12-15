@@ -7,6 +7,7 @@ import { parseGlobalMessages } from "./parse/globalMessages";
 import { parseNotify } from "./parse/notify";
 import { parseUsersTournament } from "./parse/usersTournament";
 import { parseBlocked } from "./parse/blocked";
+import { tournamentsManagement } from "../tournament/tournament";
 
 export async function getAllDataForUser(idAsk: number) {
     let userData;
@@ -22,16 +23,23 @@ export async function getAllDataForUser(idAsk: number) {
     } catch (err) {
         userStats = null;
     }
-    let userTournament;
-
+    
+    let timeTournament = 600;
+    let roundTournament = 0;
+    let userTournament:any;
     if (userData.tournament) {
         try {
             userTournament = await readTournament(userData.tournament, KeyTournament.ID);
+            const actualTournament = tournamentsManagement.find(t => t.id == userTournament?.id);
+            if (actualTournament) {
+                timeTournament = actualTournament.time;
+                roundTournament = actualTournament.round;
+            }
         } catch (err) {
             userTournament = null;
         }
     }
-
+    
     const result: UserResponse = {
         id: id,
         settings: {
@@ -79,9 +87,9 @@ export async function getAllDataForUser(idAsk: number) {
                 tournament: {
                     id: userTournament.id,
                     status: userTournament.status,
-                    time: 60,
+                    time: timeTournament,
                     mode: userTournament.mode,
-                    round: 0,
+                    round: roundTournament,
                     users: await parseUsersTournament(userTournament)
                 }
             })

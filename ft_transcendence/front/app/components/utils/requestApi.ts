@@ -1,5 +1,23 @@
 import { removeToken, token } from "../../index.js";
 
+function isXSSPayload(obj: any): boolean {
+    if (!obj) return false;
+
+    const patterns = [
+        /<script/i,
+        /<\/script/i,
+        /javascript:/i,
+        /on\w+=/i,
+        /<iframe/i,
+        /<img/i,
+        /<svg/i
+    ];
+
+    const json = JSON.stringify(obj);
+
+    return patterns.some((regex) => regex.test(json));
+}
+
 export async function requestAPI(url: string, requestConfig: RequestInit): Promise<any> {
     try {
         if (token) {
@@ -9,8 +27,11 @@ export async function requestAPI(url: string, requestConfig: RequestInit): Promi
             };
         }
         const response = await fetch(url, requestConfig);
+        const data = await response.json().catch(() => null);
+        if (isXSSPayload(data)) {
+            throw new Error("Suspicious response (XSS)");
+        }
         if (!response.ok) {
-            const data = await response.json().catch(() => null);
             if (data.error == "token refused") {
                 console.log("token refused - reload");
                 removeToken();
@@ -19,7 +40,6 @@ export async function requestAPI(url: string, requestConfig: RequestInit): Promi
             }
             throw new Error(data.error || `error ${response.status}`);
         }
-        const data = await response.json().catch(() => null);
         return data;
     } catch (error: any) {
         if (error.message) {

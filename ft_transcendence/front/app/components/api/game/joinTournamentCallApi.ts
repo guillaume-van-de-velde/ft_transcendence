@@ -26,7 +26,7 @@ export async function joinTournamentCallApi(e: Event) {
                 status: tournament.status,
                 mode: tournament.mode.toLowerCase().split(""),
                 round: 0,
-                time: 60,
+                time: 600,
                 users: tournament.users
             }
             renderResultsTournament();
